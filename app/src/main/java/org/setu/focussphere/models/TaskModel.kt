@@ -3,17 +3,17 @@ package org.setu.focussphere.models
 data class TaskModel(var title: String = "",
                      var description: String = "",
                      var priorityLevel: PriorityLevel,
-                     var status: TaskStatus = TaskStatus.TO_DO
+                     var status: TaskStatus = TaskStatus.ToDo
 )
 
 enum class PriorityLevel {
-    HIGH,
-    MEDIUM,
-    LOW
+    High,
+    Medium,
+    Low
 }
 
 enum class TaskStatus {
-    TO_DO,
-    IN_PROGRESS,
-    DONE
+    ToDo,
+    in_progress,
+    Done
 }
