@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">focusSphere</string>
+    <string name="app_name">FocusSphere</string>
     <string name="window_text">Welcome! Add your tasks here! </string>
     <string name="button_label"> Add Task </string>
     <string name="task_add_text"> Task Added </string>
+    <string name="hint_taskTitle"> Task Title </string>
+    <string name="hint_taskDesc"> Task Description </string>
 </resources>
