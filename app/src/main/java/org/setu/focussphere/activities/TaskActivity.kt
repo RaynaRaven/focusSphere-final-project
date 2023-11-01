@@ -50,15 +50,18 @@ class TaskActivity : AppCompatActivity() {
                 binding.taskDescription.text.clear()
                 i("Button Pressed: $task")
                 Snackbar.make(it,(	"\ud83e\udd70") + "  " + getString(R.string.task_add_text), Snackbar.LENGTH_SHORT).show()
-                for (i in app.tasks.indices)
-                    { i("Task[$i]:${this.app.tasks[i]}") }
-
-            } else if (task.title.isBlank()){
+                for (i in app.tasks.indices) {
+                    i("Task[$i]:${this.app.tasks[i]}")
+                }
+                setResult(RESULT_OK)
+                finish()
+            }
+            else if (task.title.isBlank()){
                 Snackbar.make(it, "\ud83d\ude31" + "  Task must contain a title", Snackbar.LENGTH_LONG).show()
-            } else {
+            }
+            else {
                 Snackbar.make(it, "\ud83d\ude31" + "  duplicate task not added", Snackbar.LENGTH_SHORT).show()
             }
-
         }
     }
 }

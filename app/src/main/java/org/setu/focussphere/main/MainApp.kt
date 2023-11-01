@@ -15,9 +15,6 @@ class MainApp : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         i("FocusSphere started")
-        tasks.add(TaskModel("First Task", "About one...", PriorityLevel.High, TaskStatus.ToDo))
-        tasks.add(TaskModel("Second Task", "About two...", PriorityLevel.Low, TaskStatus.in_progress))
-        tasks.add(TaskModel("Third Task", "About three...",  PriorityLevel.Medium, TaskStatus.Done))
     }
 
 }
