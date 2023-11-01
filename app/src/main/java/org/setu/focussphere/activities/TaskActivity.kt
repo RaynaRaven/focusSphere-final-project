@@ -1,30 +1,30 @@
-package org.setu.focussphere
+package org.setu.focussphere.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
+import org.setu.focussphere.R
 import org.setu.focussphere.databinding.ActivityTaskBinding
+import org.setu.focussphere.main.MainApp
 import org.setu.focussphere.models.PriorityLevel
 import org.setu.focussphere.models.TaskModel
 import org.setu.focussphere.models.TaskStatus
-import timber.log.Timber
 import timber.log.Timber.Forest.i
 
 class TaskActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTaskBinding
     var task = TaskModel()
-    val tasks = ArrayList<TaskModel>()
+    lateinit var app : MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Timber.plant(Timber.DebugTree())
-        i("task activity started")
+
+        app = application as MainApp
+        i("Task Activity Started")
 
         val priorityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, PriorityLevel.values())
         priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -44,14 +44,14 @@ class TaskActivity : AppCompatActivity() {
             task.priorityLevel = selectedPriority
             task.status = selectedStatus
 
-            if (task.title.isNotBlank() && !tasks.contains(task)) {
-                tasks.add(task.copy())
+            if (task.title.isNotBlank() && !app.tasks.contains(task)) {
+                app.tasks.add(task.copy())
                 binding.taskTitle.text.clear()
                 binding.taskDescription.text.clear()
                 i("Button Pressed: $task")
                 Snackbar.make(it,(	"\ud83e\udd70") + "  " + getString(R.string.task_add_text), Snackbar.LENGTH_SHORT).show()
-                for (i in tasks.indices)
-                    { i("Task[$i]:${this.tasks[i]}") }
+                for (i in app.tasks.indices)
+                    { i("Task[$i]:${this.app.tasks[i]}") }
 
             } else if (task.title.isBlank()){
                 Snackbar.make(it, "\ud83d\ude31" + "  Task must contain a title", Snackbar.LENGTH_LONG).show()
