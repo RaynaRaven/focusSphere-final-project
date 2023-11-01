@@ -5,4 +5,5 @@
     <string name="task_add_text"> Task Added </string>
     <string name="hint_taskTitle"> Task Title </string>
     <string name="hint_taskDesc"> Task Description </string>
+    <string name="menu_addTask"> Add </string>
 </resources>
