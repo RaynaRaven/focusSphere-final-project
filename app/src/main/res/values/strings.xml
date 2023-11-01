@@ -6,4 +6,5 @@
     <string name="hint_taskTitle"> Task Title </string>
     <string name="hint_taskDesc"> Task Description </string>
     <string name="menu_addTask"> Add </string>
+    <string name="menu_cancelAddTask"> Cancel </string>
 </resources>
