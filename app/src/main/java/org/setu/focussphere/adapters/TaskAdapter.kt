@@ -6,7 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import org.setu.focussphere.databinding.CardTaskBinding
 import org.setu.focussphere.models.TaskModel
 
-class TaskAdapter constructor(private var tasks: List<TaskModel>) :
+interface TaskListener {
+    fun onTaskClick(task: TaskModel)
+}
+
+class TaskAdapter constructor(private var tasks: List<TaskModel>,
+                              private val listener: TaskListener) :
     RecyclerView.Adapter<TaskAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
@@ -17,7 +22,7 @@ class TaskAdapter constructor(private var tasks: List<TaskModel>) :
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val task = tasks[holder.adapterPosition]
-        holder.bind(task)
+        holder.bind(task, listener)
     }
 
     override fun getItemCount(): Int = tasks.size
@@ -25,11 +30,13 @@ class TaskAdapter constructor(private var tasks: List<TaskModel>) :
     class MainHolder(private val binding : CardTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(task: TaskModel) {
+        fun bind(task: TaskModel, listener: TaskListener) {
             binding.taskTitle.text = task.title
             binding.description.text = task.description
             binding.priority.text = task.priorityLevel.toString()
             binding.status.text = task.status.toString()
+            binding.root.setOnClickListener { listener.onTaskClick(task)}
         }
     }
 }
+
