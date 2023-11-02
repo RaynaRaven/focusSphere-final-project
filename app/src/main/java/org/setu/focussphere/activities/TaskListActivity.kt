@@ -62,6 +62,7 @@ class TaskListActivity : AppCompatActivity(), TaskListener {
 
     override fun onTaskClick(task: TaskModel) {
         val launcherIntent = Intent(this, TaskActivity::class.java)
+        launcherIntent.putExtra("task_edit", task)
         getClickResult.launch(launcherIntent)
     }
 

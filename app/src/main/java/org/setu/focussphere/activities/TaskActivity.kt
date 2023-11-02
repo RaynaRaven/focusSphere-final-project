@@ -35,6 +35,8 @@ class TaskActivity : AppCompatActivity() {
         app = application as MainApp
         i("Task Activity Started")
 
+
+
         val priorityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, PriorityLevel.values())
         priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.prioritySpinner.adapter = priorityAdapter
@@ -42,6 +44,14 @@ class TaskActivity : AppCompatActivity() {
         val statusAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, TaskStatus.values())
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.statusSpinner.adapter = statusAdapter
+
+        if (intent.hasExtra("task_edit")) {
+            task = intent.extras?.getParcelable("task_edit")!!
+            binding.taskTitle.setText(task.title)
+            binding.taskDescription.setText(task.description)
+            binding.statusSpinner.setSelection(task.status.ordinal)
+            binding.prioritySpinner.setSelection(task.priorityLevel.ordinal)
+        }
 
         binding.addTaskButton.setOnClickListener() {
             i("Button onClick triggered")
