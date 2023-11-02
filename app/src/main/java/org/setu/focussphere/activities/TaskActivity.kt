@@ -53,14 +53,14 @@ class TaskActivity : AppCompatActivity() {
             task.priorityLevel = selectedPriority
             task.status = selectedStatus
 
-            if (task.title.isNotBlank() && !app.tasks.contains(task)) {
-                app.tasks.add(task.copy())
+            if (task.title.isNotBlank() && !app.tasks.findAll().contains(task)) {
+                app.tasks.create(task.copy())
                 binding.taskTitle.text.clear()
                 binding.taskDescription.text.clear()
                 i("Button Pressed: $task")
                 Snackbar.make(it,(	"\ud83e\udd70") + "  " + getString(R.string.task_add_text), Snackbar.LENGTH_SHORT).show()
-                for (i in app.tasks.indices) {
-                    i("Task[$i]:${this.app.tasks[i]}")
+                for ((index, task) in app.tasks.findAll().withIndex()) {
+                    i("Task[$index]:$task")
                 }
                 setResult(RESULT_OK)
                 finish()
