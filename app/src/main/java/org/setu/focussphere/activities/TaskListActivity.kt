@@ -4,18 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import org.setu.focussphere.R
+import org.setu.focussphere.adapters.TaskAdapter
 import org.setu.focussphere.databinding.ActivityTaskListBinding
-import org.setu.focussphere.databinding.CardTaskBinding
 import org.setu.focussphere.main.MainApp
-import org.setu.focussphere.models.TaskModel
+
 
 class TaskListActivity : AppCompatActivity() {
 
