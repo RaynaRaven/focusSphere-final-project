@@ -29,7 +29,7 @@ class TaskListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = TaskAdapter(app.tasks)
+        binding.recyclerView.adapter = TaskAdapter(app.tasks.findAll())
 
     }
 
@@ -54,7 +54,7 @@ class TaskListActivity : AppCompatActivity() {
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 (binding.recyclerView.adapter)?.
-                        notifyItemChanged(0, app.tasks.size)
+                        notifyItemChanged(0, app.tasks.findAll().size)
             }
         }
 }
