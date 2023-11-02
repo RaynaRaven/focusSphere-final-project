@@ -59,9 +59,6 @@ class TaskActivity : AppCompatActivity() {
                 binding.taskDescription.text.clear()
                 i("Button Pressed: $task")
                 Snackbar.make(it,(	"\ud83e\udd70") + "  " + getString(R.string.task_add_text), Snackbar.LENGTH_SHORT).show()
-                for ((index, task) in app.tasks.findAll().withIndex()) {
-                    i("Task[$index]:$task")
-                }
                 setResult(RESULT_OK)
                 finish()
             }
