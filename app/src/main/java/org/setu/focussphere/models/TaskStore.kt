@@ -7,4 +7,5 @@ interface TaskStore {
     fun findAll(): List<TaskModel>
     fun create(task: TaskModel)
 
+    fun update(task: TaskModel)
 }
