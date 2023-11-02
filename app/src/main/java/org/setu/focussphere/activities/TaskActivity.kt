@@ -73,10 +73,10 @@ class TaskActivity : AppCompatActivity() {
                 finish()
             }
             else if (task.title.isBlank()){
-                Snackbar.make(it, "\ud83d\ude31" + "  Task must contain a title", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(it, getString(R.string.snackbar_warning_missingTitle), Snackbar.LENGTH_LONG).show()
             }
             else {
-                Snackbar.make(it, "\ud83d\ude31" + "  duplicate task not added", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(it, getString(R.string.snackbar_warning_duplicateTask), Snackbar.LENGTH_SHORT).show()
             }
         }
     }
