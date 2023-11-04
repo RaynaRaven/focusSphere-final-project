@@ -12,6 +12,9 @@ data class TaskModel(
     var description: String = "",
     var priorityLevel: PriorityLevel = PriorityLevel.Low,
     var status: TaskStatus = TaskStatus.ToDo,
+    var lat: Double = 0.0,
+    var lng: Double = 0.0,
+    var zoom: Float = 0f
 //    var estimatedDuration: Duration? = null,
 //    var actualDuration: Duration? = null,
 //    var dueDate: LocalDateTime? = null 
