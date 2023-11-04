@@ -13,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.setu.focussphere.R
 import org.setu.focussphere.databinding.ActivityTaskBinding
 import org.setu.focussphere.main.MainApp
+import org.setu.focussphere.models.Location
 import org.setu.focussphere.models.PriorityLevel
 import org.setu.focussphere.models.TaskModel
 import org.setu.focussphere.models.TaskStatus
@@ -96,7 +97,9 @@ class TaskActivity : AppCompatActivity() {
         }
 
         binding.taskLocation.setOnClickListener {
+            val location = Location(52.245696, -7.139102, 15f)
             val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
             mapIntentLauncher.launch(launcherIntent)
         }
     }
