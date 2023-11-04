@@ -27,6 +27,11 @@ class TaskAdapter constructor(private var tasks: List<TaskModel>,
 
     override fun getItemCount(): Int = tasks.size
 
+    fun updateTasks(newTasks: List<TaskModel>) {
+        tasks = newTasks
+        notifyDataSetChanged()
+    }
+
     class MainHolder(private val binding : CardTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
 

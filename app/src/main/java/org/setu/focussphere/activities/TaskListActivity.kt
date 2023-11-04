@@ -55,8 +55,7 @@ class TaskListActivity : AppCompatActivity(), TaskListener {
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                (binding.recyclerView.adapter)?.
-                        notifyItemChanged(0, app.tasks.findAll().size)
+                refreshTaskList()
             }
         }
 
@@ -71,9 +70,17 @@ class TaskListActivity : AppCompatActivity(), TaskListener {
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                (binding.recyclerView.adapter)?.
-                notifyItemRangeChanged(0,app.tasks.findAll().size)
+                refreshTaskList()
             }
         }
+
+    private fun refreshTaskList() {
+        val updatedTasks = app.tasks.findAll()
+        (binding.recyclerView.adapter as? TaskAdapter)?.updateTasks(updatedTasks)
+        }
+
+
+
 }
+
 

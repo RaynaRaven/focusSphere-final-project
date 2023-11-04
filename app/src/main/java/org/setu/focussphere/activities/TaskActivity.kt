@@ -1,14 +1,11 @@
 package org.setu.focussphere.activities
 
-import android.app.Activity
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
-import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
 import org.setu.focussphere.R
 import org.setu.focussphere.databinding.ActivityTaskBinding
@@ -74,16 +71,12 @@ class TaskActivity : AppCompatActivity() {
             else {
                 if (edit) {
                     app.tasks.update(task.copy())
-//                    setResult(RESULT_OK)
-//                    finish()
                 } else {
                     app.tasks.create(task.copy())
                     binding.taskTitle.text.clear()
                     binding.taskDescription.text.clear()
                     i("Button Pressed: $task")
                     Snackbar.make(it, "\ud83e\udd70" + R.string.task_add_text, Snackbar.LENGTH_SHORT).show()
-//                    setResult(RESULT_OK)
-//                    finish()
                 }
             }
             setResult(RESULT_OK)
@@ -100,6 +93,20 @@ class TaskActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.item_cancel -> {
                 finish()
+            }
+            R.id.item_delete -> {
+                //TODO call to alert dialog here
+                AlertDialog.Builder(this)
+                    .setTitle(R.string.alertDialog_DeleteTask)
+                    .setMessage(R.string.alertDialog_ConfirmDelete)
+                    .setPositiveButton(R.string.alertDialog_Yes) { _, _ ->
+                        app.tasks.delete(task)
+                        setResult(RESULT_OK)
+                        finish()
+                }
+                    .setNegativeButton(R.string.alertDialog_No, null)
+                    .show()
+                return true
             }
         }
         return super.onOptionsItemSelected(item)

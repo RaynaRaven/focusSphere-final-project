@@ -34,6 +34,14 @@ class TaskMemStore : TaskStore {
         }
     }
 
+    override fun delete(task: TaskModel) {
+        val taskToDelete = tasks.find { it.id == task.id}
+        if (taskToDelete != null ) {
+            tasks.remove(taskToDelete)
+        }
+        logAll()
+    }
+
     fun logAll() {
         tasks.forEach{ i("${it}") }
     }
