@@ -2,7 +2,6 @@ package org.setu.focussphere.models
 
 import android.content.Context
 import android.net.Uri
-import com.google.android.gms.tasks.Tasks
 import com.google.gson.*
 import com.google.gson.reflect.TypeToken
 import org.setu.focussphere.helpers.*
@@ -10,7 +9,7 @@ import timber.log.Timber
 import java.lang.reflect.Type
 import java.util.*
 
-const val JSON_FILE = "placemarks.json"
+const val JSON_FILE = "tasks.json"
 val gsonBuilder: Gson = GsonBuilder().setPrettyPrinting()
     .registerTypeAdapter(Uri::class.java, UriParser())
     .create()
@@ -43,11 +42,21 @@ class TaskJSONStore(private val context: Context) : TaskStore {
 
 
     override fun update(task: TaskModel) {
-        // todo
+        val tasksList = findAll() as ArrayList<TaskModel>
+        var foundTask: TaskModel? = tasksList.find { p -> p.id == task.id }
+        if (foundTask != null) {
+            foundTask.title = task.title
+            foundTask.description = task.description
+            foundTask.lat = task.lat
+            foundTask.lng = task.lng
+            foundTask.zoom = task.zoom
+        }
+        serialize()
     }
 
     override fun delete(task: TaskModel) {
-        TODO("Not yet implemented")
+        tasks.remove(task)
+        serialize()
     }
 
     private fun serialize() {
