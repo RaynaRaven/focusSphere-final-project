@@ -1,20 +1,19 @@
 package org.setu.focussphere.main
 
 import android.app.Application
-import org.setu.focussphere.models.PriorityLevel
 import org.setu.focussphere.models.TaskMemStore
-import org.setu.focussphere.models.TaskModel
-import org.setu.focussphere.models.TaskStatus
+import org.setu.focussphere.models.TaskStore
 import timber.log.Timber
 import timber.log.Timber.Forest.i
 
 class MainApp : Application() {
 
-    val tasks = TaskMemStore()
+    lateinit var tasks: TaskStore
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
+        tasks = TaskMemStore()
         i("FocusSphere started")
     }
 
