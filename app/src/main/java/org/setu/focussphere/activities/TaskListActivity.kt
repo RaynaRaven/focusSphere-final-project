@@ -10,11 +10,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.setu.focussphere.R
 import org.setu.focussphere.adapters.TaskAdapter
+import org.setu.focussphere.adapters.TaskListener
 import org.setu.focussphere.databinding.ActivityTaskListBinding
 import org.setu.focussphere.main.MainApp
+import org.setu.focussphere.models.TaskModel
 
 
-class TaskListActivity : AppCompatActivity() {
+class TaskListActivity : AppCompatActivity(), TaskListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityTaskListBinding
@@ -29,7 +31,7 @@ class TaskListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = TaskAdapter(app.tasks)
+        binding.recyclerView.adapter = TaskAdapter(app.tasks.findAll(), this)
 
     }
 
@@ -53,9 +55,32 @@ class TaskListActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                (binding.recyclerView.adapter)?.
-                        notifyItemChanged(0, app.tasks.size)
+                refreshTaskList()
             }
         }
+
+    override fun onTaskClick(task: TaskModel) {
+        val launcherIntent = Intent(this, TaskActivity::class.java)
+        launcherIntent.putExtra("task_edit", task)
+        getClickResult.launch(launcherIntent)
+    }
+
+    private val getClickResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                refreshTaskList()
+            }
+        }
+
+    private fun refreshTaskList() {
+        val updatedTasks = app.tasks.findAll()
+        (binding.recyclerView.adapter as? TaskAdapter)?.updateTasks(updatedTasks)
+        }
+
+
+
 }
+
 

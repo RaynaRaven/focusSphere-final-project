@@ -1,10 +1,18 @@
 <resources>
     <string name="app_name">FocusSphere</string>
-    <string name="window_text">Welcome! Add your tasks here! </string>
+    <string name="window_text">Add a task here </string>
     <string name="button_label"> Add Task </string>
     <string name="task_add_text"> Task Added </string>
     <string name="hint_taskTitle"> Task Title </string>
     <string name="hint_taskDesc"> Task Description </string>
     <string name="menu_addTask"> Add </string>
     <string name="menu_cancelAddTask"> Cancel </string>
+    <string name="menu_DeleteTask"> Delete </string>
+    <string name="alertDialog_DeleteTask"> Delete Task </string>
+    <string name="alertDialog_ConfirmDelete"> Are you sure you want to delete this task? </string>
+    <string name="alertDialog_Yes"> Yes </string>
+    <string name="alertDialog_No"> No </string>
+    <string name="snackbar_warning_missingTitle"> \ud83d\ude31 Task must contain a title </string>
+    <string name="snackbar_warning_duplicateTask"> \ud83d\ude31 duplicate task not added </string>
+    <string name="save_task"> Save Task </string>
 </resources>

@@ -8,4 +8,10 @@
         android:actionLayout="@layout/menu_item_cancel"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/item_delete"
+        android:icon="@drawable/ic_trash"
+        android:title="@string/menu_DeleteTask"
+        app:showAsAction="always" />
+
 </menu>
