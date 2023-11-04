@@ -30,6 +30,9 @@ class TaskMemStore : TaskStore {
             foundTask.description = task.description
             foundTask.status = task.status
             foundTask.priorityLevel = task.priorityLevel
+            foundTask.lat = task.lat
+            foundTask.lng = task.lng
+            foundTask.zoom = task.zoom
             logAll()
         }
     }
