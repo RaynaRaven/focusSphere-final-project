@@ -1,10 +1,13 @@
 package org.setu.focussphere.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
 import org.setu.focussphere.R
@@ -18,8 +21,15 @@ import timber.log.Timber.Forest.i
 class TaskActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTaskBinding
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
     var task = TaskModel()
     lateinit var app : MainApp
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { i("Map Loaded") }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +41,8 @@ class TaskActivity : AppCompatActivity() {
 
         app = application as MainApp
         i("Task Activity Started")
+
+        registerMapCallback()
 
         var edit = false
 
@@ -81,6 +93,11 @@ class TaskActivity : AppCompatActivity() {
             }
             setResult(RESULT_OK)
             finish()
+        }
+
+        binding.taskLocation.setOnClickListener {
+            val launcherIntent = Intent(this, MapActivity::class.java)
+            mapIntentLauncher.launch(launcherIntent)
         }
     }
 

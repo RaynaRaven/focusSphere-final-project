@@ -16,4 +16,5 @@
     <string name="snackbar_warning_duplicateTask"> \ud83d\ude31 duplicate task not added </string>
     <string name="save_task"> Save Task </string>
     <string name="button_location"> Set Location </string>
+    <string name="title_activity_map">MapActivity</string>
 </resources>
