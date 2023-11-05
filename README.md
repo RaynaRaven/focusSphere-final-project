@@ -9,9 +9,9 @@ FocusSphere is an intuitive task management application designed to help users o
   - View a list of all tasks in a scrollable list.
   - Update existing tasks, including their title, description, priority, and status.
   - Delete tasks from the task list.
-
-- **Task Sorting**
-  - Tasks are automatically sorted by priority level to help you focus on the most important tasks first.
+ 
+  - - **User dashboard with useful metrics**
+  - clickable cards that launches task activity
 
 - **Map Integration**
   - Visualize task locations with integrated Google Maps, allowing for the addition and movement of location markers.
@@ -21,6 +21,13 @@ FocusSphere is an intuitive task management application designed to help users o
   - Task list view with options to edit or delete tasks directly from the list.
 
 ## Upcoming Features
+
+- **User dashboard with useful metrics**
+  - see number of tasks by category, track your Time Accuracy Score to improve time blindness
+  - Monthly reports of user time accuracy
+
+- **Task Sorting**
+  - Tasks are automatically sorted by priority level to help you focus on the most important tasks first.
 
 - **Task Duration Tracking**
   - Estimate task durations and compare them against actual time spent to improve time management skills.
