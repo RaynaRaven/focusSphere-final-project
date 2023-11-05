@@ -54,6 +54,10 @@ class TaskJSONStore(private val context: Context) : TaskStore {
         serialize()
     }
 
+    override fun findById(id: Long): TaskModel? {
+        return tasks.find { it.id == id }
+    }
+
     override fun delete(task: TaskModel) {
         tasks.remove(task)
         serialize()

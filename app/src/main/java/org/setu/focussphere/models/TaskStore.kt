@@ -1,5 +1,6 @@
 package org.setu.focussphere.models
 
+import com.google.android.gms.tasks.Task
 import org.setu.focussphere.adapters.TaskAdapter
 
 interface TaskStore {
@@ -9,4 +10,6 @@ interface TaskStore {
 
     fun update(task: TaskModel)
     fun delete(task: TaskModel)
+
+    fun findById(id: Long) : TaskModel?
 }

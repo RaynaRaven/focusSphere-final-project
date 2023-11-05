@@ -17,4 +17,10 @@
     <string name="save_task"> Save Task </string>
     <string name="button_location"> Set Location </string>
     <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_task_maps">Map of task locations</string>
+    <!-- Strings used for fragments for navigation -->
+
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
 </resources>

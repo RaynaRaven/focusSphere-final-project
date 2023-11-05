@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-<!--    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />-->
+    <!-- <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" /> -->
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+
     <application
         android:name=".main.MainApp"
         android:allowBackup="true"
@@ -14,9 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FocusSphere"
         tools:targetApi="31">
+        <activity
+            android:name=".activities.TaskMapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_task_maps"
+            android:theme="@style/Theme.FocusSphere"
+            />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
+
         <activity
             android:name=".activities.MapActivity"
             android:exported="false"
@@ -43,4 +52,5 @@
                 android:value="" />
         </activity>
     </application>
+
 </manifest>
