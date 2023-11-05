@@ -9,5 +9,12 @@
 
     </style>
 
+    <style name="CardView." parent="CardView">
+        <item name="android:foreground">@drawable/gradient_background</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="alpha">155</item>
+<!--        <item name="cardElevation">0dp</item>-->
+    </style>
+
     <style name="Theme.FocusSphere" parent="Base.Theme.FocusSphere" />
 </resources>

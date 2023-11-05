@@ -18,6 +18,11 @@
     <string name="button_location"> Set Location </string>
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_task_maps">Map of task locations</string>
+    <string name="dashboard_activity_title">Dashboard</string>
+    <string name="dashboard_tasks_title">Tasks</string>
+    <string name="dashboard_timeScore_title">TimeScore</string>
+    <string name="dashboard_focusMode_title">Focus Mode</string>
+    <string name="dashboard_reports_title">Reports</string>
     <!-- Strings used for fragments for navigation -->
 
     <string name="next">Next</string>
