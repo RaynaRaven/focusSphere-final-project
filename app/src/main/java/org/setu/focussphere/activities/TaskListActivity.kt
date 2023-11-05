@@ -20,6 +20,8 @@ class TaskListActivity : AppCompatActivity(), TaskListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityTaskListBinding
+    private var position: Int = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,19 +61,33 @@ class TaskListActivity : AppCompatActivity(), TaskListener {
             }
         }
 
-    override fun onTaskClick(task: TaskModel) {
+    override fun onTaskClick(task: TaskModel, pos : Int) {
         val launcherIntent = Intent(this, TaskActivity::class.java)
         launcherIntent.putExtra("task_edit", task)
+        position = pos
         getClickResult.launch(launcherIntent)
     }
+
+//    private val getClickResult =
+//        registerForActivityResult(
+//            ActivityResultContracts.StartActivityForResult()
+//        ) {
+//            if (it.resultCode == Activity.RESULT_OK) {
+//                refreshTaskList()
+//            }
+//        }
 
     private val getClickResult =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                refreshTaskList()
+                (binding.recyclerView.adapter)?.
+                notifyItemRangeChanged(0,app.tasks.findAll().size)
             }
+            else // Deleting
+                if (it.resultCode == 99)
+                        (binding.recyclerView.adapter)?.notifyItemRemoved(position)
         }
 
     private fun refreshTaskList() {

@@ -151,8 +151,8 @@ class TaskActivity : AppCompatActivity() {
                         .setTitle(R.string.alertDialog_DeleteTask)
                         .setMessage(R.string.alertDialog_ConfirmDelete)
                         .setPositiveButton(R.string.alertDialog_Yes) { _, _ ->
+                            setResult(99)
                             app.tasks.delete(task)
-                            setResult(RESULT_OK)
                             finish()
                         }
                         .setNegativeButton(R.string.alertDialog_No, null)

@@ -7,7 +7,7 @@ import org.setu.focussphere.databinding.CardTaskBinding
 import org.setu.focussphere.models.TaskModel
 
 interface TaskListener {
-    fun onTaskClick(task: TaskModel)
+    fun onTaskClick(task: TaskModel, position: Int)
 }
 
 class TaskAdapter constructor(private var tasks: List<TaskModel>,
@@ -40,7 +40,7 @@ class TaskAdapter constructor(private var tasks: List<TaskModel>,
             binding.description.text = task.description
             binding.priority.text = task.priorityLevel.toString()
             binding.status.text = task.status.toString()
-            binding.root.setOnClickListener { listener.onTaskClick(task)}
+            binding.root.setOnClickListener { listener.onTaskClick(task, adapterPosition)}
         }
     }
 }
