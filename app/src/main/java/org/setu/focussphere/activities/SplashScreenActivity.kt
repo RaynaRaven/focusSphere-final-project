@@ -26,7 +26,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
         videoView.setOnCompletionListener {
             //when video playback is complete, then start next activity
-            val intent = Intent(this, TaskListActivity::class.java)
+//            val intent = Intent(this, TaskListActivity::class.java)
+            val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
             finish()
         }

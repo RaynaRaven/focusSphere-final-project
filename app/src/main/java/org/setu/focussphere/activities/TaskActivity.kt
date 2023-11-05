@@ -25,7 +25,6 @@ class TaskActivity : AppCompatActivity() {
     private lateinit var mapIntentLauncher: ActivityResultLauncher<Intent>
     private var task = TaskModel()
     lateinit var app: MainApp
-    var location = Location(52.245696, -7.139102, 15f)
     private var edit = false
 
     private fun registerMapCallback() {
@@ -122,7 +121,7 @@ class TaskActivity : AppCompatActivity() {
             }
 
             binding.taskLocation.setOnClickListener {
-                val location = Location(52.245696, -7.139102, 15f)
+                val location = Location(52.8359, -6.9325, 15f)
                 if (task.zoom != 0f) {
                     location.lat = task.lat
                     location.lng = task.lng

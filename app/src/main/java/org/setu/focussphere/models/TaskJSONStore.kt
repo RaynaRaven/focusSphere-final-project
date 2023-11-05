@@ -47,6 +47,8 @@ class TaskJSONStore(private val context: Context) : TaskStore {
         if (foundTask != null) {
             foundTask.title = task.title
             foundTask.description = task.description
+            foundTask.status = task.status
+            foundTask.priorityLevel = task.priorityLevel
             foundTask.lat = task.lat
             foundTask.lng = task.lng
             foundTask.zoom = task.zoom
