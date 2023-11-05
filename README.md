@@ -53,7 +53,8 @@ FocusSphere is an intuitive task management application designed to help users o
 To install the FocusSphere Task Manager, clone this repository and import it into Android Studio. Pair your device and install.
 
 ```bash
-git clone https://github.com/RaynaRaven/focussphere.git
+git clone https://github.com/RaynaRaven/focussphere.git```
+
 
 ## References: 
 
