@@ -9,6 +9,7 @@
         app:showAsAction="always" />
 
     <item
+        android:visible="false"
         android:id="@+id/item_delete"
         android:icon="@drawable/ic_trash"
         android:title="@string/menu_DeleteTask"
