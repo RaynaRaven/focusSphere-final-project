@@ -23,9 +23,10 @@ class TaskActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTaskBinding
     private lateinit var mapIntentLauncher: ActivityResultLauncher<Intent>
-    var task = TaskModel()
+    private var task = TaskModel()
     lateinit var app: MainApp
     var location = Location(52.245696, -7.139102, 15f)
+    private var edit = false
 
     private fun registerMapCallback() {
         mapIntentLauncher =
@@ -59,8 +60,6 @@ class TaskActivity : AppCompatActivity() {
             i("Task Activity Started")
 
             registerMapCallback()
-
-            var edit = false
 
             val priorityAdapter =
                 ArrayAdapter(this, android.R.layout.simple_spinner_item, PriorityLevel.values())
@@ -137,6 +136,9 @@ class TaskActivity : AppCompatActivity() {
 
         override fun onCreateOptionsMenu(menu: Menu?): Boolean {
             menuInflater.inflate(R.menu.menu_add_task, menu)
+            if (edit) if (menu != null) {
+                menu.getItem(1).isVisible = true
+            }
             return super.onCreateOptionsMenu(menu)
         }
 
@@ -151,8 +153,8 @@ class TaskActivity : AppCompatActivity() {
                         .setTitle(R.string.alertDialog_DeleteTask)
                         .setMessage(R.string.alertDialog_ConfirmDelete)
                         .setPositiveButton(R.string.alertDialog_Yes) { _, _ ->
+                            setResult(99)
                             app.tasks.delete(task)
-                            setResult(RESULT_OK)
                             finish()
                         }
                         .setNegativeButton(R.string.alertDialog_No, null)
