@@ -45,6 +45,10 @@ class TaskMemStore : TaskStore {
         logAll()
     }
 
+    override fun findById(id: Long): TaskModel? {
+        return tasks.find { it.id == id }
+    }
+
     fun logAll() {
         tasks.forEach{ i("${it}") }
     }
