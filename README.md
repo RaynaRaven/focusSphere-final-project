@@ -54,3 +54,25 @@ To install the FocusSphere Task Manager, clone this repository and import it int
 
 ```bash
 git clone https://github.com/RaynaRaven/focussphere.git
+
+## References: 
+
+* https://www.studytonight.com/android/toast-in-android
+* https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+* https://coolors.co/282a67-a25382-ff7092-ff855c
+* https://stackoverflow.com/questions/69630124/how-to-configure-toast-icon-in-android-12
+* https://stackoverflow.com/questions/34540498/how-to-display-emoticons-emoji-in-snackbar-or-toast-textview
+* https://apps.timwhitlock.info/emoji/tables/unicode#note1
+* https://www.unicode.org/emoji/charts/full-emoji-list.html
+* https://charbase.com/
+* https://developer.android.com/reference/androidx/cardview/widget/CardView
+* https://developer.android.com/develop/ui/views/layout/relative
+* https://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams
+* https://developer.android.com/guide/topics/resources/drawable-resource
+* https://developer.android.com/develop/ui/views/components/appbar/setting-up
+* https://www.javatpoint.com/kotlin-android-alertdialog
+* https://developer.android.com/develop/sensors-and-location/location/maps-and-places
+* https://www.geeksforgeeks.org/how-to-add-gradient-to-cardview-in-android/
+* AI generated video for splash screen:
+ - Moonvalley.ai (beta)
+ - InShot video editor for editing splash screen
