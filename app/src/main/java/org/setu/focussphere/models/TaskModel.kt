@@ -3,7 +3,7 @@ package org.setu.focussphere.models
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import java.time.Duration
-import java.time.LocalDateTime
+import java.util.Date
 
 @Parcelize
 data class TaskModel(
@@ -14,8 +14,9 @@ data class TaskModel(
     var status: TaskStatus = TaskStatus.ToDo,
     var lat: Double = 0.0,
     var lng: Double = 0.0,
-    var zoom: Float = 0f
-//    var estimatedDuration: Duration? = null,
+    var zoom: Float = 0f,
+    var dateCreated: Date = Date(),
+    var estimatedDuration: Duration? = null,
 //    var actualDuration: Duration? = null,
 //    var dueDate: LocalDateTime? = null 
 ) :Parcelable
