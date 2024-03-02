@@ -1,31 +1,62 @@
 <resources>
     <string name="app_name">FocusSphere</string>
-    <string name="window_text">Add a task here </string>
-    <string name="button_label"> Add Task </string>
-    <string name="task_add_text"> Task Added </string>
-    <string name="hint_taskTitle"> Task Title </string>
-    <string name="hint_taskDesc"> Task Description </string>
-    <string name="menu_addTask"> Add </string>
-    <string name="menu_cancelAddTask"> Cancel </string>
-    <string name="menu_DeleteTask"> Delete </string>
-    <string name="alertDialog_DeleteTask"> Delete Task </string>
-    <string name="alertDialog_ConfirmDelete"> Are you sure you want to delete this task? </string>
-    <string name="alertDialog_Yes"> Yes </string>
-    <string name="alertDialog_No"> No </string>
-    <string name="snackbar_warning_missingTitle"> \ud83d\ude31 Task must contain a title </string>
-    <string name="snackbar_warning_duplicateTask"> \ud83d\ude31 duplicate task not added </string>
-    <string name="save_task"> Save Task </string>
-    <string name="button_location"> Set Location </string>
-    <string name="title_activity_map">MapActivity</string>
-    <string name="title_activity_task_maps">Map of task locations</string>
+
+
+
+    <!-- Dashboard View String Resources   -->
+
     <string name="dashboard_activity_title">Dashboard</string>
     <string name="dashboard_tasks_title">Tasks</string>
     <string name="dashboard_timeScore_title">TimeScore</string>
     <string name="dashboard_focusMode_title">Focus Mode</string>
     <string name="dashboard_reports_title">Reports</string>
-    <!-- Strings used for fragments for navigation -->
+
+    <!-- Nav Fragment String Resources -->
 
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+
+    <!-- Menu String Resources   -->
+
+    <string name="menu_addTask"> Add </string>
+    <string name="menu_cancelAddTask"> Cancel </string>
+    <string name="menu_DeleteTask"> Delete </string>
+
+    <!-- Task Card String Resources -->
+
+    <string name="taskCard_EstimatedTime"> Estimated Time: </string>
+
+    <!-- Create Task String Resources -->
+
+    <string name="hint_taskTitle"> Task Title </string>
+    <string name="hint_taskDesc"> Task Description </string>
+    <string name="button_location"> Set Location </string>
+
+    <!-- Edit Task String Resources -->
+    <string name="save_task"> Save Task </string>
+
+    <!-- Snackbar/Toast String Resources-->
+
+    <string name="task_add_text"> Task Added </string>
+    <string name="button_label"> Add Task </string>
+    <string name="window_text">Add a task here </string>
+
+    <!-- Alert Dialog String Resources -->
+    <string name="alertDialog_DeleteTask"> Delete Task </string>
+    <string name="alertDialog_ConfirmDelete"> Are you sure you want to delete this task? </string>
+    <string name="alertDialog_Yes"> Yes </string>
+    <string name="alertDialog_No"> No </string>
+    <string name="alertDialog_Cancel"> Cancel </string>
+    <string name="alertDialog_Delete"> Delete </string>
+
+
+    <!-- Validation Alert String Resources -->
+    <string name="snackbar_warning_missingTitle"> \ud83d\ude31 Task must contain a title </string>
+    <string name="snackbar_warning_duplicateTask"> \ud83d\ude31 duplicate task not added </string>
+
+    <!-- Map Activity String Resources -->
+    <string name="title_activity_task_maps">Map of task locations</string>
+    <string name="title_activity_map">MapActivity</string>
+
 
 </resources>
