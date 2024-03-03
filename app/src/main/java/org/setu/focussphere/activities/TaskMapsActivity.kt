@@ -9,18 +9,18 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import org.setu.focussphere.databinding.ActivityTaskMapsBinding
 import org.setu.focussphere.databinding.ContentTaskMapsBinding
-import org.setu.focussphere.main.MainApp
+import org.setu.focussphere.main.FocusSphereApplication
 
 class TaskMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
     private lateinit var binding: ActivityTaskMapsBinding
     private lateinit var contentBinding: ContentTaskMapsBinding
     lateinit var map: GoogleMap
-    lateinit var app: MainApp
+    lateinit var app: FocusSphereApplication
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        app = application as MainApp
+        app = application as FocusSphereApplication
 
         binding = ActivityTaskMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)

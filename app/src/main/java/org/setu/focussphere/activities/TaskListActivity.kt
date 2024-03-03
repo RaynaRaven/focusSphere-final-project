@@ -2,23 +2,23 @@ package org.setu.focussphere.activities
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.setu.focussphere.R
 import org.setu.focussphere.adapters.TaskAdapter
 import org.setu.focussphere.adapters.TaskListener
 import org.setu.focussphere.databinding.ActivityTaskListBinding
-import org.setu.focussphere.main.MainApp
+import org.setu.focussphere.main.FocusSphereApplication
 import org.setu.focussphere.models.TaskModel
 
 
 class TaskListActivity : AppCompatActivity(), TaskListener {
 
-    lateinit var app: MainApp
+    lateinit var app: FocusSphereApplication
     private lateinit var binding: ActivityTaskListBinding
     private var position: Int = 0
 
@@ -34,7 +34,7 @@ class TaskListActivity : AppCompatActivity(), TaskListener {
         setContentView(binding.root)
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
-        app = application as MainApp
+        app = application as FocusSphereApplication
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
