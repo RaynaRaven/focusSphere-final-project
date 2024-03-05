@@ -42,6 +42,11 @@ android {
         jvmTarget = "1.8"
     }
 
+    ksp {
+        arg("room.generateKotlin", "true")
+        arg("room.schemaLocation", "${projectDir}/schemas")
+    }
+
     buildFeatures {
         viewBinding = true
         //noinspection DataBindingWithoutKapt
@@ -86,6 +91,7 @@ dependencies {
 
     val roomVersion = "2.6.1"
     implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     implementation("io.insert-koin:koin-androidx-viewmodel:2.2.3")
     ksp("androidx.room:room-compiler:$roomVersion")
