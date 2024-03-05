@@ -2,6 +2,7 @@ package org.setu.focussphere.helpers
 
 import androidx.room.TypeConverter
 import org.setu.focussphere.data.enums.PriorityLevel
+import org.setu.focussphere.data.enums.TaskStatus
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -21,7 +22,7 @@ class Converters {
             Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault()).toLocalDateTime()
         }
     }
-    
+
     @TypeConverter
     fun fromPriorityLevel(priorityLevel: PriorityLevel): Int {
         return priorityLevel.order
@@ -30,6 +31,16 @@ class Converters {
     @TypeConverter
     fun toPriorityLevel(order: Int): PriorityLevel {
         return PriorityLevel.values().first { it.order == order }
+    }
+
+    @TypeConverter
+    fun fromTaskStatus(status: TaskStatus): String {
+        return status.stringValue
+    }
+
+    @TypeConverter
+    fun toTaskStatus(stringValue: String): TaskStatus {
+        return TaskStatus.values().first { it.stringValue == stringValue }
     }
 
 }
