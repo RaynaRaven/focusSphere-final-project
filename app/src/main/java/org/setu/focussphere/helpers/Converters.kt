@@ -3,6 +3,7 @@ package org.setu.focussphere.helpers
 import androidx.room.TypeConverter
 import org.setu.focussphere.data.enums.PriorityLevel
 import org.setu.focussphere.data.enums.TaskStatus
+import java.time.Duration
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -43,4 +44,13 @@ class Converters {
         return TaskStatus.values().first { it.stringValue == stringValue }
     }
 
+    @TypeConverter
+    fun fromDuration(duration: Duration?): Long? {
+        return duration?.toMillis()
+    }
+
+    @TypeConverter
+    fun toDuration(millis: Long?): Duration? {
+        return millis?.let { Duration.ofMillis(it) }
+    }
 }
