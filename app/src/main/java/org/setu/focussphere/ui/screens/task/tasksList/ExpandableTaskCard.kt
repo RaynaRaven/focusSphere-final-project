@@ -1,4 +1,4 @@
-package org.setu.focussphere.ui.components
+package org.setu.focussphere.ui.screens.task.tasksList
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearEasing
@@ -40,14 +40,13 @@ import java.time.Duration
 
 
 @Composable
-fun ExpandableTaskCard(
+fun ExpandableTaskCardItem(
     title: String,
     dateCreated: String,
     description: String,
     estimatedDuration: Duration,
     expanded: Boolean,
     shape: CornerBasedShape = Shapes.medium,
-    padding: Dp = 8.dp
 ) {
     var expandedState by rememberSaveable { mutableStateOf(expanded) }
     Card(
