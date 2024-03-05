@@ -3,14 +3,14 @@ package org.setu.focussphere.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import org.setu.focussphere.data.entities.Task
 import org.setu.focussphere.databinding.CardTaskBinding
-import org.setu.focussphere.models.TaskModel
 
 interface TaskListener {
-    fun onTaskClick(task: TaskModel, position: Int)
+    fun onTaskClick(task: Task, position: Int)
 }
 
-class TaskAdapter constructor(private var tasks: List<TaskModel>,
+class TaskAdapter constructor(private var tasks: List<Task>,
                               private val listener: TaskListener) :
     RecyclerView.Adapter<TaskAdapter.MainHolder>() {
 
@@ -27,7 +27,7 @@ class TaskAdapter constructor(private var tasks: List<TaskModel>,
 
     override fun getItemCount(): Int = tasks.size
 
-    fun updateTasks(newTasks: List<TaskModel>) {
+    fun updateTasks(newTasks: List<Task>) {
         tasks = newTasks
         notifyDataSetChanged()
     }
@@ -35,7 +35,7 @@ class TaskAdapter constructor(private var tasks: List<TaskModel>,
     class MainHolder(private val binding : CardTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(task: TaskModel, listener: TaskListener) {
+        fun bind(task: Task, listener: TaskListener) {
             binding.taskTitle.text = task.title
             binding.description.text = task.description
             binding.priority.text = task.priorityLevel.toString()

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.setu.focussphere"
     xmlns:tools="http://schemas.android.com/tools">
     <!-- <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" /> -->
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
@@ -15,44 +16,57 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FocusSphere"
         tools:targetApi="34">
-        <activity
-            android:name=".activities.DashboardActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".activities.TaskMapsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_task_maps"
-            android:theme="@style/Theme.FocusSphere" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
-
-        <activity
-            android:name=".activities.MapActivity"
-            android:exported="false"
-            android:label="@string/title_activity_map" />
-        <activity
-            android:name=".activities.SplashScreenActivity"
-            android:exported="true">
+        <activity android:name=".main.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Base.Theme.FocusSphere">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.TaskListActivity"
-            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".activities.TaskActivity">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
+<!--        <activity-->
+<!--            android:name=".activities.DashboardActivity"-->
+<!--            android:exported="false"/>-->
+<!--        <activity-->
+<!--            android:name=".activities.TaskMapsActivity"-->
+<!--            android:exported="false"-->
+<!--            android:label="@string/title_activity_task_maps"-->
+<!--            android:theme="@style/Theme.FocusSphere" />-->
+
+<!--        <meta-data-->
+<!--            android:name="com.google.android.geo.API_KEY"-->
+<!--            android:value="${MAPS_API_KEY}" />-->
+
+<!--        <activity-->
+<!--            android:name=".activities.MapActivity"-->
+<!--            android:exported="false"-->
+<!--            android:label="@string/title_activity_map" />-->
+<!--        <activity-->
+<!--            android:name=".activities.SplashScreenActivity"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+<!--        <activity-->
+<!--            android:name=".activities.TaskListActivity"-->
+<!--            android:exported="false">-->
+<!--            <meta-data-->
+<!--                android:name="android.app.lib_name"-->
+<!--                android:value="" />-->
+<!--        </activity>-->
+<!--        <activity android:name=".activities.TaskActivity">-->
+<!--            <meta-data-->
+<!--                android:name="android.app.lib_name"-->
+<!--                android:value="" />-->
+<!--        </activity>-->
     </application>
 
 </manifest>

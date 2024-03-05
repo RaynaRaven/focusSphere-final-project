@@ -13,7 +13,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import org.setu.focussphere.R
 import org.setu.focussphere.databinding.ActivityMapBinding
-import org.setu.focussphere.models.Location
+import org.setu.focussphere.data.entities.Location
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback,
 GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {

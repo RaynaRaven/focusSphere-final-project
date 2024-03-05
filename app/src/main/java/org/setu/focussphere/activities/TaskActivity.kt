@@ -1,6 +1,7 @@
 package org.setu.focussphere.activities
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,23 +9,22 @@ import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import org.setu.focussphere.R
 import org.setu.focussphere.databinding.ActivityTaskBinding
-import org.setu.focussphere.main.FocusSphereApplication
-import org.setu.focussphere.models.Location
-import org.setu.focussphere.models.PriorityLevel
-import org.setu.focussphere.models.TaskModel
-import org.setu.focussphere.models.TaskStatus
+import org.setu.focussphere.main.MainApp
+import org.setu.focussphere.data.enums.PriorityLevel
+import org.setu.focussphere.data.entities.Task
+import org.setu.focussphere.data.entities.Location
+import org.setu.focussphere.data.enums.TaskStatus
 import timber.log.Timber.Forest.i
 
 class TaskActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTaskBinding
     private lateinit var mapIntentLauncher: ActivityResultLauncher<Intent>
-    private var task = TaskModel()
-    lateinit var app: FocusSphereApplication
+    private var task = Task()
+    lateinit var app: MainApp
     private var edit = false
 
     private fun registerMapCallback() {
@@ -55,7 +55,7 @@ class TaskActivity : AppCompatActivity() {
             binding.toolbarAddTask.title = title
             setSupportActionBar(binding.toolbarAddTask)
 
-            app = application as FocusSphereApplication
+            app = application as MainApp
             i("Task Activity Started")
 
             registerMapCallback()

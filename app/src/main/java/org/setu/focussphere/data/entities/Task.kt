@@ -19,6 +19,7 @@ data class Task(
     var createdDateTime: LocalDateTime,
     var estimatedDuration: Duration?,
     var actualDuration: Duration?,
+    var isDone: Boolean,
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
 )
