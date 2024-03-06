@@ -1,3 +1,4 @@
+/*
 package org.setu.focussphere.data.deprecated
 
 import org.setu.focussphere.data.entities.Task
@@ -39,7 +40,7 @@ class TaskMemStore : TaskStore {
     }
 
     override fun delete(task: Task) {
-        val taskToDelete = tasks.find { it.id == task.id}
+        val taskToDelete = tasks.find { it.id == task.id }
         if (taskToDelete != null ) {
             tasks.remove(taskToDelete)
         }
@@ -53,4 +54,4 @@ class TaskMemStore : TaskStore {
     fun logAll() {
         tasks.forEach{ i("${it}") }
     }
-}
+}*/

@@ -1,3 +1,4 @@
+/*
 package org.setu.focussphere.activities
 
 import android.content.Intent
@@ -35,4 +36,4 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
 
-}
+}*/

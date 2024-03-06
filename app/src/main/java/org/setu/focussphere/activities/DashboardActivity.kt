@@ -1,3 +1,4 @@
+/*
 package org.setu.focussphere.activities
 
 import android.content.Intent
@@ -20,4 +21,4 @@ class DashboardActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-}
+}*/

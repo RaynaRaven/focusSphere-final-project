@@ -1,3 +1,4 @@
+/*
 package org.setu.focussphere.activities
 
 import android.os.Bundle
@@ -79,4 +80,4 @@ class TaskMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
         return false
     }
 
-}
+}*/

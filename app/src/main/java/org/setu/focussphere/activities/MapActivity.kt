@@ -1,9 +1,10 @@
+/*
 package org.setu.focussphere.activities
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -12,8 +13,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import org.setu.focussphere.R
-import org.setu.focussphere.databinding.ActivityMapBinding
 import org.setu.focussphere.data.entities.Location
+import org.setu.focussphere.databinding.ActivityMapBinding
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback,
 GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
@@ -70,4 +71,4 @@ GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
         return false
     }
 
-}
+}*/
