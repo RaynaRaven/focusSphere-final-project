@@ -45,10 +45,11 @@ import java.time.LocalDateTime
 fun ExpandableTaskCard(
     //TODO refactoring to pass Task data Obj instead of individual fields
     // will make changes to Task UI more maintainable
-
     task: Task,
+    onEvent: (TasksEvent) -> Unit,
     expanded: Boolean = false,
-    shape: CornerBasedShape = Shapes.medium
+    shape: CornerBasedShape = Shapes.medium,
+    modifier: Modifier = Modifier
 /*    title: String,
     dateCreated: String,
     description: String,
@@ -144,10 +145,12 @@ private fun TaskCardContent(
                         contentDescription = "Expand task details")
                 }
             }
+            //TODO: Add a date formatter to format the date
             Text(
                 text = "Created $dateCreated",
                 style = MaterialTheme.typography.labelMedium
             )
+            //TODO: add a delete icon button
             if (expandedState) {
                 Text(
                     modifier = Modifier.padding(top = 8.dp),
@@ -172,7 +175,8 @@ fun CollapsedTaskCardPreview() {
     )
     ExpandableTaskCard(
         task = previewTask,
-        expanded = false
+        expanded = false,
+        onEvent = {}
     )
 }
 
@@ -187,6 +191,7 @@ fun ExpandedTaskCardPreview() {
     )
     ExpandableTaskCard(
         task = previewTask,
-        expanded = true
+        expanded = true,
+        onEvent = {}
     )
 }

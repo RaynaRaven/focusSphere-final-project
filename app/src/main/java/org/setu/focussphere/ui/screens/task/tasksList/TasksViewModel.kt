@@ -62,7 +62,7 @@ class TasksViewModel @Inject constructor(
                 }
             }
 
-            is TasksEvent.onDoneChange -> {
+            is TasksEvent.OnDoneChange -> {
                 viewModelScope.launch {
                     repository.insertTask(
                         event.task.copy(
