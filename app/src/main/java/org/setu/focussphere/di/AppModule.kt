@@ -33,8 +33,7 @@ class AppModule {
     @Provides
     @Singleton
     fun provideTaskRepository(db: FocusSphereDatabase): TaskRepository {
-        return TaskRepositoryImpl(db.dao)
+        return TaskRepositoryImpl(db.dao())
     }
-
 
 }

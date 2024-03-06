@@ -29,11 +29,11 @@ interface TaskDao {
     @Query("SELECT * FROM task")
     fun getTasks(): Flow<List<Task>>
 
-//    @Query("SELECT * FROM task ORDER BY createdDateTime ASC")
-//    fun getTasksOrderedByDateCreated(): Flow<List<Task>>
+    @Query("SELECT * FROM task ORDER BY createdDateTime ASC")
+    fun getTasksOrderedByDateCreated(): Flow<List<Task>>
 
-//    @Query("SELECT * FROM task ORDER BY priorityLevel DESC, createdDateTime ASC")
-//    fun getTasksOrderedByUrgencyThenByDateCreated(): Flow<List<Task>>
+    @Query("SELECT * FROM task ORDER BY priorityLevel DESC, createdDateTime ASC")
+    fun getTasksOrderedByUrgencyThenByDateCreated(): Flow<List<Task>>
 
 /*    TODO: add more queries for filtering tasks
         fun getTasksFilteredByCategory()
