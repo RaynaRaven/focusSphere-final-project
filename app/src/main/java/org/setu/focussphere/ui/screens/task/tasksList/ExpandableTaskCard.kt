@@ -35,18 +35,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.setu.focussphere.R
+import org.setu.focussphere.data.entities.Task
 import org.setu.focussphere.ui.theme.Shapes
 import java.time.Duration
+import java.time.LocalDateTime
 
 
 @Composable
-fun ExpandableTaskCardItem(
-    title: String,
+fun ExpandableTaskCard(
+    //TODO refactoring to pass Task data Obj instead of individual fields
+    // will make changes to Task UI more maintainable
+
+    task: Task,
+    expanded: Boolean = false,
+    shape: CornerBasedShape = Shapes.medium
+/*    title: String,
     dateCreated: String,
     description: String,
     estimatedDuration: Duration,
     expanded: Boolean,
-    shape: CornerBasedShape = Shapes.medium,
+    shape: CornerBasedShape = Shapes.medium,*/
 ) {
     var expandedState by rememberSaveable { mutableStateOf(expanded) }
     Card(
@@ -67,10 +75,10 @@ fun ExpandableTaskCardItem(
         ),
     ) {
         TaskCardContent(
-            title,
-            dateCreated,
-            description,
-            estimatedDuration,
+            task.title,
+            task.createdDateTime.toString(),
+            task.description,
+            task.estimatedDuration!!,
             expanded
         )
     }
@@ -156,11 +164,14 @@ private fun TaskCardContent(
 @Preview(name = "Collapsed Task Card")
 @Composable
 fun CollapsedTaskCardPreview() {
-    ExpandableTaskCard(
+    val previewTask = Task(
         title = "Task Title",
-        dateCreated = "2024-02-01",
+        createdDateTime = LocalDateTime.now(),
         description = "This is a description of the task",
-        estimatedDuration = Duration.ofHours(1),
+        estimatedDuration = Duration.ofHours(1)
+    )
+    ExpandableTaskCard(
+        task = previewTask,
         expanded = false
     )
 }
@@ -168,11 +179,14 @@ fun CollapsedTaskCardPreview() {
 @Preview(name = "Expanded Task Card")
 @Composable
 fun ExpandedTaskCardPreview() {
-    ExpandableTaskCard(
+    val previewTask = Task(
         title = "Task Title",
-        dateCreated = "2024-02-01",
-        description = "This is a description of the task. This is a description of the task. This is a description of the task",
-        estimatedDuration = Duration.ofHours(1),
+        createdDateTime = LocalDateTime.now(),
+        description = "This is a description of the task",
+        estimatedDuration = Duration.ofHours(1)
+    )
+    ExpandableTaskCard(
+        task = previewTask,
         expanded = true
     )
 }
