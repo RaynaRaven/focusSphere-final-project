@@ -22,5 +22,22 @@ data class Task(
     var isDone: Boolean = false,
 
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
+    var id: Long = -1,
 )
+
+val dummyTasks = List(10) { i ->
+    Task(
+        title = "Dummy Task $i",
+        description = "This is a dummy task $i",
+        priorityLevel = PriorityLevel.HIGH,
+        status = TaskStatus.TODO,
+        lat = 0.0,
+        lng = 0.0,
+        zoom = 0f,
+        createdDateTime = LocalDateTime.now(),
+        estimatedDuration = Duration.ofMinutes(30),
+        actualDuration = Duration.ofMinutes(0),
+        isDone = false,
+        id = 1234,
+    )
+}
