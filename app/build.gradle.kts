@@ -107,10 +107,11 @@ dependencies {
 
     //Dagger - Hilt
     implementation("com.google.dagger:hilt-android:2.50")
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+//    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     ksp("com.google.dagger:dagger-compiler:2.48.1") // Dagger compiler
     ksp("com.google.dagger:hilt-compiler:2.48.1")   // Hilt compiler
+
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("androidx.room:room-testing:$roomVersion")
