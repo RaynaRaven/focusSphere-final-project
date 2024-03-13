@@ -50,7 +50,6 @@ fun TasksScreen(
                         viewModel.onEvent(TasksEvent.OnUndoDeleteClick)
                     }
                 }
-
                 else -> Unit
             }
         }

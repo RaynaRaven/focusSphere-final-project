@@ -37,7 +37,7 @@ class TasksViewModel @Inject constructor(
      */
     fun onEvent(event: TasksEvent) {
         when (event) {
-            is TasksEvent.onTaskClick -> {
+            is TasksEvent.OnTaskClick -> {
                 sendUiEvent(UiEvent.Navigate(Routes.ADD_EDIT_TASK + "?taskId=${event.task.id}"))
             }
 
@@ -79,6 +79,5 @@ class TasksViewModel @Inject constructor(
            _uiEvent.send(event)
        }
     }
-
 
 }

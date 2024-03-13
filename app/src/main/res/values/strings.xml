@@ -34,6 +34,10 @@
 
     <!-- Edit Task String Resources -->
     <string name="save_task"> Save Task </string>
+    <string name="add_edit_task_title_hint"> Enter title </string>
+    <string name="add_edit_task_description_hint"> You can add your WHY here, it will help motivate you! </string>
+    <string name="add_edit_task_duration"> Select Duration </string>
+    <string name="add_edit_task_priority_hint"> Select Priority </string>
 
     <!-- Snackbar/Toast String Resources-->
 
