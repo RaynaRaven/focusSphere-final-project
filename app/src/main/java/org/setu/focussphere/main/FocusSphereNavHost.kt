@@ -19,7 +19,7 @@ fun FocusSphereNavHost(
     NavHost(
         navController = navController,
         startDestination = Routes.TASK_LIST,
-                modifier = Modifier
+        modifier = modifier
     ) {
         composable(Routes.TASK_LIST) {
             TasksScreen(
