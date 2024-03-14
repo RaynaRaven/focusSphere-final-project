@@ -12,5 +12,6 @@ object Routes {
     const val LOGIN = "login"
     const val REGISTER = "register"
     const val HOME = "home"
+    const val FOCUS = "focus_mode"
 
 }

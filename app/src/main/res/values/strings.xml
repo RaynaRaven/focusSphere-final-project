@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">FocusSphere</string>
 
+    <!-- Navigation Bar String Resources   -->
+    <string name="bottom_navigation_home">Home</string>
+    <string name="bottom_navigation_dashboard">Dashboard</string>
+    <string name="bottom_navigation_focus">Focus</string>
 
 
     <!-- Dashboard View String Resources   -->
@@ -26,17 +30,16 @@
 
     <string name="taskCard_EstimatedTime"> Estimated Time: </string>
 
-    <!-- Create Task String Resources -->
-
+    <!-- Add/Edit Task String Resources -->
+    <string name="add_edit_task_title_label"> Add a Task </string>
     <string name="hint_taskTitle"> Task Title </string>
     <string name="hint_taskDesc"> Task Description </string>
     <string name="button_location"> Set Location </string>
-
-    <!-- Edit Task String Resources -->
     <string name="save_task"> Save Task </string>
     <string name="add_edit_task_title_hint"> Enter title </string>
     <string name="add_edit_task_description_hint"> You can add your WHY here, it will help motivate you! </string>
-    <string name="add_edit_task_duration"> Select Duration </string>
+    <string name="add_edit_task_category_hint"> Select Category </string>
+    <string name="add_edit_task_duration_hint"> Select Duration </string>
     <string name="add_edit_task_priority_hint"> Select Priority </string>
 
     <!-- Snackbar/Toast String Resources-->
