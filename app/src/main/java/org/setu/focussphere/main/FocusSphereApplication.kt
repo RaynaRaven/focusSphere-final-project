@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import dagger.hilt.android.HiltAndroidApp
+import org.setu.focussphere.ui.components.BottomBar
 import org.setu.focussphere.ui.components.TopBar
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -22,12 +23,20 @@ class FocusSphereApplication : Application() {
 }
 @Composable
 fun FocusSphereApp(navController: NavHostController) {
+    val currentRoute = navController.currentDestination?.route ?: ""
     Scaffold(
         topBar = {
-            TopBar(screenTitle = "Tasks",
+            TopBar(
+                screenTitle = "Tasks",
                 onUserIconClick = {
                     i("Topbar user icon clicked")
                 }
+            )
+        },
+        bottomBar = {
+            BottomBar(
+                navController = navController,
+                currentRoute = currentRoute
             )
         }
     ) { contentPadding ->
