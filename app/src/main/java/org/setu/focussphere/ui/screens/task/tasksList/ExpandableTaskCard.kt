@@ -5,6 +5,7 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -43,13 +44,10 @@ import java.time.LocalDateTime
 
 @Composable
 fun ExpandableTaskCard(
-    //TODO refactoring to pass Task data Obj instead of individual fields
-    // will make changes to Task UI more maintainable
     task: Task,
     onEvent: (TasksEvent) -> Unit,
     expanded: Boolean = false,
     shape: CornerBasedShape = Shapes.medium,
-    modifier: Modifier = Modifier
 /*    title: String,
     dateCreated: String,
     description: String,
@@ -60,6 +58,7 @@ fun ExpandableTaskCard(
     var expandedState by rememberSaveable { mutableStateOf(expanded) }
     Card(
         modifier = Modifier
+            .clickable { onEvent(TasksEvent.OnTaskClick(task)) }
             .fillMaxWidth()
             .animateContentSize(
                 animationSpec = tween(
@@ -72,7 +71,7 @@ fun ExpandableTaskCard(
             expandedState = !expandedState
         },
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primary
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
     ) {
         TaskCardContent(
@@ -175,8 +174,8 @@ fun CollapsedTaskCardPreview() {
     )
     ExpandableTaskCard(
         task = previewTask,
-        expanded = false,
-        onEvent = {}
+        onEvent = {},
+        expanded = false
     )
 }
 
@@ -191,7 +190,7 @@ fun ExpandedTaskCardPreview() {
     )
     ExpandableTaskCard(
         task = previewTask,
-        expanded = true,
-        onEvent = {}
+        onEvent = {},
+        expanded = true
     )
 }
