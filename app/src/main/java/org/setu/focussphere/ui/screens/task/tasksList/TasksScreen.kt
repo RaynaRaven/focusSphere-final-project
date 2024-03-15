@@ -4,7 +4,6 @@ package org.setu.focussphere.ui.screens.task.tasksList
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -30,7 +29,8 @@ import org.setu.focussphere.util.UiEvent
 @Composable
 fun TasksScreen(
     onNavigate: (UiEvent.Navigate) -> Unit,
-    viewModel: TasksViewModel = hiltViewModel()
+    viewModel: TasksViewModel = hiltViewModel(),
+    modifier: Modifier = Modifier
 ) {
     //retrieve tasks flow as a composed state
     val tasks by viewModel.tasks.collectAsState(initial = emptyList())
@@ -73,17 +73,16 @@ fun TasksScreen(
         ) {
             items(
                 items = tasks,
-                key = { task -> task.id }
+                key = { task -> task.id!! }
             ) { task ->
                 ExpandableTaskCard(
                     task = task,
                     onEvent = viewModel::onEvent,
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .padding(vertical = 4.dp, horizontal = 8.dp)
                         .clickable {
                             viewModel.onEvent(TasksEvent.OnTaskClick(task))
                         }
-                        .padding(12.dp)
                 )
             }
         }
