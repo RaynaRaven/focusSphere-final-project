@@ -29,7 +29,7 @@ fun FocusSphereNavHost(
             )
         }
         composable(
-            route = Routes.ADD_EDIT_TASK + "?TaskId={taskId}",
+            route = Routes.ADD_EDIT_TASK + "?taskId={taskId}",
             arguments = listOf(
                 navArgument(name = "taskId") {
                     type = NavType.LongType

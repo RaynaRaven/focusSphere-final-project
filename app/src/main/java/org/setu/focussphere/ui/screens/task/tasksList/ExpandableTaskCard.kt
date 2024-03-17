@@ -48,6 +48,7 @@ fun ExpandableTaskCard(
     onEvent: (TasksEvent) -> Unit,
     expanded: Boolean = false,
     shape: CornerBasedShape = Shapes.medium,
+    modifier: Modifier
 /*    title: String,
     dateCreated: String,
     description: String,
@@ -57,8 +58,10 @@ fun ExpandableTaskCard(
 ) {
     var expandedState by rememberSaveable { mutableStateOf(expanded) }
     Card(
-        modifier = Modifier
-            .clickable { onEvent(TasksEvent.OnTaskClick(task)) }
+        modifier = modifier
+            .clickable {
+
+            }
             .fillMaxWidth()
             .animateContentSize(
                 animationSpec = tween(
@@ -68,7 +71,8 @@ fun ExpandableTaskCard(
             ),
         shape = shape,
         onClick = {
-            expandedState = !expandedState
+            onEvent(TasksEvent.OnTaskClick(task))
+//            /*expandedState = !expandedState*/
         },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
@@ -175,7 +179,8 @@ fun CollapsedTaskCardPreview() {
     ExpandableTaskCard(
         task = previewTask,
         onEvent = {},
-        expanded = false
+        expanded = false,
+        modifier = Modifier
     )
 }
 
@@ -191,6 +196,7 @@ fun ExpandedTaskCardPreview() {
     ExpandableTaskCard(
         task = previewTask,
         onEvent = {},
-        expanded = true
+        expanded = true,
+        modifier = Modifier
     )
 }

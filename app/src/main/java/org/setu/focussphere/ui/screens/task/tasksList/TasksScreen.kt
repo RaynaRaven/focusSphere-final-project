@@ -2,7 +2,6 @@ package org.setu.focussphere.ui.screens.task.tasksList
 
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -71,18 +70,15 @@ fun TasksScreen(
         LazyColumn (
             modifier = Modifier.fillMaxSize()
         ) {
-            items(
-                items = tasks,
+            items(tasks) {task ->
+         /*       items = tasks,
                 key = { task -> task.id!! }
-            ) { task ->
+            ) { task ->*/
                 ExpandableTaskCard(
                     task = task,
                     onEvent = viewModel::onEvent,
                     modifier = Modifier
                         .padding(vertical = 4.dp, horizontal = 8.dp)
-                        .clickable {
-                            viewModel.onEvent(TasksEvent.OnTaskClick(task))
-                        }
                 )
             }
         }

@@ -10,6 +10,7 @@ import org.setu.focussphere.data.entities.Task
 import org.setu.focussphere.data.repository.TaskRepository
 import org.setu.focussphere.util.Routes
 import org.setu.focussphere.util.UiEvent
+import timber.log.Timber.Forest.i
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,6 +39,8 @@ class TasksViewModel @Inject constructor(
     fun onEvent(event: TasksEvent) {
         when (event) {
             is TasksEvent.OnTaskClick -> {
+                i("clicky task %s", event.task.id)
+                i(event.task.id.toString())
                 sendUiEvent(UiEvent.Navigate(Routes.ADD_EDIT_TASK + "?taskId=${event.task.id}"))
             }
 
