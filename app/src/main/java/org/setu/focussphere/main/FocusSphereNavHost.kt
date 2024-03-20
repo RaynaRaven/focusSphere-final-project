@@ -7,6 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import org.setu.focussphere.ui.screens.routine.add_edit_routine.AddEditRoutineScreen
 import org.setu.focussphere.ui.screens.task.add_edit_task.AddEditTaskScreen
 import org.setu.focussphere.ui.screens.task.tasksList.TasksScreen
 import org.setu.focussphere.util.Routes
@@ -21,6 +22,7 @@ fun FocusSphereNavHost(
         startDestination = Routes.TASK_LIST,
         modifier = modifier
     ) {
+
         composable(Routes.TASK_LIST) {
             TasksScreen(
                 onNavigate = {
@@ -37,6 +39,19 @@ fun FocusSphereNavHost(
                 })
         ) {
             AddEditTaskScreen(
+                onPopBackStack = {
+                    navController.popBackStack()
+                })
+        }
+        composable(
+            route = Routes.ADD_EDIT_ROUTINE + "?routineId={routineId}",
+            arguments = listOf(
+                navArgument(name = "routineId") {
+                    type = NavType.LongType
+                    defaultValue = -1
+                })
+        ) {
+            AddEditRoutineScreen(
                 onPopBackStack = {
                     navController.popBackStack()
                 })
