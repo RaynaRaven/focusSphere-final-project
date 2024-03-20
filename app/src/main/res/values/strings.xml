@@ -30,6 +30,15 @@
 
     <string name="taskCard_EstimatedTime"> Estimated Time: </string>
 
+    <!-- Routine Card String Resources -->
+
+    <string name="routineCard_taskCount"> Task Count: </string>
+
+    <!-- Add/Edit Routine String Resources -->
+
+    <string name="add_edit_routine_title_label"> Add a Routine </string>
+    <string name="add_edit_routine_title_hint"> Routine Title  </string>
+
     <!-- Add/Edit Task String Resources -->
     <string name="add_edit_task_title_label"> Add a Task </string>
     <string name="hint_taskTitle"> Task Title </string>
@@ -64,6 +73,10 @@
     <!-- Map Activity String Resources -->
     <string name="title_activity_task_maps">Map of task locations</string>
     <string name="title_activity_map">MapActivity</string>
+
+    <!-- FAB Label String Resources -->
+    <string name="fab_add_task_label"> Add Task </string>
+    <string name="fab_add_routine_label"> Add Routine </string>
 
 
 </resources>
