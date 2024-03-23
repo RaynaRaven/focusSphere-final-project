@@ -9,7 +9,6 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,11 +41,11 @@ fun FilterView(
     val iconRotationDegree by transition.animateFloat({
         tween(durationMillis = 150, easing = FastOutSlowInEasing)
     }, label = "rotation") {
-        if (filterFabState == FilterFabState.EXPANDED) 230f else 0f
+        if (filterFabState == FilterFabState.EXPANDED) 225f else 0f
     }
 
     Column(
-        modifier = modifier.fillMaxSize().padding(16.dp), horizontalAlignment = Alignment.End,
+        modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.End,
         verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Bottom)
     ) {
         FilterFabMenu(items = items, visible = filterFabState == FilterFabState.EXPANDED)

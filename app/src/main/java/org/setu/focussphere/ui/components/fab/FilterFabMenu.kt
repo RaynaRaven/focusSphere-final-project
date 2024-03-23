@@ -42,7 +42,6 @@ fun FilterFabMenu(
         )
     }
 
-
     AnimatedVisibility(visible = visible, enter = enterTransition, exit = exitTransition) {
         Column(
             modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.End,

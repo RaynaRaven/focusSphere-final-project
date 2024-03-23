@@ -39,7 +39,6 @@ fun FilterFab(
     ) {
         Icon(
             imageVector = Icons.Default.Add,
-//            painter = painterResource(R.drawable.fab_add),
             contentDescription = null,
             tint = Color.White
         )
