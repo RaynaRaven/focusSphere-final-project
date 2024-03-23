@@ -52,6 +52,27 @@ fun RoutinesScreen(
             }
         }
     }
+
+/*    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.Navigate -> {
+                    onNavigate(event)
+                }
+                is UiEvent.ShowSnackbar -> {
+                    val result = snackbarHostState.showSnackbar(
+                        message = event.message,
+                        actionLabel = event.action
+                    )
+                    if (result == SnackbarResult.ActionPerformed) {
+                        viewModel.onEvent(RoutinesEvent.OnUndoDeleteClick)
+                    }
+                }
+                else -> Unit
+            }
+        }
+    }*/
+
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = {

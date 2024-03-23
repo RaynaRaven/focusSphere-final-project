@@ -39,7 +39,9 @@ fun TasksScreen(
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvent.Navigate -> onNavigate(event)
+                is UiEvent.Navigate -> {
+                    onNavigate(event)
+                }
                 is UiEvent.ShowSnackbar -> {
                     val result = snackbarHostState.showSnackbar(
                         message = event.message,
@@ -67,13 +69,10 @@ fun TasksScreen(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState)
         }
     ) {
-        LazyColumn (
+        LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
-            items(tasks) {task ->
-         /*       items = tasks,
-                key = { task -> task.id!! }
-            ) { task ->*/
+            items(tasks) { task ->
                 ExpandableTaskCard(
                     task = task,
                     onEvent = viewModel::onEvent,
