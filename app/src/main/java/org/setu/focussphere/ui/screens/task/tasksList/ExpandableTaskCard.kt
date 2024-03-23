@@ -49,12 +49,6 @@ fun ExpandableTaskCard(
     expanded: Boolean = false,
     shape: CornerBasedShape = Shapes.medium,
     modifier: Modifier
-/*    title: String,
-    dateCreated: String,
-    description: String,
-    estimatedDuration: Duration,
-    expanded: Boolean,
-    shape: CornerBasedShape = Shapes.medium,*/
 ) {
     var expandedState by rememberSaveable { mutableStateOf(expanded) }
     Card(
@@ -99,7 +93,7 @@ private fun TaskCardContent(
 ) {
     var expandedState by rememberSaveable { mutableStateOf(expanded) }
     val rotationState by animateFloatAsState(targetValue = if (expandedState) 180f else 0f,
-        label = "wat"
+        label = "label"
     )
     Row(
         modifier = Modifier

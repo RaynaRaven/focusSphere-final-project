@@ -39,7 +39,6 @@ class TasksViewModel @Inject constructor(
     fun onEvent(event: TasksEvent) {
         when (event) {
             is TasksEvent.OnTaskClick -> {
-                i("clicky task %s", event.task.id)
                 i(event.task.id.toString())
                 sendUiEvent(UiEvent.Navigate(Routes.ADD_EDIT_TASK + "?taskId=${event.task.id}"))
             }
