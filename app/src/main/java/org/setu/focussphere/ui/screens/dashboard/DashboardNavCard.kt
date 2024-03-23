@@ -31,7 +31,9 @@ import timber.log.Timber.Forest.i
 @Composable
 fun DashboardNavCard(
     shape: CornerBasedShape = Shapes.small,
+    onClick: () -> Unit = {},
     content: @Composable () -> Unit,
+    modifier: Modifier= Modifier
 ) {
     Card (
         shape = shape,
@@ -41,11 +43,12 @@ fun DashboardNavCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
         ),
-        modifier = Modifier
+        modifier = modifier
             .aspectRatio(0.75f)
             .clickable {
                 i("DashboardNavCard clicked")
-            }
+            },
+        onClick = onClick
     ) {
         content()
     }
@@ -66,7 +69,7 @@ fun DashboardNavCardContent(
     {
         Text(
             text = title,
-            style = MaterialTheme.typography.displayLarge,
+            style = MaterialTheme.typography.titleLarge,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 8.dp)
@@ -74,7 +77,7 @@ fun DashboardNavCardContent(
         )
         Text(
             text = subTitle,
-            style = MaterialTheme.typography.displaySmall,
+            style = MaterialTheme.typography.titleMedium,
             modifier = Modifier
                 .fillMaxWidth()
         )
@@ -83,7 +86,7 @@ fun DashboardNavCardContent(
             contentDescription = "image icon",
             modifier = Modifier
                 .fillMaxHeight(.8f)
-                .size(300.dp),
+                .size(80.dp),
             tint = Color.DarkGray
         )
     }
@@ -95,9 +98,9 @@ fun PreviewDashboardNavCard() {
     DashboardNavCard(
         content = { DashboardNavCardContent(
             title = stringResource(
-                R.string.dashboard_tasks_title),
+                R.string.dashboard_nav_card_title_tasks),
             subTitle = stringResource(
-                R.string.dashboard_tasks_subtitle),
+                R.string.dashboard_nav_card_subtitle_tasks),
             icon = Icons.AutoMirrored.Outlined.List)
         }
     )
