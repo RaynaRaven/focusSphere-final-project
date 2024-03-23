@@ -7,7 +7,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import org.setu.focussphere.ui.screens.dashboard.DashboardScreen
 import org.setu.focussphere.ui.screens.routine.add_edit_routine.AddEditRoutineScreen
+import org.setu.focussphere.ui.screens.routine.routinesList.RoutinesScreen
 import org.setu.focussphere.ui.screens.task.add_edit_task.AddEditTaskScreen
 import org.setu.focussphere.ui.screens.task.tasksList.TasksScreen
 import org.setu.focussphere.util.Routes
@@ -19,10 +21,17 @@ fun FocusSphereNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Routes.TASK_LIST,
+        startDestination = Routes.DASHBOARD,
         modifier = modifier
     ) {
 
+        composable(Routes.DASHBOARD) {
+            DashboardScreen(
+                onNavigate = {
+                    navController.navigate(it.route)
+                }
+            )
+        }
         composable(Routes.TASK_LIST) {
             TasksScreen(
                 onNavigate = {
@@ -30,6 +39,21 @@ fun FocusSphereNavHost(
                 }
             )
         }
+        composable(Routes.ROUTINES_LIST) {
+            RoutinesScreen(
+                onNavigate = {
+                    navController.navigate(it.route)
+                }
+            )
+        }
+        composable(Routes.TASK_TRACKER) {
+           /* RoutinesScreen(
+                onNavigate = {
+                    navController.navigate(it.route)
+                }
+            )*/
+        }
+
         composable(
             route = Routes.ADD_EDIT_TASK + "?taskId={taskId}",
             arguments = listOf(

@@ -36,7 +36,8 @@ fun BottomBar(
             selected = currentRoute == Routes.HOME,
             onClick = { Timber.i("Home icon clicked")
             /*navController.navigate(Routes.HOME)*/
-            navController.navigate(Routes.TASK_LIST)}
+            navController.navigate(Routes.TASK_LIST)
+            }
         )
         NavigationBarItem(
             //TODO: Add custom icon for dashboard
@@ -44,7 +45,7 @@ fun BottomBar(
             label = { Text(text = stringResource(R.string.bottom_navigation_dashboard), color = Color.White) },
             selected = currentRoute == Routes.DASHBOARD,
             onClick = { Timber.i("Dashboard icon clicked")
-                /*navController.navigate(Routes.DASHBOARD)*/ }
+                navController.navigate(Routes.DASHBOARD) }
         )
         NavigationBarItem(
             //TODO: Add custom icon for focusMode (target or similar)

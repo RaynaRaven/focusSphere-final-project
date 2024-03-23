@@ -9,11 +9,17 @@
 
     <!-- Dashboard View String Resources   -->
 
-    <string name="dashboard_activity_title">Dashboard</string>
-    <string name="dashboard_tasks_title">Tasks</string>
-    <string name="dashboard_timeScore_title">TimeScore</string>
+    <string name="dashboard_screen_title">Dashboard</string>
+    <string name="dashboard_nav_card_title_tasks">Tasks</string>
+    <string name="dashboard_nav_card_subtitle_tasks">View your tasks</string>
+    <string name="dashboard_nav_card_title_routines">Routines</string>
+    <string name="dashboard_nav_card_subtitle_routines">View your routines</string>
+    <string name="dashboard_nav_card_title_reports">Reports</string>
+    <string name="dashboard_nav_card_subtitle_reports">View your stats</string>
+    <string name="dashboard_nav_card_title_taskTracker">Task Tracker</string>
+    <string name="dashboard_nav_card_subtitle_taskTracker">Track your tasks</string>
     <string name="dashboard_focusMode_title">Focus Mode</string>
-    <string name="dashboard_reports_title">Reports</string>
+    <string name="dashboard_timeScore_title">TimeScore</string>
 
     <!-- Nav Fragment String Resources -->
 
