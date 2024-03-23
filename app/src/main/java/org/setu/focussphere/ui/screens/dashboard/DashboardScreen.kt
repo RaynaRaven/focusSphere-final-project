@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -33,6 +34,7 @@ import org.setu.focussphere.ui.screens.task.tasksList.TasksEvent
 import org.setu.focussphere.ui.screens.task.tasksList.TasksViewModel
 import org.setu.focussphere.util.Routes
 import org.setu.focussphere.util.UiEvent
+import timber.log.Timber.Forest.i
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -42,11 +44,31 @@ fun DashboardScreen(
     routinesViewModel: RoutinesViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
+
+    LaunchedEffect(key1 = true) {
+        tasksViewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.Navigate -> onNavigate(event)
+                else -> Unit
+            }
+        }
+    }
+
+    LaunchedEffect(key1 = true) {
+        routinesViewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.Navigate -> onNavigate(event)
+                else -> Unit
+            }
+        }
+    }
+
     val fabMenuItems = listOf<FilterFabMenuItem>(
         FilterFabMenuItem(
             label = stringResource(id = R.string.fab_add_task_label),
             icon = Icons.Default.Add,
             onClick = {
+                i("DashboardScreen: Add Task Clicked")
                 tasksViewModel.onEvent(TasksEvent.OnAddTaskClick)
             }
         ),
@@ -54,8 +76,9 @@ fun DashboardScreen(
             label = stringResource(id = R.string.fab_add_routine_label),
             icon = Icons.Default.Add,
             onClick = {
+                i("DashboardScreen: Add Routine Clicked")
                 routinesViewModel.onEvent(RoutinesEvent.OnAddRoutineClick)
-            },
+            }
         )
     )
 

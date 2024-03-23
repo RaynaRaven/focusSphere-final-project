@@ -44,6 +44,7 @@ class TasksViewModel @Inject constructor(
             }
 
             is TasksEvent.OnAddTaskClick -> {
+                i("add task event received after click")
                 sendUiEvent(UiEvent.Navigate(Routes.ADD_EDIT_TASK))
             }
 
