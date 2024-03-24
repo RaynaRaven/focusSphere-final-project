@@ -2,6 +2,7 @@ package org.setu.focussphere.ui.components.fab
 
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,9 +18,7 @@ fun FilterFabMenuButton(
     FloatingActionButton(
         modifier = modifier,
         onClick = item.onClick,
-/*        backgroundColor = colorResource(
-            id = R.color.primary_color
-        )*/
+        containerColor = MaterialTheme.colorScheme.secondary
     ) {
         Icon(
 /*            painter = painterResource(item.icon), contentDescription = null, tint = colorResource(

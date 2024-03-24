@@ -8,11 +8,14 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -30,13 +33,13 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.setu.focussphere.R
 import org.setu.focussphere.data.entities.Task
+import org.setu.focussphere.helpers.Formatters
 import org.setu.focussphere.ui.theme.Shapes
 import java.time.Duration
 import java.time.LocalDateTime
@@ -48,13 +51,13 @@ fun ExpandableTaskCard(
     onEvent: (TasksEvent) -> Unit,
     expanded: Boolean = false,
     shape: CornerBasedShape = Shapes.medium,
-    modifier: Modifier
+    modifier: Modifier,
+    formatter: Formatters
 ) {
     var expandedState by rememberSaveable { mutableStateOf(expanded) }
     Card(
         modifier = modifier
             .clickable {
-
             }
             .fillMaxWidth()
             .animateContentSize(
@@ -74,9 +77,9 @@ fun ExpandableTaskCard(
     ) {
         TaskCardContent(
             task.title,
-            task.createdDateTime.toString(),
+            formatter.formatDateTimeToDayMonthYear(task.createdDateTime),
             task.description,
-            task.estimatedDuration!!,
+            formatter.formatDuration(task.estimatedDuration),
             expanded
         )
     }
@@ -87,7 +90,7 @@ private fun TaskCardContent(
     title: String,
     dateCreated: String,
     description: String,
-    estimatedDuration: Duration,
+    estimatedDuration: String,
     expanded: Boolean,
     padding: Dp = 8.dp
 ) {
@@ -109,12 +112,11 @@ private fun TaskCardContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .padding(padding)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     modifier = Modifier
-                        .weight(3f),
+                        .weight(8f),
                     text = title,
                     style = MaterialTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold
@@ -122,17 +124,44 @@ private fun TaskCardContent(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(
+                    modifier = Modifier
+                        .alpha(0.5f)
+                        .weight(1f),
+                    onClick = {
+                        //TODO delete call here
+                    }) {
+                    Icon(
+                        modifier = Modifier
+                            .size(24.dp),
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Delete Task")
+                }
+
+            }
+            Row(verticalAlignment = Alignment.Top){
                 Text(
                     modifier = Modifier
-                        .weight(3f),
-                    text =  stringResource(R.string.taskCard_EstimatedTime) + estimatedDuration,
-                    textAlign = TextAlign.End,
+                        .weight(1f),
+                    text =  stringResource(R.string.taskCard_EstimatedTime) + " $estimatedDuration",
+                    style = MaterialTheme.typography.labelLarge
+                )
+            }
+            Row(verticalAlignment = Alignment.CenterVertically){
+                //TODO: Add a date formatter to format the date
+                Text(
+                    modifier = Modifier
+                        .weight(8f),
+                    text = "Created $dateCreated",
                     style = MaterialTheme.typography.labelMedium
                 )
+                Spacer(modifier = Modifier.weight(1f))
                 IconButton(
                     modifier = Modifier
                         .alpha(0.5f)
                         .weight(1f)
+                        .size(24.dp)
                         .rotate(rotationState),
                     onClick = {
                         expandedState = !expandedState
@@ -142,11 +171,7 @@ private fun TaskCardContent(
                         contentDescription = "Expand task details")
                 }
             }
-            //TODO: Add a date formatter to format the date
-            Text(
-                text = "Created $dateCreated",
-                style = MaterialTheme.typography.labelMedium
-            )
+
             //TODO: add a delete icon button
             if (expandedState) {
                 Text(
@@ -165,16 +190,17 @@ private fun TaskCardContent(
 @Composable
 fun CollapsedTaskCardPreview() {
     val previewTask = Task(
-        title = "Task Title",
+        title = "Fill Dishwasher",
         createdDateTime = LocalDateTime.now(),
         description = "This is a description of the task",
-        estimatedDuration = Duration.ofHours(1)
+        estimatedDuration = Duration.ofMinutes(200)
     )
     ExpandableTaskCard(
         task = previewTask,
         onEvent = {},
         expanded = false,
-        modifier = Modifier
+        modifier = Modifier,
+        formatter = Formatters
     )
 }
 
@@ -185,12 +211,13 @@ fun ExpandedTaskCardPreview() {
         title = "Task Title",
         createdDateTime = LocalDateTime.now(),
         description = "This is a description of the task",
-        estimatedDuration = Duration.ofHours(1)
+        estimatedDuration = Duration.ofMinutes(200)
     )
     ExpandableTaskCard(
         task = previewTask,
         onEvent = {},
         expanded = true,
-        modifier = Modifier
+        modifier = Modifier,
+        formatter = Formatters
     )
 }

@@ -17,7 +17,7 @@ data class Task(
     var lng: Double = 0.0,
     var zoom: Float = 0f,
     var createdDateTime: LocalDateTime = LocalDateTime.now(),
-    var estimatedDuration: Duration? = Duration.ofMinutes(30),
+    var estimatedDuration: Duration = Duration.ofMinutes(30),
     var actualDuration: Duration? = Duration.ofMinutes(0),
     var isDone: Boolean = false,
 

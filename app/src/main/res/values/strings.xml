@@ -34,7 +34,7 @@
 
     <!-- Task Card String Resources -->
 
-    <string name="taskCard_EstimatedTime"> Estimated Time: </string>
+    <string name="taskCard_EstimatedTime"> Estimated: </string>
 
     <!-- Routine Card String Resources -->
 
