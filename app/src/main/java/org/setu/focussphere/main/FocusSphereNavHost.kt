@@ -79,7 +79,9 @@ fun FocusSphereNavHost(
             AddEditRoutineScreen(
                 onPopBackStack = {
                     navController.popBackStack()
-                })
+                },
+                navController = navController
+            )
         }
     }
 }
