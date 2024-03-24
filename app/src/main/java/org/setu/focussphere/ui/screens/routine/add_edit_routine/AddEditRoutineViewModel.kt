@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import org.setu.focussphere.data.entities.Routine
 import org.setu.focussphere.data.repository.RoutineRepository
+import org.setu.focussphere.util.Routes
 import org.setu.focussphere.util.UiEvent
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,17 +20,15 @@ import javax.inject.Inject
 @HiltViewModel
 class AddEditRoutineViewModel @Inject constructor(
     private val repository: RoutineRepository,
-
     //SavedStateHandle is a key-value store that can be used to save UI state
     // and retrieve data. Can contain navigation arguments, such as routineId
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    //different states of the add/edit routine screen
-    //by keyword delegates property access to another object
-    //private set means that props can only be set within class
-    //i.e restricted access to setter from outside class
-
+/*    different states of the add/edit routine screen
+    by keyword delegates property access to another object
+    private set means that props can only be set within class
+    i.e restricted access to setter from outside class*/
     var routine by mutableStateOf<Routine?>(null)
         private set
 
@@ -39,12 +38,10 @@ class AddEditRoutineViewModel @Inject constructor(
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-
 /* init reads routineId, and if not default value, means we clicked on an existing routine
 to edit, and data will be retrieved from repository and loaded into UI fields where it
 can be edited/updated.
-* */
-
+*/
     init {
         val routineId = savedStateHandle.get<Long>("routineId")!!
         if (routineId != -1L) {
@@ -81,7 +78,8 @@ can be edited/updated.
                     )
                 )
                     Timber.tag("DatabaseDebug").d("Inserted Routine: %s", routine)
-                sendUiEvent(UiEvent.PopBackStack)
+//                sendUiEvent(UiEvent.PopBackStack)
+                    sendUiEvent(UiEvent.Navigate(Routes.ROUTINES_LIST))
                 }
             }
             else -> { Unit }

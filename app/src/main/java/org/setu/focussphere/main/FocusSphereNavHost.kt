@@ -65,7 +65,8 @@ fun FocusSphereNavHost(
             AddEditTaskScreen(
                 onPopBackStack = {
                     navController.popBackStack()
-                })
+                },
+                navController = navController)
         }
         composable(
             route = Routes.ADD_EDIT_ROUTINE + "?routineId={routineId}",

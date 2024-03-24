@@ -27,14 +27,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 import org.setu.focussphere.R
+import org.setu.focussphere.util.Routes
 import org.setu.focussphere.util.UiEvent
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AddEditRoutineScreen(
     onPopBackStack: () -> Unit,
+    navController: NavController,
     viewModel: AddEditRoutineViewModel = hiltViewModel()
 ) {
 
@@ -45,6 +48,10 @@ fun AddEditRoutineScreen(
         viewModel.uiEvent.collect { event ->
             when (event) {
                 is UiEvent.PopBackStack -> onPopBackStack()
+                is UiEvent.Navigate -> navController.navigate(event.route) {
+                    //adjust navigation to clear backstack to prevent back nav to addTask
+                    popUpTo(Routes.DASHBOARD)
+                }
                 is UiEvent.ShowSnackbar -> {
                     scope.launch {
                         snackbarHostState.showSnackbar(

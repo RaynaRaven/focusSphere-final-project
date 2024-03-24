@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import org.setu.focussphere.data.entities.Task
 import org.setu.focussphere.data.repository.TaskRepository
+import org.setu.focussphere.util.Routes
 import org.setu.focussphere.util.UiEvent
 import timber.log.Timber
 import javax.inject.Inject
@@ -110,7 +111,8 @@ can be edited/updated.
                     )
                 )
                     Timber.tag("DatabaseDebug").d("Inserted Task: %s", task)
-                sendUiEvent(UiEvent.PopBackStack)
+//                sendUiEvent(UiEvent.PopBackStack)
+                sendUiEvent(UiEvent.Navigate(Routes.TASK_LIST))
                 }
             }
             else -> { Unit }
