@@ -22,7 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import org.setu.focussphere.helpers.Formatters
+import org.setu.focussphere.util.Formatters
 import org.setu.focussphere.util.UiEvent
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

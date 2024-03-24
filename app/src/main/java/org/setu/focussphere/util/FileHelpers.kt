@@ -1,8 +1,12 @@
-package org.setu.focussphere.helpers
+package org.setu.focussphere.util
 
 import android.content.Context
 import timber.log.Timber.Forest.e
-import java.io.*
+import java.io.BufferedReader
+import java.io.FileNotFoundException
+import java.io.IOException
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 
 fun write(context: Context, fileName: String, data: String) {
     try {

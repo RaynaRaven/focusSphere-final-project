@@ -1,4 +1,4 @@
-package org.setu.focussphere.helpers
+package org.setu.focussphere.util
 
 import androidx.room.TypeConverter
 import org.setu.focussphere.data.enums.PriorityLevel
