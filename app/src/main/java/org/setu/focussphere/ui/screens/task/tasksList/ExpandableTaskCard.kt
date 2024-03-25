@@ -44,7 +44,6 @@ import org.setu.focussphere.util.Formatters
 import java.time.Duration
 import java.time.LocalDateTime
 
-
 @Composable
 fun ExpandableTaskCard(
     task: Task,
@@ -76,6 +75,8 @@ fun ExpandableTaskCard(
         ),
     ) {
         TaskCardContent(
+            task,
+            onEvent = onEvent,
             task.title,
             formatter.formatDateTimeToDayMonthYear(task.createdDateTime),
             task.description,
@@ -87,6 +88,8 @@ fun ExpandableTaskCard(
 
 @Composable
 private fun TaskCardContent(
+    task: Task,
+    onEvent: (TasksEvent) -> Unit,
     title: String,
     dateCreated: String,
     description: String,
@@ -130,7 +133,7 @@ private fun TaskCardContent(
                         .alpha(0.5f)
                         .weight(1f),
                     onClick = {
-                        //TODO delete call here
+                        onEvent(TasksEvent.OnDeleteTaskClick(task))
                     }) {
                     Icon(
                         modifier = Modifier
@@ -149,7 +152,6 @@ private fun TaskCardContent(
                 )
             }
             Row(verticalAlignment = Alignment.CenterVertically){
-                //TODO: Add a date formatter to format the date
                 Text(
                     modifier = Modifier
                         .weight(8f),
