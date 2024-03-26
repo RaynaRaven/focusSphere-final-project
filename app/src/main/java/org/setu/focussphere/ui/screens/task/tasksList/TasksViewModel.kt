@@ -7,6 +7,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import org.setu.focussphere.data.entities.Task
+import org.setu.focussphere.data.repository.RoutineRepository
 import org.setu.focussphere.data.repository.TaskRepository
 import org.setu.focussphere.util.Routes
 import org.setu.focussphere.util.UiEvent
@@ -15,10 +16,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TasksViewModel @Inject constructor(
-    private val repository: TaskRepository
+    private val taskRepository: TaskRepository,
+    private val routineRepository: RoutineRepository
 ) : ViewModel() {
 
-    val tasks = repository.getTasks()
+    val tasks = taskRepository.getTasks()
 
     //channel is a flow that can be used to send data to the UI
     //e.g. a channel can be used to send a message to the UI to show a snackbar
@@ -51,7 +53,7 @@ class TasksViewModel @Inject constructor(
             is TasksEvent.OnDeleteTaskClick -> {
                viewModelScope.launch {
                    deletedTask = event.task
-                   repository.deleteTask(event.task)
+                   taskRepository.deleteTask(event.task)
                    sendUiEvent(UiEvent.ShowSnackbar( message = "Task deleted",
                          action = "Undo"))
                }
@@ -60,14 +62,14 @@ class TasksViewModel @Inject constructor(
             is TasksEvent.OnUndoDeleteClick -> {
                 deletedTask?.let {
                     viewModelScope.launch {
-                        repository.insertTask(it)
+                        taskRepository.insertTask(it)
                     }
                 }
             }
 
             is TasksEvent.OnDoneChange -> {
                 viewModelScope.launch {
-                    repository.insertTask(
+                    taskRepository.insertTask(
                         event.task.copy(
                             isDone = event.isDone
                         )
