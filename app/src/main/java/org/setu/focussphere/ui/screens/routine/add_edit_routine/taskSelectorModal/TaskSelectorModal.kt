@@ -41,8 +41,9 @@ fun TaskSelectorModal(
                         .fillMaxWidth()
                         .padding(8.dp)
                 ){
-                    Checkbox(checked = selectedTasks.contains(task.id),
-                             onCheckedChange = {
+                    Checkbox(
+                             checked = selectedTasks.contains(task.id),
+                             onCheckedChange = { _ ->
                                  onTaskSelected(task.id)
                              }
                     )

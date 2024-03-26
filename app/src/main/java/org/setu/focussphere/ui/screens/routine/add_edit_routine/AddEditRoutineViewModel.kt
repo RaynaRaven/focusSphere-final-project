@@ -57,12 +57,13 @@ can be edited/updated.
 */
     init {
         val routineId = savedStateHandle.get<Long>("routineId")!!
-        if (routineId != -1L) {
+        if (routineId != 0L) {
             viewModelScope.launch {
                 routineRepository.getRoutineById(routineId)?.let { routine ->
                     title = routine.title
-                    //TODO enable when category entity impl
                     this@AddEditRoutineViewModel.routine = routine
+                    val associatedTaskIds = routineRepository.getTaskIdsForRoutine(routineId).first()
+                    _selectedTasksFlow.value = associatedTaskIds
                 }
             }
         }
