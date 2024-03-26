@@ -60,7 +60,7 @@ fun TaskSelectorModal(
                     showModal.value = false
                 }
             ) {
-                Text( text = stringResource(id = R.string.fab_add_task_label))
+                Text( text = stringResource(id = R.string.button_label_done))
             }
         }
     }
