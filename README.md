@@ -1,6 +1,8 @@
 # FocusSphere
 
-FocusSphere is an intuitive task management application designed to help users organize their tasks efficiently, reduce smartphone usage and improve productivity, time management and focus. Built with Android Studio, this app provides a clean interface for managing daily tasks with features like task prioritisation and location tracking, task duration estimations, and more.
+FocusSphere is an intuitive task management application designed to help users with ADHD organize their tasks effectively, and improve productivity, time management and focus. 
+
+Built with Android Studio using Jetpack Compose and Material3 design principles, this app provides a clean interface for managing daily tasks and routines with features like task and routine creation, task tracking, and user insights/reports.
 
 ## Features
 
@@ -13,12 +15,16 @@ FocusSphere is an intuitive task management application designed to help users o
 - **User dashboard**
   - clickable cards that launches task activity
 
-- **Map Integration**
-  - Visualize task locations with integrated Google Maps, allowing for the addition and movement of location markers.
-
 - **User Interface**
   - User-friendly interface with clear, accessible buttons and dialogs.
   - Task list view with options to edit or delete tasks within the task activity.
+ 
+- **Routines**
+- Add tasks to routines and use these to
+
+- **Task Tracker**
+- Tasks within a routine are scheduled with a timer.
+- Race against user set estimated Duration to complete tasks on time and improve 
 
 ## Upcoming Features
 
@@ -33,9 +39,6 @@ FocusSphere is an intuitive task management application designed to help users o
   - Estimate task durations and compare them against actual time spent to improve time management skills.
   - Track user time accuracy over a month and record cumulative scores for self-improvement analysis.
 
-- **Task Due Dates**
-  - Set due dates for tasks to manage deadlines effectively.
-
 - **Task Search/Filter**
   - Easily search for tasks by keyword, or filter by priority
  
@@ -43,7 +46,9 @@ FocusSphere is an intuitive task management application designed to help users o
   - see number of tasks by category, track your Time Accuracy Score to improve time blindness
   - Monthly reports of user time accuracy
 
-- **Enhanced location features with geofencing reminders**
+- - **Map Integration**
+  - Visualize task locations with integrated Google Maps, allowing for the addition and movement of location markers.
+- - **Enhanced location features with geofencing reminders**
 
 - **Focus Mode**
    - timed distraction free mode based on pomodoro technique
