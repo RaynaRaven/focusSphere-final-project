@@ -20,11 +20,11 @@ Built with Android Studio using Jetpack Compose and Material3 design principles,
   - Task list view with options to edit or delete tasks within the task activity.
  
 - **Routines**
-- Add tasks to routines and use these to
+  - Add tasks to routines, gain insights into how long your routine will take.
 
 - **Task Tracker**
-- Tasks within a routine are scheduled with a timer.
-- Race against user set estimated Duration to complete tasks on time and improve 
+  - Tasks within a routine are scheduled with a timer.
+  - Race against user set estimated Duration to complete tasks on time and improve 
 
 ## Upcoming Features
 
