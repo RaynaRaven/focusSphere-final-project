@@ -102,7 +102,7 @@ can be edited/updated.
                 }
                 repository.insertTask(
                     Task(
-                        id = task?.id, // update existing if we have old ID
+                        id = task?.id ?: 0, // update existing if we have old ID
                         title = title,
                         description = description,
 //                        category = category,

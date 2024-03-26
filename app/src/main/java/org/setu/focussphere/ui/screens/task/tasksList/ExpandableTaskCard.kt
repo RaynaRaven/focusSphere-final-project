@@ -173,8 +173,6 @@ private fun TaskCardContent(
                         contentDescription = "Expand task details")
                 }
             }
-
-            //TODO: add a delete icon button
             if (expandedState) {
                 Text(
                     modifier = Modifier.padding(top = 8.dp),
@@ -195,7 +193,8 @@ fun CollapsedTaskCardPreview() {
         title = "Fill Dishwasher",
         createdDateTime = LocalDateTime.now(),
         description = "This is a description of the task",
-        estimatedDuration = Duration.ofMinutes(200)
+        estimatedDuration = Duration.ofMinutes(200),
+        id = 1L
     )
     ExpandableTaskCard(
         task = previewTask,
@@ -213,7 +212,8 @@ fun ExpandedTaskCardPreview() {
         title = "Task Title",
         createdDateTime = LocalDateTime.now(),
         description = "This is a description of the task",
-        estimatedDuration = Duration.ofMinutes(200)
+        estimatedDuration = Duration.ofMinutes(200),
+        id = 1L
     )
     ExpandableTaskCard(
         task = previewTask,

@@ -9,15 +9,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -26,10 +28,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 import org.setu.focussphere.R
+import org.setu.focussphere.ui.screens.routine.add_edit_routine.taskSelectorModal.TaskSelectorScreen
 import org.setu.focussphere.util.Routes
 import org.setu.focussphere.util.UiEvent
 
@@ -43,6 +47,7 @@ fun AddEditRoutineScreen(
 
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    val showModal = remember { mutableStateOf(false)}
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
@@ -92,7 +97,7 @@ fun AddEditRoutineScreen(
                 color = Color.Gray
             )
             Spacer(modifier = Modifier.height(8.dp))
-            TextField(
+            OutlinedTextField(
                 value = viewModel.title,
                 placeholder = { Text( text = stringResource(R.string.add_edit_routine_title_hint)) },
                 onValueChange = {
@@ -100,6 +105,18 @@ fun AddEditRoutineScreen(
                 },
                 modifier = Modifier.fillMaxWidth()
             )
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(onClick = { showModal.value = true }) {
+                Text( text = stringResource(id = R.string.button_label_add_tasks))
+            }
+            if(showModal.value) {
+                Dialog(onDismissRequest = { showModal.value = false }) {
+                    TaskSelectorScreen(
+                        viewModel = viewModel,
+                        showModal = showModal)
+
+                }
             }
         }
     }
+}

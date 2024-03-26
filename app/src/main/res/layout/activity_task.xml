@@ -105,7 +105,7 @@
         android:layout_marginTop="611dp"
         android:layout_marginBottom="72dp"
         android:background="@drawable/rounded_edittext"
-        android:text="@string/button_label"
+        android:text="@string/button_label_add_task"
         android:textAppearance="?android:attr/textAppearanceMedium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -22,7 +22,7 @@ data class Task(
     var isDone: Boolean = false,
 
     @PrimaryKey(autoGenerate = true)
-    var id: Long? = null
+    var id: Long = 0L
 )
 
 val dummyTasks = List(10) { i ->

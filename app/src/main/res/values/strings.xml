@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">FocusSphere</string>
 
     <!-- Navigation Bar String Resources   -->
@@ -6,9 +7,7 @@
     <string name="bottom_navigation_dashboard">Dashboard</string>
     <string name="bottom_navigation_focus">Focus</string>
 
-
     <!-- Dashboard View String Resources   -->
-
     <string name="dashboard_screen_title">Dashboard</string>
     <string name="dashboard_nav_card_title_tasks">Tasks</string>
     <string name="dashboard_nav_card_subtitle_tasks">View your tasks</string>
@@ -22,28 +21,24 @@
     <string name="dashboard_timeScore_title">TimeScore</string>
 
     <!-- Nav Fragment String Resources -->
-
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
     <!-- Menu String Resources   -->
-
     <string name="menu_addTask"> Add </string>
     <string name="menu_cancelAddTask"> Cancel </string>
     <string name="menu_DeleteTask"> Delete </string>
 
     <!-- Task Card String Resources -->
-
     <string name="taskCard_EstimatedTime"> Estimated: </string>
 
     <!-- Routine Card String Resources -->
-
     <string name="routineCard_taskCount"> Task Count: </string>
 
     <!-- Add/Edit Routine String Resources -->
-
     <string name="add_edit_routine_title_label"> Add a Routine </string>
     <string name="add_edit_routine_title_hint"> Routine Title  </string>
+    <string name="add_edit_routine_modal_headline_select_tasks"> Select Tasks </string>
 
     <!-- Add/Edit Task String Resources -->
     <string name="add_edit_task_title_label"> Add a Task </string>
@@ -58,9 +53,10 @@
     <string name="add_edit_task_priority_hint"> Select Priority </string>
 
     <!-- Snackbar/Toast String Resources-->
-
     <string name="task_add_text"> Task Added </string>
-    <string name="button_label"> Add Task </string>
+    <string name="button_label_add_task"> Add Task </string>
+    <string name="button_label_add_tasks"> Add Tasks </string>
+    <string name="button_label_done"> Done </string>
     <string name="window_text">Add a task here </string>
 
     <!-- Alert Dialog String Resources -->
@@ -70,7 +66,6 @@
     <string name="alertDialog_No"> No </string>
     <string name="alertDialog_Cancel"> Cancel </string>
     <string name="alertDialog_Delete"> Delete </string>
-
 
     <!-- Validation Alert String Resources -->
     <string name="snackbar_warning_missingTitle"> \ud83d\ude31 Task must contain a title </string>

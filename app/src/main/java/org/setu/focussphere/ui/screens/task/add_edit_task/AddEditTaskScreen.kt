@@ -12,11 +12,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -86,14 +86,14 @@ fun AddEditTaskScreen(
             .fillMaxSize()
         )
         {
-            //TODO UI styling for textFields
+            //TODO UI styling for OutlinedTextFields
             Text(text = stringResource(R.string.add_edit_task_title_label),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Gray
             )
             Spacer(modifier = Modifier.height(8.dp))
-            TextField(
+            OutlinedTextField(
                 value = viewModel.title,
                 placeholder = { Text( text = stringResource(R.string.add_edit_task_title_hint)) },
                 onValueChange = {
@@ -102,7 +102,7 @@ fun AddEditTaskScreen(
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(12.dp))
-            TextField(
+            OutlinedTextField(
                 value = viewModel.description,
                 placeholder = { Text( text = stringResource(R.string.add_edit_task_description_hint)) },
                 onValueChange = {
@@ -114,7 +114,7 @@ fun AddEditTaskScreen(
             )
             Spacer(modifier = Modifier.height(12.dp))
             //TODO will need to be a dropdown for existing catgories + create category button functionality
-            TextField(
+            OutlinedTextField(
                 value = viewModel.category,
                 placeholder = { Text( text = stringResource(R.string.add_edit_task_category_hint)) },
                 onValueChange = {
@@ -125,7 +125,7 @@ fun AddEditTaskScreen(
             )
             Spacer(modifier = Modifier.height(12.dp))
             Row {
-                TextField(
+                OutlinedTextField(
                     value = viewModel.estimatedDuration,
                     placeholder = { Text( text = stringResource(R.string.add_edit_task_duration_hint)) },
                     onValueChange = {
@@ -136,7 +136,7 @@ fun AddEditTaskScreen(
                         .padding(end = 8.dp)
                         .fillMaxWidth()
                 )
-                TextField(
+                OutlinedTextField(
                     value = viewModel.priorityLevel,
                     placeholder = { Text( text = stringResource(R.string.add_edit_task_priority_hint)) },
                     onValueChange = {
@@ -149,6 +149,6 @@ fun AddEditTaskScreen(
                 )
             }
         }
-        }
-
     }
+
+}
