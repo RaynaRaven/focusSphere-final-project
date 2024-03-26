@@ -2,8 +2,8 @@ package org.setu.focussphere.ui.screens.routine.add_edit_routine.taskSelectorMod
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import org.setu.focussphere.ui.screens.routine.add_edit_routine.AddEditRoutineViewModel
 
@@ -12,8 +12,8 @@ fun TaskSelectorScreen(
     viewModel: AddEditRoutineViewModel = hiltViewModel(),
     showModal: MutableState<Boolean>
 ){
-    val tasks by viewModel.tasks.observeAsState(initial = emptyList())
-    val selectedTasks = viewModel.selectedTasks
+    val tasks by viewModel.tasks.collectAsState(initial = emptyList())
+    val selectedTasks by viewModel.selectedTasks.collectAsState(initial = emptyList())
 
    TaskSelectorModal(tasks = tasks, selectedTasks = selectedTasks, onTaskSelected = viewModel::toggleTaskSelection , showModal = showModal)
 
