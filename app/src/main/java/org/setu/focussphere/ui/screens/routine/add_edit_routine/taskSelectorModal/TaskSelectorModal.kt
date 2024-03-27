@@ -1,10 +1,12 @@
 package org.setu.focussphere.ui.screens.routine.add_edit_routine.taskSelectorModal
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -29,11 +31,18 @@ fun TaskSelectorModal(
     onTaskSelected: (Long) -> Unit,
     showModal: MutableState<Boolean>
     ) {
-    Column ( modifier = Modifier.padding(16.dp)) {
+    Column ( modifier = Modifier
+        .padding(16.dp)
+        .fillMaxWidth()
+        .wrapContentHeight()
+        ,horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(text = stringResource(id = R.string.add_edit_routine_modal_headline_select_tasks),
              style = MaterialTheme.typography.headlineSmall)
         HorizontalDivider()
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier.weight(1f, fill = false)
+        ){
             items(tasks) { task ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -51,20 +60,16 @@ fun TaskSelectorModal(
                 }
             }
         }
-        Row(
-            horizontalArrangement = Arrangement.End,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Button (
+        Spacer(modifier = Modifier.height(4.dp))
+        Button (
+                modifier = Modifier.align(Alignment.End),
                 onClick = {
                     showModal.value = false
                 }
-            ) {
+        ) {
                 Text( text = stringResource(id = R.string.button_label_done))
-            }
         }
     }
-
 }
 
 @Preview
