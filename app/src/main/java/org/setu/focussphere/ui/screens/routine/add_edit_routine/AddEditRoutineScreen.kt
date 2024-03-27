@@ -112,6 +112,7 @@ fun AddEditRoutineScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
+                label = { Text(text = stringResource(R.string.add_edit_task_textfield_label_title)) },
                 value = viewModel.title,
                 placeholder = { Text( text = stringResource(R.string.add_edit_routine_title_hint)) },
                 onValueChange = {

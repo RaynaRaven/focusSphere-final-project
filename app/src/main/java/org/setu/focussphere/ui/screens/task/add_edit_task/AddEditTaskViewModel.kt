@@ -8,9 +8,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import org.setu.focussphere.data.entities.Category
 import org.setu.focussphere.data.entities.Task
+import org.setu.focussphere.data.repository.CategoryRepository
 import org.setu.focussphere.data.repository.TaskRepository
 import org.setu.focussphere.util.Routes
 import org.setu.focussphere.util.UiEvent
@@ -19,7 +22,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddEditTaskViewModel @Inject constructor(
-    private val repository: TaskRepository,
+    private val taskRepository: TaskRepository,
+    private val categoryRepository: CategoryRepository,
 
     //SavedStateHandle is a key-value store that can be used to save UI state
     // and retrieve data. Can contain navigation arguments, such as taskId
@@ -40,7 +44,7 @@ class AddEditTaskViewModel @Inject constructor(
     var description by mutableStateOf("")
         private set
 
-    var category by mutableStateOf("")
+    var categoryId by mutableStateOf(0L)
         private set
 
     var estimatedDuration by mutableStateOf("")
@@ -52,6 +56,9 @@ class AddEditTaskViewModel @Inject constructor(
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
+    val categories: Flow<List<Category>> = categoryRepository.getAllCategories()/*.catch { emit(
+        emptyList()) }.asLiveData().asFlow()*/
+
 
 /* init reads taskId, and if not default value, means we clicked on an existing task
 to edit, and data will be retrieved from repository and loaded into UI fields where it
@@ -60,9 +67,9 @@ can be edited/updated.
 
     init {
         val taskId = savedStateHandle.get<Long>("taskId")!!
-        if (taskId != -1L) {
+        if (taskId != 0L) {
             viewModelScope.launch {
-                repository.getTaskById(taskId)?.let { task ->
+                taskRepository.getTaskById(taskId)?.let { task ->
                     title = task.title
                     description = task.description
                     //TODO enable when category entity impl
@@ -100,7 +107,7 @@ can be edited/updated.
                         ))
                     return@launch
                 }
-                repository.insertTask(
+                taskRepository.insertTask(
                     Task(
                         id = task?.id ?: 0, // update existing if we have old ID
                         title = title,
@@ -117,6 +124,17 @@ can be edited/updated.
             }
             else -> { Unit }
         }
+    }
+
+    fun createCategory(categoryName: String) {
+        viewModelScope.launch {
+            val newCategoryId = categoryRepository.insertCategory(Category(categoryName = categoryName))
+            categoryId = newCategoryId
+        }
+    }
+
+    fun updateCategory(newCategoryId: Long) {
+        this.categoryId = newCategoryId
     }
 
     private fun sendUiEvent(event: UiEvent) {

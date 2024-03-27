@@ -94,6 +94,7 @@ fun AddEditTaskScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
+                label = { Text(text = stringResource(R.string.add_edit_task_textfield_label_title)) },
                 value = viewModel.title,
                 placeholder = { Text( text = stringResource(R.string.add_edit_task_title_hint)) },
                 onValueChange = {
@@ -103,6 +104,7 @@ fun AddEditTaskScreen(
             )
             Spacer(modifier = Modifier.height(12.dp))
             OutlinedTextField(
+                label = { Text(text = stringResource(R.string.add_edit_task_textfield_label_description)) },
                 value = viewModel.description,
                 placeholder = { Text( text = stringResource(R.string.add_edit_task_description_hint)) },
                 onValueChange = {
@@ -114,18 +116,11 @@ fun AddEditTaskScreen(
             )
             Spacer(modifier = Modifier.height(12.dp))
             //TODO will need to be a dropdown for existing catgories + create category button functionality
-            OutlinedTextField(
-                value = viewModel.category,
-                placeholder = { Text( text = stringResource(R.string.add_edit_task_category_hint)) },
-                onValueChange = {
-                    viewModel.onEvent(AddEditTaskEvent.OnCategoryChanged(it))
-                },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-            )
+            CategoryDropdown(viewModel = viewModel)
             Spacer(modifier = Modifier.height(12.dp))
             Row {
                 OutlinedTextField(
+                    label = { Text(text = stringResource(R.string.add_edit_task_textfield_label_duration)) },
                     value = viewModel.estimatedDuration,
                     placeholder = { Text( text = stringResource(R.string.add_edit_task_duration_hint)) },
                     onValueChange = {
@@ -137,6 +132,7 @@ fun AddEditTaskScreen(
                         .fillMaxWidth()
                 )
                 OutlinedTextField(
+                    label = { Text(text = stringResource(R.string.add_edit_task_textfield_label_priority)) },
                     value = viewModel.priorityLevel,
                     placeholder = { Text( text = stringResource(R.string.add_edit_task_priority_hint)) },
                     onValueChange = {
