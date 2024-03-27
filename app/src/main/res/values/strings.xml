@@ -79,5 +79,11 @@
     <string name="fab_add_task_label"> Add Task </string>
     <string name="fab_add_routine_label"> Add Routine </string>
 
+    <!-- Task List Screen String Resources -->
+    <string name="task_screen_background_message"> No tasks added yet! </string>
+    <string name="task_screen_headline"> My Tasks </string>
+
+
+
 
 </resources>
