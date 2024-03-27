@@ -105,8 +105,9 @@ fun DashboardScreen(
                     style = MaterialTheme.typography.headlineMedium,
                     modifier = Modifier.align(Alignment.BottomStart)
                 )
+                Spacer(modifier = Modifier.height(8.dp))
             }
-            Spacer(modifier = Modifier.height(36.dp))
+            Spacer(modifier = Modifier.height(40.dp))
             Row(
                 modifier = Modifier
                     .weight(1f)
