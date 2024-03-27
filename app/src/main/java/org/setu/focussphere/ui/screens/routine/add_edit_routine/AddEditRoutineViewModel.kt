@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import org.setu.focussphere.data.entities.Routine
@@ -122,6 +123,11 @@ can be edited/updated.
         viewModelScope.launch {
             _uiEvent.send(event)
         }
+    }
+
+    //uses the selectedTasks ids Flow to filter tasks retrieved from repository
+    fun getSelectedTasks(selectedTaskIds: List<Long>): Flow<List<Task>> {
+        return tasks.map { tasks -> tasks.filter { it.id in selectedTaskIds} }
     }
 
     fun toggleTaskSelection(taskId: Long) {

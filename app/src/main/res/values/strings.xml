@@ -37,6 +37,7 @@
 
     <!-- Add/Edit Routine String Resources -->
     <string name="add_edit_routine_title_label"> Add a Routine </string>
+    <string name="add_edit_routine_task_list_label"> Tasks in this routine </string>
     <string name="add_edit_routine_title_hint"> Routine Title  </string>
     <string name="add_edit_routine_modal_headline_select_tasks"> Select Tasks </string>
 
