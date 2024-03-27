@@ -20,7 +20,8 @@ interface TaskRepository {
 
     fun getTasksOrderedByUrgencyThenByDateCreated(): Flow<List<Task>>
 
-    /*    TODO: add more queries for filtering tasks
-            fun getTasksFilteredByCategory()
-    */
+    fun getTasksForCategory(categoryId: Long) : Flow<List<Long>>
+
+    fun getUncategorizedTasks(): Flow<List<Long>>
+
 }

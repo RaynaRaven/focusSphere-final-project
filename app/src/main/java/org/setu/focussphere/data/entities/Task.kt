@@ -1,18 +1,30 @@
 package org.setu.focussphere.data.entities
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import org.setu.focussphere.data.enums.PriorityLevel
 import org.setu.focussphere.data.enums.TaskStatus
 import java.time.Duration
 import java.time.LocalDateTime
 
-@Entity
+@Entity(
+    tableName = "task",
+    foreignKeys = [
+        ForeignKey(
+            entity = Category::class,
+            parentColumns = ["categoryId"],
+            childColumns = ["categoryId"],
+            onDelete = ForeignKey.SET_NULL
+        )
+    ]
+)
 data class Task(
     var title: String = "Task Title",
     var description: String = "Task Description",
     var priorityLevel: PriorityLevel = PriorityLevel.LOW,
     var status: TaskStatus = TaskStatus.TODO,
+    var categoryId: Long? = null,
     var lat: Double = 0.0,
     var lng: Double = 0.0,
     var zoom: Float = 0f,

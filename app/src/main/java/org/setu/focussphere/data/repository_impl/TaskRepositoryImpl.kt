@@ -2,8 +2,8 @@ package org.setu.focussphere.data.repository_impl
 
 import kotlinx.coroutines.flow.Flow
 import org.setu.focussphere.data.dao.TaskDao
-import org.setu.focussphere.data.repository.TaskRepository
 import org.setu.focussphere.data.entities.Task
+import org.setu.focussphere.data.repository.TaskRepository
 
 class TaskRepositoryImpl(
     private val dao: TaskDao
@@ -31,5 +31,13 @@ class TaskRepositoryImpl(
 
     override fun getTasksOrderedByUrgencyThenByDateCreated(): Flow<List<Task>> {
         return dao.getTasksOrderedByUrgencyThenByDateCreated()
+    }
+
+    override fun getTasksForCategory(categoryId: Long): Flow<List<Long>> {
+        return dao.getTasksForCategory(categoryId)
+    }
+
+    override fun getUncategorizedTasks(): Flow<List<Long>> {
+        return dao.getUncategorizedTasks()
     }
 }

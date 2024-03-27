@@ -7,8 +7,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.setu.focussphere.data.database.FocusSphereDatabase
+import org.setu.focussphere.data.repository.CategoryRepository
 import org.setu.focussphere.data.repository.RoutineRepository
 import org.setu.focussphere.data.repository.TaskRepository
+import org.setu.focussphere.data.repository_impl.CategoryRepositoryImpl
 import org.setu.focussphere.data.repository_impl.RoutineRepositoryImpl
 import org.setu.focussphere.data.repository_impl.TaskRepositoryImpl
 import javax.inject.Singleton
@@ -42,6 +44,12 @@ class AppModule {
     @Singleton
     fun provideRoutineRepository(db: FocusSphereDatabase): RoutineRepository {
         return RoutineRepositoryImpl(db.routineDao())
+    }
+
+    @Provides
+    @Singleton
+    fun provideCategoryRepository(db: FocusSphereDatabase): CategoryRepository {
+        return CategoryRepositoryImpl(db.categoryDao())
     }
 
 }

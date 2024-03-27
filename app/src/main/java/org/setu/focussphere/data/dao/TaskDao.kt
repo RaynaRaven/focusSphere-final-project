@@ -11,7 +11,6 @@ import org.setu.focussphere.data.entities.Task
 @Dao
 interface TaskDao {
 
-    //functions we need to modify a table/access our data
     //suspend functions run in a coroutine and are blocked until the database operation is complete
 
     //inserts a task if it doesn't exist and updates it if it does exist
@@ -35,8 +34,10 @@ interface TaskDao {
     @Query("SELECT * FROM task ORDER BY priorityLevel DESC, createdDateTime ASC")
     fun getTasksOrderedByUrgencyThenByDateCreated(): Flow<List<Task>>
 
-/*    TODO: add more queries for filtering tasks
-        fun getTasksFilteredByCategory()
-*/
+    @Query("SELECT id FROM task WHERE categoryId = :categoryId")
+    fun getTasksForCategory(categoryId: Long) : Flow<List<Long>>
+
+    @Query("SELECT id FROM task WHERE categoryId IS NULL")
+    fun getUncategorizedTasks(): Flow<List<Long>>
 
 }
