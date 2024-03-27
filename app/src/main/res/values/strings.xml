@@ -83,7 +83,8 @@
     <string name="task_screen_background_message"> No tasks added yet! </string>
     <string name="task_screen_headline"> My Tasks </string>
 
-
-
+    <!-- Routine List Screen String Resources -->
+    <string name="routine_screen_background_message"> No routines added yet! </string>
+    <string name="routine_screen_headline"> My Routines </string>
 
 </resources>

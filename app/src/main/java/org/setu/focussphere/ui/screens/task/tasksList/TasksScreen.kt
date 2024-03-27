@@ -80,12 +80,13 @@ fun TasksScreen(
                 )
             }
         },
-        snackbarHost = {
-            SnackbarHost(hostState = snackbarHostState)
-        }
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) {
         if (tasks.isEmpty()) {
-            EmptyTaskListMessage(stringResId = R.string.task_screen_background_message)
+            EmptyTaskListMessage(
+                stringResHeaderId = R.string.task_screen_headline,
+                stringResMessageId = R.string.task_screen_background_message
+            )
         } else {
             Column( modifier = Modifier
                 .fillMaxSize(),

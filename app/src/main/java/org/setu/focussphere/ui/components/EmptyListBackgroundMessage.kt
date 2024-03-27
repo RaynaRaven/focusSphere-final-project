@@ -12,11 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import org.setu.focussphere.R
 
 @Composable
 fun EmptyTaskListMessage(
-    @StringRes stringResId: Int
+    @StringRes stringResHeaderId: Int,
+    @StringRes stringResMessageId: Int
 ) {
     Box(
         modifier = Modifier
@@ -27,11 +27,11 @@ fun EmptyTaskListMessage(
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .padding(20.dp),
-            text = stringResource(id = R.string.task_screen_headline),
+            text = stringResource(id = stringResHeaderId),
                 style = MaterialTheme.typography.headlineMedium
         )
         Text(
-            text = stringResource(id = stringResId),
+            text = stringResource(id = stringResMessageId),
             style = MaterialTheme.typography.headlineLarge,
             color = Color.LightGray)
     }
