@@ -52,6 +52,12 @@
     <string name="add_edit_task_category_hint"> Select Category </string>
     <string name="add_edit_task_duration_hint"> Select Duration </string>
     <string name="add_edit_task_priority_hint"> Select Priority </string>
+    <string name="add_edit_task_textfield_label_category"> Category </string>
+    <string name="add_edit_task_textfield_label_title"> Title </string>
+    <string name="add_edit_task_textfield_label_description"> Description </string>
+    <string name="add_edit_task_textfield_label_duration"> Duration </string>
+    <string name="add_edit_task_textfield_label_priority"> Priority </string>
+
 
     <!-- Snackbar/Toast String Resources-->
     <string name="task_add_text"> Task Added </string>
