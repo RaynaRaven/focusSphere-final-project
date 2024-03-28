@@ -16,5 +16,11 @@
 <!--        <item name="cardElevation">0dp</item>-->
     </style>
 
+    <style name="Theme.FocusSphere.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/colorMagentaHaze</item>
+<!--        <item name="windowSplashScreenAnimatedIcon">@drawable/</item>-->
+        <item name="postSplashScreenTheme">@style/Theme.FocusSphere</item>
+    </style>
+
     <style name="Theme.FocusSphere" parent="Base.Theme.FocusSphere" />
 </resources>

@@ -49,7 +49,7 @@
     <string name="save_task"> Save Task </string>
     <string name="add_edit_task_title_hint"> Enter title </string>
     <string name="add_edit_task_description_hint"> You can add your WHY here, it will help motivate you! </string>
-    <string name="add_edit_task_category_hint"> Select Category </string>
+    <string name="add_edit_task_category_hint"> Select or type to add category </string>
     <string name="add_edit_task_duration_hint"> Select Duration </string>
     <string name="add_edit_task_priority_hint"> Select Priority </string>
     <string name="add_edit_task_textfield_label_category"> Category </string>

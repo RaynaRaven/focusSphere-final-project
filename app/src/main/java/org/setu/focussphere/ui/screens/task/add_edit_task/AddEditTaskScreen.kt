@@ -39,6 +39,7 @@ import org.setu.focussphere.util.UiEvent
 fun AddEditTaskScreen(
     onPopBackStack: () -> Unit,
     navController: NavController,
+    taskId: Long,
     viewModel: AddEditTaskViewModel = hiltViewModel()
 ) {
 
@@ -65,6 +66,12 @@ fun AddEditTaskScreen(
             }
         }
     }
+
+    //on compose/recompose of a addEditTask this coroutine gets correct category info for the task
+    LaunchedEffect(taskId) {
+        viewModel.initialiseSelectedCategoryForTask(taskId)
+    }
+
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         modifier = Modifier

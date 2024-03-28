@@ -24,7 +24,6 @@ import javax.inject.Inject
 class AddEditTaskViewModel @Inject constructor(
     private val taskRepository: TaskRepository,
     private val categoryRepository: CategoryRepository,
-
     //SavedStateHandle is a key-value store that can be used to save UI state
     // and retrieve data. Can contain navigation arguments, such as taskId
     savedStateHandle: SavedStateHandle
@@ -32,9 +31,6 @@ class AddEditTaskViewModel @Inject constructor(
 
     //different states of the add/edit task screen
     //by keyword delegates property access to another object
-    //private set means that props can only be set within class
-    //i.e restricted access to setter from outside class
-
     var task by mutableStateOf<Task?>(null)
         private set
 
@@ -44,7 +40,7 @@ class AddEditTaskViewModel @Inject constructor(
     var description by mutableStateOf("")
         private set
 
-    var categoryId by mutableStateOf(0L)
+    var categoryId by mutableStateOf<Long?>(null)
         private set
 
     var estimatedDuration by mutableStateOf("")
@@ -59,6 +55,8 @@ class AddEditTaskViewModel @Inject constructor(
     val categories: Flow<List<Category>> = categoryRepository.getAllCategories()/*.catch { emit(
         emptyList()) }.asLiveData().asFlow()*/
 
+    var selectedCategoryName by mutableStateOf("")
+
 
 /* init reads taskId, and if not default value, means we clicked on an existing task
 to edit, and data will be retrieved from repository and loaded into UI fields where it
@@ -68,19 +66,26 @@ can be edited/updated.
     init {
         val taskId = savedStateHandle.get<Long>("taskId")!!
         if (taskId != 0L) {
-            viewModelScope.launch {
-                taskRepository.getTaskById(taskId)?.let { task ->
-                    title = task.title
-                    description = task.description
-                    //TODO enable when category entity impl
-//                    category = task.category
+            loadTaskDetails(taskId)
+        }
+    }
+
+    private fun loadTaskDetails(taskId: Long) {
+        viewModelScope.launch {
+            taskRepository.getTaskById(taskId)?.let { task ->
+                title = task.title
+                description = task.description
+                categoryId = task.categoryId
 //                    priorityLevel = task.priorityLevel,
-                    estimatedDuration = task.estimatedDuration.toString()
-                    this@AddEditTaskViewModel.task = task
+                estimatedDuration = task.estimatedDuration.toString()
+
+                task.categoryId?.let {
+                    val category = categoryRepository.getCategoryById(it)
+                    selectedCategoryName = category?.categoryName ?: ""
+                    }
                 }
             }
         }
-    }
 
     fun onEvent(event: AddEditTaskEvent) {
         when (event) {
@@ -90,6 +95,10 @@ can be edited/updated.
             is AddEditTaskEvent.OnDescriptionChanged -> {
                 description = event.description
             }
+            is AddEditTaskEvent.OnCategorySelected -> updateCategory(event.categoryId)
+
+            is AddEditTaskEvent.OnNewCategoryCreated -> createCategory(event.categoryName)
+
             is AddEditTaskEvent.OnEstimatedDurationChanged -> {
                 estimatedDuration = event.estimatedDuration
             }
@@ -112,7 +121,7 @@ can be edited/updated.
                         id = task?.id ?: 0, // update existing if we have old ID
                         title = title,
                         description = description,
-//                        category = category,
+                        categoryId = categoryId,
 //                        priorityLevel = priorityLevel,
 //                        estimatedDuration = estimatedDuration.toString()
                     )
@@ -130,17 +139,39 @@ can be edited/updated.
         viewModelScope.launch {
             val newCategoryId = categoryRepository.insertCategory(Category(categoryName = categoryName))
             categoryId = newCategoryId
+            selectedCategoryName = categoryName
+            updateTaskCategory(newCategoryId)
         }
     }
 
+    private fun updateTaskCategory(newCategoryId: Long) {
+
+    }
+
     fun updateCategory(newCategoryId: Long) {
-        this.categoryId = newCategoryId
+        categoryId = newCategoryId
+        viewModelScope.launch {
+            categoryRepository.getCategoryById(newCategoryId)?.let {
+                selectedCategoryName = it.categoryName
+            }
+        }
     }
 
     private fun sendUiEvent(event: UiEvent) {
         viewModelScope.launch {
             _uiEvent.send(event)
         }
+    }
+
+    fun initialiseSelectedCategoryForTask(id: Long) {
+        viewModelScope.launch {
+            taskRepository.getTaskById(id)?.let { task ->
+                categoryRepository.getCategoryById(task.categoryId)?.let {
+                    selectedCategoryName = it.categoryName
+                }
+            }
+        }
+
     }
 
 }

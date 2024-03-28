@@ -59,14 +59,18 @@ fun FocusSphereNavHost(
             arguments = listOf(
                 navArgument(name = "taskId") {
                     type = NavType.LongType
-                    defaultValue = -1
+                    defaultValue = 0L
                 })
         ) {
+            backStackEntry ->
+            val taskId = backStackEntry.arguments?.getLong("taskId") ?: 0L
+
             AddEditTaskScreen(
                 onPopBackStack = {
                     navController.popBackStack()
                 },
-                navController = navController)
+                navController = navController,
+                taskId = taskId)
         }
         composable(
             route = Routes.ADD_EDIT_ROUTINE + "?routineId={routineId}",

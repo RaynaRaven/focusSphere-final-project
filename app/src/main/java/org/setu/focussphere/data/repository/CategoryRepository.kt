@@ -7,4 +7,5 @@ interface CategoryRepository {
 
     suspend fun insertCategory(category: Category) : Long
     fun getAllCategories() : Flow<List<Category>>
+    suspend fun getCategoryById(categoryId: Long?): Category?
 }

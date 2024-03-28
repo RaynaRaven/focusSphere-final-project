@@ -31,7 +31,12 @@ fun CategoryDropdown(
 ) {
     val categories by viewModel.categories.collectAsState(initial = emptyList())
     var expanded by remember { mutableStateOf(false) }
-    var selectedCategory by remember { mutableStateOf("") }
+    var selectedCategory by remember { mutableStateOf(viewModel.selectedCategoryName) }
+    var typedText by remember { mutableStateOf("") }
+
+    val filteredCategories = categories.filter{
+        it.categoryName.contains(typedText, ignoreCase = true)
+    }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -41,10 +46,11 @@ fun CategoryDropdown(
         OutlinedTextField(
             label = { Text(text = stringResource(R.string.add_edit_task_textfield_label_category)) },
             modifier = Modifier.menuAnchor(),
-            readOnly = true,
-            placeholder = { Text(text = stringResource(R.string.add_edit_task_category_hint)) },
-            value = selectedCategory,
-            onValueChange = { selectedCategory = it },
+            placeholder = { Text(text = if (selectedCategory.isBlank()) stringResource(R.string.add_edit_task_category_hint) else selectedCategory )},
+            value = typedText,
+            onValueChange = {value ->
+                typedText = value
+                expanded = true },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
             }
@@ -53,14 +59,28 @@ fun CategoryDropdown(
             expanded = expanded,
             onDismissRequest = { expanded = false },
         ) {
-            categories.forEach { category ->
+            filteredCategories.forEach {category ->
                 DropdownMenuItem(
                     text = { Text(category.categoryName) },
                     onClick = {
                         selectedCategory = category.categoryName
+                        typedText = category.categoryName
                         expanded = false
                         viewModel.updateCategory(category.categoryId)
-                    })
+                    }
+                )
+            }
+            if (typedText.isNotEmpty() && filteredCategories.isEmpty()) {
+                DropdownMenuItem(
+                    text = { Text("Add $typedText as a new Category") },
+                    onClick = {
+                        viewModel.createCategory(typedText).let { newCategoryId ->
+                            selectedCategory = typedText
+                            typedText = ""
+                            expanded = false
+                        }
+                    }
+                )
             }
         }
     }
