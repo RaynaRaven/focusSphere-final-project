@@ -7,5 +7,6 @@ sealed class TaskTrackerEvent {
     object OnStopClick : TaskTrackerEvent()
     object OnDoneChange : TaskTrackerEvent()
     object OnAddRoutineClick : TaskTrackerEvent()
+    object OnTimerExpired : TaskTrackerEvent()
     data class OnRoutineClick(val routine: Routine) : TaskTrackerEvent()
 }

@@ -18,7 +18,7 @@ fun TimerControlButtons(
         Spacer(modifier = Modifier
             .padding(16.dp))
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { onEvent(TaskTrackerEvent.OnStartClick)},
             modifier = Modifier
                 .padding(8.dp)
                 .weight(1f)
@@ -28,7 +28,7 @@ fun TimerControlButtons(
         Spacer(modifier = Modifier
             .padding(8.dp))
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { onEvent(TaskTrackerEvent.OnStopClick) },
             modifier = Modifier
                 .padding(8.dp)
                 .weight(1f)

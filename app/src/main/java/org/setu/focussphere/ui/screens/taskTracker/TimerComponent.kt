@@ -1,2 +1,51 @@
 package org.setu.focussphere.ui.screens.taskTracker
 
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import com.alltechies.timer.CountDownTimer
+import com.alltechies.timer.data.Action
+import timber.log.Timber.Forest.i
+import kotlin.time.Duration.Companion.seconds
+
+@Composable
+fun TimerComponent(
+    currentTask: String,
+    currentTaskDuration: Long,
+    onTaskComplete: () -> Unit
+) {
+
+    var x = 45.seconds.inWholeMilliseconds
+
+    i("current duration: ${currentTaskDuration}")
+    i("current duration x: ${x}")
+
+
+    if (currentTaskDuration > 0) {
+        CountDownTimer(
+            actionList = listOf(
+                Action(currentTaskDuration, currentTask),
+            ),
+            dialerSize = 180.dp,
+            dialerBackgroundColor = MaterialTheme.colorScheme.tertiary,
+            dialerProgressColor = Color.White,
+            dialerBorderColor = MaterialTheme.colorScheme.secondary,
+            onTimerExpired = {
+                onTaskComplete()
+
+            }
+        )
+
+    } else {
+        CountDownTimer(
+            actionList = listOf(
+                Action(0.seconds.inWholeMilliseconds, "No task selected"),
+            ),
+
+        ) {
+
+        }
+    }
+
+}

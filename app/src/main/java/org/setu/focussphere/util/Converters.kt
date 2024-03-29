@@ -7,6 +7,7 @@ import java.time.Duration
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.util.Date
 
 class Converters {
 
@@ -52,5 +53,15 @@ class Converters {
     @TypeConverter
     fun toDuration(millis: Long?): Duration? {
         return millis?.let { Duration.ofMillis(it) }
+    }
+
+    @TypeConverter
+    fun toDate(dateLong: Long?): Date? {
+        return dateLong?.let { Date(it) }
+    }
+
+    @TypeConverter
+    fun fromDate(date: Date?): Long? {
+        return date?.time
     }
 }

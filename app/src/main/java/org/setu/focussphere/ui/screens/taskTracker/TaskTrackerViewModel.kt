@@ -15,17 +15,22 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.setu.focussphere.data.entities.Routine
 import org.setu.focussphere.data.entities.Task
+import org.setu.focussphere.data.entities.TaskCompletion
 import org.setu.focussphere.data.repository.RoutineRepository
+import org.setu.focussphere.data.repository.TaskCompletionRepository
 import org.setu.focussphere.data.repository.TaskRepository
 import org.setu.focussphere.util.UiEvent
 import timber.log.Timber.Forest.i
 import java.time.Duration
+import java.time.Instant
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
 class TaskTrackerViewModel @Inject constructor(
     private val routineRepository: RoutineRepository,
     private val taskRepository: TaskRepository,
+    private val taskCompletionRepository: TaskCompletionRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -33,18 +38,29 @@ class TaskTrackerViewModel @Inject constructor(
     private val _selectedRoutine = MutableStateFlow<Routine?>(null)
     val selectedRoutine: StateFlow<Routine?> = _selectedRoutine.asStateFlow()
 
-    // State fortasks associated with the selected routine
+
+    // State for tasks associated with the selected routine
     private val _tasks = MutableStateFlow<List<Task>>(emptyList())
     val tasks: StateFlow<List<Task>> = _tasks.asStateFlow()
 
+    // State for total duration of tasks
     val totalDuration = tasks.map {
         it.fold(Duration.ZERO) { acc, task ->
             acc + (task.estimatedDuration)
         }
     }.stateIn(viewModelScope, SharingStarted.Lazily, Duration.ZERO)
 
+
+    //State for task queue, current task and transition between tasks
+    val _queuedTasks = MutableStateFlow<List<Task>>(emptyList())
+    val currentTask = _queuedTasks.map { tasks ->
+        tasks.firstOrNull()
+    }.stateIn(viewModelScope, SharingStarted.Lazily, null)
+
+    //track task completion time
+    private var taskStartTime: Date? = null
+
     val routines = routineRepository.getRoutines()
-    val routinesWithTasks = routineRepository.getRoutinesWithTasks()
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
@@ -55,9 +71,41 @@ class TaskTrackerViewModel @Inject constructor(
             is TaskTrackerEvent.OnAddRoutineClick -> {
             }
             is TaskTrackerEvent.OnStartClick -> {
+                viewModelScope.launch {
+                    taskStartTime = Date()
+                    _queuedTasks.value = _tasks.value
+                }
 
             }
-            is TaskTrackerEvent.OnStopClick -> {}
+            is TaskTrackerEvent.OnStopClick -> {
+                viewModelScope.launch {
+                    //show dialog to confirm stop
+                    val took = Date().time - taskStartTime!!.time
+//                    val took = Duration.between(taskStartTime!!.toInstant(), Date().toInstant())
+                    taskStartTime = null
+
+                    // save task completion to database
+                    currentTask.value?.let { currentTask ->
+                        selectedRoutine.value?.let { currentRoutine ->
+                            taskCompletionRepository.insertTaskCompletion(
+                                TaskCompletion(
+                                    taskId = currentTask.id,
+                                    routineId = currentRoutine.id,
+                                    completionTime = Instant.now().toEpochMilli(),
+                                    duration = took
+                                )
+                            )
+                        }
+                    }
+                    i("Task duration: $took")
+
+                }
+                //show dialog to confirm stop
+                //if yes, cue up the next task, if cancel leave it running
+                //get current time on timer
+                //log task completion
+
+            }
             is TaskTrackerEvent.OnDoneChange-> {}
             is TaskTrackerEvent.OnRoutineClick -> {
                 viewModelScope.launch {
@@ -65,10 +113,14 @@ class TaskTrackerViewModel @Inject constructor(
                     i(_selectedRoutine.value.toString())
                     routineRepository.getTaskIdsForRoutine(event.routine.id).collect() {
                         _tasks.value = taskRepository.getTasksByIds(it)
+//                        _queuedTasks.value = taskRepository.getTasksByIds(it)
                     }
                 }
 
 
+            }
+            is TaskTrackerEvent.OnTimerExpired -> {
+                _queuedTasks.value = _queuedTasks.value.drop(1)
             }
             else -> Unit
         }
