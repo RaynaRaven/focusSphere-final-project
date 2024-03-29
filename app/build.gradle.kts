@@ -112,6 +112,9 @@ dependencies {
     ksp("com.google.dagger:dagger-compiler:2.48.1") // Dagger compiler
     ksp("com.google.dagger:hilt-compiler:2.48.1")   // Hilt compiler
 
+    //timer composable
+    implementation("com.github.raipankaj:countdowntimer:1.0.2")
+
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("androidx.room:room-testing:$roomVersion")
