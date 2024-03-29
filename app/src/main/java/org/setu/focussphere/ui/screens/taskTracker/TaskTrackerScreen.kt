@@ -32,6 +32,7 @@ import org.setu.focussphere.R
 import org.setu.focussphere.ui.screens.routine.add_edit_routine.taskSelectorModal.RoutineSelectorScreen
 import org.setu.focussphere.util.Formatters
 import org.setu.focussphere.util.UiEvent
+import java.time.Duration
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -44,7 +45,7 @@ fun TaskTrackerScreen (
 
 //    val routines by viewModel.routines.collectAsState(initial = emptyList())
     val tasks by viewModel.tasks.collectAsState(initial = emptyList())
-    val totalDuration by viewModel.totalDuration.collectAsState(initial = 0)
+    val totalDuration by viewModel.totalDuration.collectAsState(initial = Duration.ZERO)
     val selectedRoutine by viewModel.selectedRoutine.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
     val showModal = remember { mutableStateOf(false) }
@@ -84,7 +85,7 @@ fun TaskTrackerScreen (
 
             HorizontalDivider(thickness = 2.dp)
             Spacer(modifier = Modifier.height(4.dp))
-            InfoRow(routineLabel = selectedRoutine?.title ?: "shurrup", totalDuration = totalDuration.toString())
+            InfoRow(routineLabel = selectedRoutine?.title ?: "No Routine Selected", totalDuration = Formatters.formatDuration(totalDuration as Duration))
             LazyColumn(
                     modifier = Modifier
                         .weight(1f)

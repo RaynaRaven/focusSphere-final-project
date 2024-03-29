@@ -6,10 +6,12 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.setu.focussphere.data.entities.Routine
 import org.setu.focussphere.data.entities.Task
@@ -34,14 +36,15 @@ class TaskTrackerViewModel @Inject constructor(
     // State fortasks associated with the selected routine
     private val _tasks = MutableStateFlow<List<Task>>(emptyList())
     val tasks: StateFlow<List<Task>> = _tasks.asStateFlow()
+
     val totalDuration = tasks.map {
-        it.fold(Duration.ZERO) { acc, task -> acc + task.estimatedDuration }
-    }
+        it.fold(Duration.ZERO) { acc, task ->
+            acc + (task.estimatedDuration)
+        }
+    }.stateIn(viewModelScope, SharingStarted.Lazily, Duration.ZERO)
 
     val routines = routineRepository.getRoutines()
     val routinesWithTasks = routineRepository.getRoutinesWithTasks()
-    //val currentTaskDuration
-    //val totalDuration for infoRow
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
