@@ -14,11 +14,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FocusSphere"
-        tools:targetApi="34">
-        <activity android:name=".main.MainActivity"
+        tools:targetApi="34"
+    >
+        <activity
+            android:name=".main.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Base.Theme.FocusSphere">
+            android:theme="@style/Base.Theme.FocusSphere"
+            android:screenOrientation="portrait"
+        >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
