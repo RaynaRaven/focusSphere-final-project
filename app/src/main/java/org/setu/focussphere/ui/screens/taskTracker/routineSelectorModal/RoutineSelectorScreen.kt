@@ -13,15 +13,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import org.setu.focussphere.ui.screens.routine.add_edit_routine.AddEditRoutineViewModel
+import org.setu.focussphere.ui.screens.taskTracker.TaskTrackerViewModel
 
 @Composable
-fun TaskSelectorScreen(
-    viewModel: AddEditRoutineViewModel = hiltViewModel(),
+fun RoutineSelectorScreen(
+    viewModel: TaskTrackerViewModel = hiltViewModel(),
     showModal: MutableState<Boolean>
 ){
-    val tasks by viewModel.tasks.collectAsState(initial = emptyList())
-    val selectedTasks by viewModel.selectedTasks.collectAsState(initial = emptyList())
+    val routines by viewModel.routines.collectAsState(initial = emptyList())
+//    val selectedRoutine by viewModel.selectedRoutine.collectAsState()
+
     Card(
         modifier = Modifier
             .sizeIn(maxHeight = 500.dp, maxWidth = 400.dp)
@@ -32,10 +33,11 @@ fun TaskSelectorScreen(
         ),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
-        TaskSelectorModal(
-            tasks = tasks,
-            selectedTasks = selectedTasks,
-            onTaskSelected = viewModel::toggleTaskSelection,
+        RoutineSelectorModal(
+            routines = routines,
+            viewModel = viewModel,
+//            selectedRoutine= selectedRoutine,
+//            onRoutineSelected = viewModel::onEvent, /*TODO remove?*/
             showModal = showModal
         )
     }

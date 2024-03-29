@@ -58,7 +58,6 @@
     <string name="add_edit_task_textfield_label_duration"> Duration </string>
     <string name="add_edit_task_textfield_label_priority"> Priority </string>
 
-
     <!-- Snackbar/Toast String Resources-->
     <string name="task_add_text"> Task Added </string>
     <string name="button_label_add_task"> Add Task </string>
@@ -93,5 +92,15 @@
     <!-- Routine List Screen String Resources -->
     <string name="routine_screen_background_message"> No routines added yet! </string>
     <string name="routine_screen_headline"> My Routines </string>
+
+    <!-- Task Tracker String Resources -->
+    <string name="taskTracker_screen_title">Task Tracker</string>
+    <string name="taskTracker_screen_subhead_nextTask">Next Task</string>
+    <string name="taskTracker_screen_timer_container_timeLeft"> Time Left: </string>
+    <string name="taskTracker_screen_timer_button_label_start"> Start </string>
+    <string name="taskTracker_screen_timer_button_label_finish"> Finish </string>
+    <string name="add_edit_routine_modal_headline_select_routine"> Select a Routine </string>
+    <string name="button_label_queue_select_routine"> Select Routine </string>
+
 
 </resources>

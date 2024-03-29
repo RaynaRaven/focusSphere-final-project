@@ -22,6 +22,8 @@ interface TaskDao {
 
     @Query("SELECT * FROM task WHERE id = :id")
     suspend fun getTaskById(id: Long): Task?
+    @Query("SELECT * FROM task WHERE id IN (:ids)")
+    suspend fun getTasksByIds(ids: List<Long>): List<Task>
 
     //Flow datatype notifies you of changes whenever there is a change in this table
     //i.e. will update this list as soon as there is another task added

@@ -32,6 +32,7 @@ import org.setu.focussphere.ui.screens.routine.routinesList.RoutinesEvent
 import org.setu.focussphere.ui.screens.routine.routinesList.RoutinesViewModel
 import org.setu.focussphere.ui.screens.task.tasksList.TasksEvent
 import org.setu.focussphere.ui.screens.task.tasksList.TasksViewModel
+import org.setu.focussphere.ui.screens.taskTracker.TaskTrackerViewModel
 import org.setu.focussphere.util.Routes
 import org.setu.focussphere.util.UiEvent
 import timber.log.Timber.Forest.i
@@ -42,6 +43,7 @@ fun DashboardScreen(
     onNavigate: (UiEvent.Navigate) -> Unit,
     tasksViewModel: TasksViewModel = hiltViewModel(),
     routinesViewModel: RoutinesViewModel = hiltViewModel(),
+    taskTrackerViewModel: TaskTrackerViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
 
@@ -56,6 +58,15 @@ fun DashboardScreen(
 
     LaunchedEffect(key1 = true) {
         routinesViewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.Navigate -> onNavigate(event)
+                else -> Unit
+            }
+        }
+    }
+
+    LaunchedEffect(key1 = true) {
+        taskTrackerViewModel.uiEvent.collect { event ->
             when (event) {
                 is UiEvent.Navigate -> onNavigate(event)
                 else -> Unit
@@ -148,7 +159,7 @@ fun DashboardScreen(
                 DashboardNavCard(
                     modifier = Modifier.weight(1f),
                     //TODO: Enable route when TaskTracker is implemented
-                    onClick = {/* onNavigate(UiEvent.Navigate(Routes.TASK_TRACKER))*/},
+                    onClick = {onNavigate(UiEvent.Navigate(Routes.TASK_TRACKER))},
                     content = {
                         DashboardNavCardContent(
                             title = stringResource(id = R.string.dashboard_nav_card_title_taskTracker),

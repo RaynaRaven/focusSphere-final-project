@@ -21,6 +21,10 @@ class TaskRepositoryImpl(
         return dao.getTaskById(id)
     }
 
+    override suspend fun getTasksByIds(ids: List<Long>): List<Task> {
+        return dao.getTasksByIds(ids)
+    }
+
     override fun getTasks(): Flow<List<Task>> {
         return dao.getTasks()
     }

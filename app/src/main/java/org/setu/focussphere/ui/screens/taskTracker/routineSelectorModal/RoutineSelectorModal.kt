@@ -1,5 +1,6 @@
 package org.setu.focussphere.ui.screens.routine.add_edit_routine.taskSelectorModal
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,13 +22,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.setu.focussphere.R
-import org.setu.focussphere.data.entities.Task
+import org.setu.focussphere.data.entities.Routine
+import org.setu.focussphere.ui.screens.taskTracker.TaskTrackerEvent
+import org.setu.focussphere.ui.screens.taskTracker.TaskTrackerViewModel
+import timber.log.Timber.Forest.i
 
 @Composable
-fun TaskSelectorModal(
-    tasks: List<Task>,
-    selectedTasks: List<Long>,
-    onTaskSelected: (Long) -> Unit,
+fun RoutineSelectorModal(
+    routines: List<Routine>,
+    viewModel: TaskTrackerViewModel,
+//    selectedRoutine: Long,
+//    onRoutineSelected: (Long) -> Unit,
     showModal: MutableState<Boolean>
     ) {
     Column ( modifier = Modifier
@@ -37,26 +41,28 @@ fun TaskSelectorModal(
         .wrapContentHeight()
         ,horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = stringResource(id = R.string.add_edit_routine_modal_headline_select_tasks),
+        Text(text = stringResource(id = R.string.add_edit_routine_modal_headline_select_routine),
              style = MaterialTheme.typography.headlineSmall)
         HorizontalDivider()
         LazyColumn(
             modifier = Modifier.weight(1f, fill = false)
         ){
-            items(tasks) { task ->
+            items(routines) { routine ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp)
+                        .clickable {
+                            i("Task Tracker Modal: Routine $routine clicked")
+                            //TODO show snackbar here??
+                            viewModel.onEvent(TaskTrackerEvent.OnRoutineClick(routine))
+                            showModal.value = false
+                                   },
                 ){
-                    Checkbox(
-                             checked = selectedTasks.contains(task.id),
-                             onCheckedChange = { _ ->
-                                 onTaskSelected(task.id)
-                             }
-                    )
-                    Text(text = task.title, style = MaterialTheme.typography.bodyMedium)
+                    Text(
+                        text = routine.title,
+                        style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }

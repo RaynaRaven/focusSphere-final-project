@@ -12,6 +12,7 @@ import org.setu.focussphere.ui.screens.routine.add_edit_routine.AddEditRoutineSc
 import org.setu.focussphere.ui.screens.routine.routinesList.RoutinesScreen
 import org.setu.focussphere.ui.screens.task.add_edit_task.AddEditTaskScreen
 import org.setu.focussphere.ui.screens.task.tasksList.TasksScreen
+import org.setu.focussphere.ui.screens.taskTracker.TaskTrackerScreen
 import org.setu.focussphere.util.Routes
 
 @Composable
@@ -47,13 +48,12 @@ fun FocusSphereNavHost(
             )
         }
         composable(Routes.TASK_TRACKER) {
-           /* RoutinesScreen(
+            TaskTrackerScreen(
                 onNavigate = {
                     navController.navigate(it.route)
                 }
-            )*/
+            )
         }
-
         composable(
             route = Routes.ADD_EDIT_TASK + "?taskId={taskId}",
             arguments = listOf(

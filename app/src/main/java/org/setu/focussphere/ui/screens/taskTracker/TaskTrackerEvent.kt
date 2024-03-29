@@ -1,8 +1,11 @@
 package org.setu.focussphere.ui.screens.taskTracker
 
-sealed class TaskTrackerEvents {
-    object OnStartClick : TaskTrackerEvents()
-    object OnStopClick : TaskTrackerEvents()
-    object OnDoneChange : TaskTrackerEvents()
-    object OnRoutineClick : TaskTrackerEvents()
+import org.setu.focussphere.data.entities.Routine
+
+sealed class TaskTrackerEvent {
+    object OnStartClick : TaskTrackerEvent()
+    object OnStopClick : TaskTrackerEvent()
+    object OnDoneChange : TaskTrackerEvent()
+    object OnAddRoutineClick : TaskTrackerEvent()
+    data class OnRoutineClick(val routine: Routine) : TaskTrackerEvent()
 }

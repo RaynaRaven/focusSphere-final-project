@@ -63,6 +63,7 @@ fun AddEditRoutineScreen(
     val showModal = remember { mutableStateOf(false) }
     val selectedTaskIds by viewModel.selectedTasks.collectAsState(initial = emptyList())
     val selectedTasks by viewModel.getSelectedTasks(selectedTaskIds).collectAsState(initial = emptyList())
+
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
@@ -155,13 +156,13 @@ fun AddEditRoutineScreen(
                             modifier = Modifier.weight(1f),
                             text = task.title, style = MaterialTheme.typography.bodyLarge
                         )
-                        IconButton(onClick = { /*TODO Move Up*/ }) {
+                        IconButton(onClick = { /* TODO Move Up*/ }) {
                             Icon(imageVector = Icons.Default.KeyboardArrowUp, contentDescription = "Move item up" )
                         }
-                        IconButton(onClick = { /*TODO Move Down*/ }) {
+                        IconButton(onClick = { /* TODO Move Down*/ }) {
                             Icon(imageVector = Icons.Default.KeyboardArrowDown, contentDescription = "Move item down" )
                         }
-                        IconButton(onClick = { /*TODO Delete*/ }) {
+                        IconButton(onClick = { /* TODO Delete*/ }) {
                             Icon(imageVector = Icons.TwoTone.Clear, contentDescription = "Delete item" )
                         }
                     }
