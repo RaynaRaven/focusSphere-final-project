@@ -38,7 +38,6 @@ class TaskTrackerViewModel @Inject constructor(
     private val _selectedRoutine = MutableStateFlow<Routine?>(null)
     val selectedRoutine: StateFlow<Routine?> = _selectedRoutine.asStateFlow()
 
-
     // State for tasks associated with the selected routine
     private val _tasks = MutableStateFlow<List<Task>>(emptyList())
     val tasks: StateFlow<List<Task>> = _tasks.asStateFlow()
@@ -50,14 +49,12 @@ class TaskTrackerViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.Lazily, Duration.ZERO)
 
-
     //State for task queue, current task and transition between tasks
     val _queuedTasks = MutableStateFlow<List<Task>>(emptyList())
     val currentTask = _queuedTasks.map { tasks ->
         tasks.firstOrNull()
     }.stateIn(viewModelScope, SharingStarted.Lazily, null)
 
-    //track task completion time
     private var taskStartTime: Date? = null
 
     val routines = routineRepository.getRoutines()
@@ -92,12 +89,18 @@ class TaskTrackerViewModel @Inject constructor(
                                     taskId = currentTask.id,
                                     routineId = currentRoutine.id,
                                     completionTime = Instant.now().toEpochMilli(),
-                                    duration = took
+                                    duration = took,
+                                    accuracy = calculateAccuracy(took, currentTask.estimatedDuration)
                                 )
                             )
                         }
                     }
                     i("Task duration: $took")
+
+                    _queuedTasks.value?.let {
+                        _queuedTasks.value = _queuedTasks.value.drop(1)
+                    }
+                    i("Current task: ${_queuedTasks.value.firstOrNull()}")
 
                 }
                 //show dialog to confirm stop
@@ -120,10 +123,20 @@ class TaskTrackerViewModel @Inject constructor(
 
             }
             is TaskTrackerEvent.OnTimerExpired -> {
-                _queuedTasks.value = _queuedTasks.value.drop(1)
+
             }
             else -> Unit
         }
+    }
+
+    private fun calculateAccuracy( took: Long, estimatedDuration: Duration): Float {
+        val accuracyScore = if (estimatedDuration.toMillis() > 0) {
+            took.toFloat()/estimatedDuration.toMillis().toFloat()
+        } else {
+            0f
+        }
+        i("Calc accuracy score: $accuracyScore")
+        return accuracyScore
     }
 
     private fun sendUiEvent(event: UiEvent) {

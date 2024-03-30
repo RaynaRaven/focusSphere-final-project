@@ -11,6 +11,7 @@ data class TaskCompletion(
     var routineId: Long = 0L,
     var completionTime: Long = 0L,
     var duration: Long = 0L,
+    var accuracy: Float = 1f,
 
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0L

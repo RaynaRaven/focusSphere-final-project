@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import org.setu.focussphere.data.enums.PriorityLevel
-import org.setu.focussphere.data.enums.TaskStatus
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -23,14 +22,12 @@ data class Task(
     var title: String = "Task Title",
     var description: String = "Task Description",
     var priorityLevel: PriorityLevel = PriorityLevel.LOW,
-    var status: TaskStatus = TaskStatus.TODO,
     var categoryId: Long? = null,
     var lat: Double = 0.0,
     var lng: Double = 0.0,
     var zoom: Float = 0f,
     var createdDateTime: LocalDateTime = LocalDateTime.now(),
-    var estimatedDuration: Duration = Duration.ofMinutes(30),
-    var actualDuration: Duration? = Duration.ofMinutes(0),
+    var estimatedDuration: Duration = Duration.ofMinutes(2),
     var isDone: Boolean = false,
 
     @PrimaryKey(autoGenerate = true)
@@ -42,13 +39,11 @@ val dummyTasks = List(10) { i ->
         title = "Dummy Task $i",
         description = "This is a dummy task $i",
         priorityLevel = PriorityLevel.HIGH,
-        status = TaskStatus.TODO,
         lat = 0.0,
         lng = 0.0,
         zoom = 0f,
         createdDateTime = LocalDateTime.now(),
         estimatedDuration = Duration.ofMinutes(30),
-        actualDuration = Duration.ofMinutes(0),
         isDone = false,
         id = 1234,
     )
