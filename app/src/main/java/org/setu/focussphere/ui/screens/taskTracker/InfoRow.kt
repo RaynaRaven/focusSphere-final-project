@@ -22,8 +22,8 @@ fun InfoRow(
         Text(
             modifier = Modifier
                 .weight(1f),
-            text = "$routineLabel routine",
-            style = MaterialTheme.typography.bodyMedium
+            text = "$routineLabel",
+            style = MaterialTheme.typography.bodyLarge
         )
         Text(
             modifier = Modifier

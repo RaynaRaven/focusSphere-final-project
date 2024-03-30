@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -77,13 +78,20 @@ fun TaskTrackerScreen (
             SnackbarHost(hostState = snackbarHostState)
         }
     ) {
+        Text(modifier = Modifier
+            .fillMaxWidth()
+            .padding(20.dp),
+            text = "Current: ${currentTask?.title ?: "No tasks"}",
+            style = MaterialTheme.typography.headlineMedium
+        )
+        Spacer(modifier = Modifier.height(4.dp))
         Column(
             modifier = Modifier
                 .padding(12.dp)
                 .fillMaxSize(1f)
         ) {
             Box( modifier = Modifier
-                .weight(1f)
+                .weight(1.25f)
                 .align(Alignment.CenterHorizontally),
                 contentAlignment = Alignment.BottomCenter
             ) {
@@ -100,7 +108,7 @@ fun TaskTrackerScreen (
             InfoRow(routineLabel = selectedRoutine?.title ?: "No Routine Selected", totalDuration = Formatters.formatDuration(totalDuration as Duration))
             LazyColumn(
                     modifier = Modifier
-                        .weight(1f)
+                        .weight(0.75f)
                         .padding(start = 16.dp, end = 12.dp)
                 ) {
                     items(tasks) { task ->
