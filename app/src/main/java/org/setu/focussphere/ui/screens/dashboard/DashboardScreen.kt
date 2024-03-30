@@ -25,9 +25,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.flow.merge
 import org.setu.focussphere.R
 import org.setu.focussphere.ui.components.fab.FilterFabMenuItem
 import org.setu.focussphere.ui.components.fab.FilterView
+import org.setu.focussphere.ui.screens.reports.ReportsViewModel
 import org.setu.focussphere.ui.screens.routine.routinesList.RoutinesEvent
 import org.setu.focussphere.ui.screens.routine.routinesList.RoutinesViewModel
 import org.setu.focussphere.ui.screens.task.tasksList.TasksEvent
@@ -44,11 +46,22 @@ fun DashboardScreen(
     tasksViewModel: TasksViewModel = hiltViewModel(),
     routinesViewModel: RoutinesViewModel = hiltViewModel(),
     taskTrackerViewModel: TaskTrackerViewModel = hiltViewModel(),
+    reportsViewModel: ReportsViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
 
     LaunchedEffect(key1 = true) {
-        tasksViewModel.uiEvent.collect { event ->
+        merge(tasksViewModel.uiEvent, routinesViewModel.uiEvent, taskTrackerViewModel.uiEvent/*, reportsViewModel.uiEvent*/).collect { event ->
+            when (event) {
+                is UiEvent.Navigate -> onNavigate(event)
+                else -> Unit
+            }
+        }
+
+    }
+
+/*    LaunchedEffect(key1 = true) {
+        routinesViewModel.uiEvent.collect { event ->
             when (event) {
                 is UiEvent.Navigate -> onNavigate(event)
                 else -> Unit
@@ -57,7 +70,8 @@ fun DashboardScreen(
     }
 
     LaunchedEffect(key1 = true) {
-        routinesViewModel.uiEvent.collect { event ->
+
+        taskTrackerViewModel.uiEvent.collect { event ->
             when (event) {
                 is UiEvent.Navigate -> onNavigate(event)
                 else -> Unit
@@ -72,7 +86,7 @@ fun DashboardScreen(
                 else -> Unit
             }
         }
-    }
+    }*/
 
     val fabMenuItems = listOf<FilterFabMenuItem>(
         FilterFabMenuItem(
@@ -172,7 +186,7 @@ fun DashboardScreen(
                 DashboardNavCard(
                     modifier = Modifier.weight(1f),
                     //TODO: Enable route when Reports is implemented
-                    onClick = {/* onNavigate(UiEvent.Navigate(Routes.REPORTS))*/},
+                    onClick = { onNavigate(UiEvent.Navigate(Routes.REPORTS))},
                     content = {
                         DashboardNavCardContent(
                             title = stringResource(id = R.string.dashboard_nav_card_title_reports),

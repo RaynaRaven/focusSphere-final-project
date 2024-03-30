@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import org.setu.focussphere.ui.screens.dashboard.DashboardScreen
+import org.setu.focussphere.ui.screens.reports.ReportsScreen
 import org.setu.focussphere.ui.screens.routine.add_edit_routine.AddEditRoutineScreen
 import org.setu.focussphere.ui.screens.routine.routinesList.RoutinesScreen
 import org.setu.focussphere.ui.screens.task.add_edit_task.AddEditTaskScreen
@@ -49,6 +50,13 @@ fun FocusSphereNavHost(
         }
         composable(Routes.TASK_TRACKER) {
             TaskTrackerScreen(
+                onNavigate = {
+                    navController.navigate(it.route)
+                }
+            )
+        }
+        composable(Routes.REPORTS) {
+            ReportsScreen(
                 onNavigate = {
                     navController.navigate(it.route)
                 }
