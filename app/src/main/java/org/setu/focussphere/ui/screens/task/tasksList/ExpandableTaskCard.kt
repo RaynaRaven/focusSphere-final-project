@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -43,10 +44,12 @@ import org.setu.focussphere.ui.theme.Shapes
 import org.setu.focussphere.util.Formatters
 import java.time.Duration
 import java.time.LocalDateTime
+import kotlin.math.roundToInt
 
 @Composable
 fun ExpandableTaskCard(
     task: Task,
+    accuracy: Float,
     onEvent: (TasksEvent) -> Unit,
     expanded: Boolean = false,
     shape: CornerBasedShape = Shapes.medium,
@@ -76,6 +79,7 @@ fun ExpandableTaskCard(
     ) {
         TaskCardContent(
             task,
+            accuracy,
             onEvent = onEvent,
             task.title,
             formatter.formatDateTimeToDayMonthYear(task.createdDateTime),
@@ -89,6 +93,7 @@ fun ExpandableTaskCard(
 @Composable
 private fun TaskCardContent(
     task: Task,
+    accuracy: Float,
     onEvent: (TasksEvent) -> Unit,
     title: String,
     dateCreated: String,
@@ -174,6 +179,25 @@ private fun TaskCardContent(
                 }
             }
             if (expandedState) {
+                if (accuracy > 0) {
+                    Row(
+                    ){
+                        Text(
+                            modifier = Modifier.padding(top = 8.dp),
+                            text = "Accuracy Score: ",
+                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                            style = MaterialTheme.typography.bodyMedium
+                            )
+                        Text(
+                            modifier = Modifier.padding(top = 8.dp),
+                            text = "${((1 - accuracy) * 100).roundToInt()}%",
+                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = if (accuracy>1) Color.Red else Color.Green
+                        )
+                    }
+                    }
+                }
                 Text(
                     modifier = Modifier.padding(top = 8.dp),
                     text = description,
@@ -183,8 +207,6 @@ private fun TaskCardContent(
             }
         }
     }
-
-}
 
 @Preview(name = "Collapsed Task Card")
 @Composable
@@ -198,6 +220,7 @@ fun CollapsedTaskCardPreview() {
     )
     ExpandableTaskCard(
         task = previewTask,
+        accuracy = 0.8f,
         onEvent = {},
         expanded = false,
         modifier = Modifier,
@@ -217,6 +240,7 @@ fun ExpandedTaskCardPreview() {
     )
     ExpandableTaskCard(
         task = previewTask,
+        accuracy = .96f,
         onEvent = {},
         expanded = true,
         modifier = Modifier,

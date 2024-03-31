@@ -43,7 +43,7 @@ fun TasksScreen(
     modifier: Modifier = Modifier
 ) {
     //retrieve tasks flow as a composed state
-    val tasks by viewModel.tasks.collectAsState(initial = emptyList())
+    val tasksWithAccuracy by viewModel.tasksWithAccuracy.collectAsState(initial = emptyList())
     val snackbarHostState = remember { SnackbarHostState() }
 
     //collect ui events, executes
@@ -82,7 +82,7 @@ fun TasksScreen(
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) {
-        if (tasks.isEmpty()) {
+        if (tasksWithAccuracy.isEmpty()) {
             EmptyTaskListMessage(
                 stringResHeaderId = R.string.task_screen_headline,
                 stringResMessageId = R.string.task_screen_background_message
@@ -105,9 +105,10 @@ fun TasksScreen(
                         .fillMaxSize()
                         .padding(4.dp)
                 ) {
-                    items(tasks) { task ->
+                    items(tasksWithAccuracy) { task ->
                         ExpandableTaskCard(
-                            task = task,
+                            task = task.task,
+                            accuracy = task.accuracy,
                             onEvent = viewModel::onEvent,
                             modifier = Modifier
                                 .padding(vertical = 4.dp, horizontal = 8.dp),

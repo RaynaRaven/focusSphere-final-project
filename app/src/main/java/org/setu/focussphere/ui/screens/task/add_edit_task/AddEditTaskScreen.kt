@@ -86,7 +86,6 @@ fun AddEditTaskScreen(
             .fillMaxSize()
         )
         {
-            //TODO UI styling for OutlinedTextFields
             Text(text = stringResource(R.string.add_edit_task_title_label),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,

@@ -1,47 +1,51 @@
 package org.setu.focussphere.data.repository_impl
 
 import kotlinx.coroutines.flow.Flow
+import org.setu.focussphere.data.dao.TaskCompletionDao
 import org.setu.focussphere.data.dao.TaskDao
 import org.setu.focussphere.data.entities.Task
 import org.setu.focussphere.data.repository.TaskRepository
 
 class TaskRepositoryImpl(
-    private val dao: TaskDao
+    private val taskDao: TaskDao,
+    private val tcDao: TaskCompletionDao
 ) : TaskRepository {
 
     override suspend fun insertTask(task: Task) {
-        dao.insertTask(task)
+        taskDao.insertTask(task)
     }
 
     override suspend fun deleteTask(task: Task) {
-        dao.deleteTask(task)
+        taskDao.deleteTask(task)
     }
 
     override suspend fun getTaskById(id: Long): Task? {
-        return dao.getTaskById(id)
+        return taskDao.getTaskById(id)
     }
 
     override suspend fun getTasksByIds(ids: List<Long>): List<Task> {
-        return dao.getTasksByIds(ids)
+        return taskDao.getTasksByIds(ids)
     }
 
     override fun getTasks(): Flow<List<Task>> {
-        return dao.getTasks()
+        return taskDao.getTasks()
     }
 
     override fun getTasksOrderedByDateCreated(): Flow<List<Task>> {
-        return dao.getTasksOrderedByDateCreated()
+        return taskDao.getTasksOrderedByDateCreated()
     }
 
     override fun getTasksOrderedByUrgencyThenByDateCreated(): Flow<List<Task>> {
-        return dao.getTasksOrderedByUrgencyThenByDateCreated()
+        return taskDao.getTasksOrderedByUrgencyThenByDateCreated()
     }
 
     override fun getTasksForCategory(categoryId: Long): Flow<List<Long>> {
-        return dao.getTasksForCategory(categoryId)
+        return taskDao.getTasksForCategory(categoryId)
     }
 
     override fun getUncategorizedTasks(): Flow<List<Long>> {
-        return dao.getUncategorizedTasks()
+        return taskDao.getUncategorizedTasks()
     }
+
+
 }

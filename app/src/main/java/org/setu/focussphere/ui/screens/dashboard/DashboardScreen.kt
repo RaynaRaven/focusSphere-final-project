@@ -49,9 +49,9 @@ fun DashboardScreen(
     reportsViewModel: ReportsViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
-
+    //merging all uiEvents from viewModels
     LaunchedEffect(key1 = true) {
-        merge(tasksViewModel.uiEvent, routinesViewModel.uiEvent, taskTrackerViewModel.uiEvent/*, reportsViewModel.uiEvent*/).collect { event ->
+        merge(tasksViewModel.uiEvent, routinesViewModel.uiEvent, taskTrackerViewModel.uiEvent, reportsViewModel.uiEvent).collect { event ->
             when (event) {
                 is UiEvent.Navigate -> onNavigate(event)
                 else -> Unit
@@ -59,34 +59,6 @@ fun DashboardScreen(
         }
 
     }
-
-/*    LaunchedEffect(key1 = true) {
-        routinesViewModel.uiEvent.collect { event ->
-            when (event) {
-                is UiEvent.Navigate -> onNavigate(event)
-                else -> Unit
-            }
-        }
-    }
-
-    LaunchedEffect(key1 = true) {
-
-        taskTrackerViewModel.uiEvent.collect { event ->
-            when (event) {
-                is UiEvent.Navigate -> onNavigate(event)
-                else -> Unit
-            }
-        }
-    }
-
-    LaunchedEffect(key1 = true) {
-        taskTrackerViewModel.uiEvent.collect { event ->
-            when (event) {
-                is UiEvent.Navigate -> onNavigate(event)
-                else -> Unit
-            }
-        }
-    }*/
 
     val fabMenuItems = listOf<FilterFabMenuItem>(
         FilterFabMenuItem(

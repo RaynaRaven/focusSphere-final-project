@@ -48,3 +48,9 @@ val dummyTasks = List(10) { i ->
         id = 1234,
     )
 }
+
+data class TaskWithAccuracy(
+    var task: Task = Task(),
+    var accuracy: Float = 0f) {
+
+}

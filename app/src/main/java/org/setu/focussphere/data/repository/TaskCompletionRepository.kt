@@ -5,4 +5,6 @@ import org.setu.focussphere.data.entities.TaskCompletion
 interface TaskCompletionRepository {
 
     suspend fun insertTaskCompletion(taskCompletion: TaskCompletion) : Long
+
+    suspend fun getMostRecentCompletionByTask(taskId: Long) : TaskCompletion?
 }

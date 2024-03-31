@@ -102,5 +102,10 @@
     <string name="add_edit_routine_modal_headline_select_routine"> Select a Routine </string>
     <string name="button_label_queue_select_routine"> Select Routine </string>
 
+    <!-- Reports String Resources -->
+    <string name="reports_screen_title">My Reports </string>
+    <string name="reports_screen_subhead">View your stats </string>
+
+
 
 </resources>
