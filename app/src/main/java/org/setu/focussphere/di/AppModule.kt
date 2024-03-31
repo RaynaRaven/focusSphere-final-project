@@ -57,7 +57,7 @@ class AppModule {
     @Provides
     @Singleton
     fun provideTaskCompletionRepository(db: FocusSphereDatabase): TaskCompletionRepository {
-        return TaskCompletionRepositoryImpl(db.taskCompletionDao(), db.taskDao())
+        return TaskCompletionRepositoryImpl(db.taskCompletionDao(), db.taskDao(), db.categoryDao())
     }
 
 }

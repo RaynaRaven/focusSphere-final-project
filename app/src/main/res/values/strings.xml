@@ -104,7 +104,11 @@
 
     <!-- Reports String Resources -->
     <string name="reports_screen_title">My Reports </string>
-    <string name="reports_screen_subhead">View your stats </string>
+    <string name="reports_screen_subhead_accuracyScore"> My Accuracy Score </string>
+    <string name="reports_screen_dropdownLabel_selectTask"> Select Task </string>
+    <string name="reports_screen_dropdownLabel_selectCategory"> Select Category </string>
+    <string name="reports_screen_subhead_taskCompletionsPerCategory"> Task Completions per Category: 7 Day Report </string>
+
 
 
 

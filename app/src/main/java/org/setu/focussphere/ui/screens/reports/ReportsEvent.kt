@@ -2,7 +2,7 @@ package org.setu.focussphere.ui.screens.reports
 
 sealed class ReportsEvent {
 
-    object onDropdownTaskSelected : ReportsEvent()
-    object onDropdownCategorySelected : ReportsEvent()
-    object onDropdownRoutineSelected : ReportsEvent()
+    data class OnDropdownTaskSelected(val task: String) : ReportsEvent()
+    data class OnDropdownCategorySelected(val categoryId: Long)  : ReportsEvent()
+    object OnDropdownRoutineSelected : ReportsEvent()
 }

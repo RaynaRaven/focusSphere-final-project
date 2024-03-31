@@ -16,3 +16,9 @@ data class TaskCompletion(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0L
 )
+
+data class CompletionStats(
+    val category: String,
+    val dayOfWeek: Int,
+    val numCompletions: Int
+)

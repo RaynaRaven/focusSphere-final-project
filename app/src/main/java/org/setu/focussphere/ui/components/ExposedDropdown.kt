@@ -1,4 +1,4 @@
-package org.setu.focussphere.ui.components
+/*package org.setu.focussphere.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
@@ -21,12 +21,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import dagger.hilt.android.lifecycle.HiltViewModel
 import org.setu.focussphere.R
+import org.setu.focussphere.ui.screens.task.add_edit_task.AddEditTaskViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CategoryDropdown(
-    viewModel: AddEditTaskViewModel,
+fun ExposedDropdown(
+
+    viewModel: HiltViewModel,
     modifier: Modifier = Modifier,
 ) {
     val categories by viewModel.categories.collectAsState(initial = emptyList())
@@ -112,5 +115,5 @@ fun CategoryDropdownPreview() {
         Category(categoryId = 3L, categoryName = "Shopping")
     )
     CategoryDropdownPreview(categories = fakeCategories)
-}
+}*/
 

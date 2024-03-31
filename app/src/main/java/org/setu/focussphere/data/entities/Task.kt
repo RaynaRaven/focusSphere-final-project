@@ -22,7 +22,7 @@ data class Task(
     var title: String = "Task Title",
     var description: String = "Task Description",
     var priorityLevel: PriorityLevel = PriorityLevel.LOW,
-    var categoryId: Long? = null,
+    var categoryId: Long = 0L,
     var lat: Double = 0.0,
     var lng: Double = 0.0,
     var zoom: Float = 0f,

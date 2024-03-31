@@ -73,7 +73,7 @@ can be edited/updated.
                     title = task.title
                     description = task.description
                     //TODO enable when category entity impl
-//                    category = task.category
+                    categoryId = task.categoryId!!
 //                    priorityLevel = task.priorityLevel,
                     estimatedDuration = task.estimatedDuration.toString()
                     this@AddEditTaskViewModel.task = task
@@ -112,7 +112,7 @@ can be edited/updated.
                         id = task?.id ?: 0, // update existing if we have old ID
                         title = title,
                         description = description,
-//                        category = category,
+                        categoryId = categoryId,
 //                        priorityLevel = priorityLevel,
 //                        estimatedDuration = estimatedDuration.toString()
                     )
