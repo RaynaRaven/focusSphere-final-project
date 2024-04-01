@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import org.setu.focussphere.data.entities.CompletionStats
+import org.setu.focussphere.data.entities.TaskCompletion
 import org.setu.focussphere.data.repository.CategoryRepository
 import org.setu.focussphere.data.repository.TaskCompletionRepository
 import org.setu.focussphere.data.repository.TaskRepository
@@ -29,8 +30,11 @@ class ReportsViewModel @Inject constructor(
     val tasks = taskRepository.getTasks()
     val categories = categoryRepository.getAllCategories()
 
-    private var _completionStats = MutableStateFlow<List<CompletionStats?>>(emptyList())
-    val completionStats: Flow<List<CompletionStats?>> = _completionStats.asStateFlow()
+    private var _categoryCompletionStats = MutableStateFlow<List<CompletionStats>>(emptyList())
+    val categoryCompletionStats: Flow<List<CompletionStats>> = _categoryCompletionStats.asStateFlow()
+
+    private var _taskCompletions = MutableStateFlow<List<TaskCompletion>>(emptyList())
+    val taskCompletions: Flow<List<TaskCompletion>> = _taskCompletions.asStateFlow()
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
@@ -42,13 +46,19 @@ class ReportsViewModel @Inject constructor(
     fun onEvent(event: ReportsEvent) {
         when (event) {
             is ReportsEvent.OnDropdownTaskSelected -> {
+                viewModelScope.launch {
+                    val taskCompletionsFlow = taskCompletionRepository.getLastTenTaskCompletionsForATaskId(event.taskId)
+                    taskCompletionsFlow.collect() { taskCompletionsList ->
+                        _taskCompletions.value = taskCompletionsList
+                    }
+                }
 
             }
             is ReportsEvent.OnDropdownCategorySelected -> {
                 viewModelScope.launch {
                     val completionsFlow = taskCompletionRepository.getTaskCompletionsForCategoryOverPrevSevenDays(event.categoryId)
                     completionsFlow.collect() { completionsList ->
-                        _completionStats.value = completionsList
+                        _categoryCompletionStats.value = completionsList
                     }
                 }
             }

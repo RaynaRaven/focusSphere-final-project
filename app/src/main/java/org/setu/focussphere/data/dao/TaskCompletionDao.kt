@@ -37,7 +37,16 @@ interface TaskCompletionDao {
             AND taskCompletions.completionTime < strftime( "%s", "now", "weekday 0")
             GROUP BY category.categoryName, dayOfWeek;
     """)
-    fun getTaskCompletionsForCategoryOverPrevSevenDays(categoryId: Long) : Flow<List<CompletionStats?>>
+    fun getTaskCompletionsForCategoryOverPrevSevenDays(categoryId: Long) : Flow<List<CompletionStats>>
+
+    @Query("""SELECT taskCompletions.* 
+        FROM taskCompletions
+        JOIN task on task.id = taskCompletions.taskId
+        WHERE task.id = :taskId
+        ORDER BY taskCompletions.completionTime DESC 
+        LIMIT 10      
+    """)
+    fun getLastTenTaskCompletionsForATaskId(taskId: Long) : Flow<List<TaskCompletion>>
 
 
     //Get all task completions for a particular task

@@ -115,6 +115,10 @@ dependencies {
     //timer composable
     implementation("com.github.raipankaj:countdowntimer:1.0.2")
 
+    //charts UI for reports
+    implementation ("com.github.tehras:charts:0.2.4-alpha")
+
+
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("androidx.room:room-testing:$roomVersion")

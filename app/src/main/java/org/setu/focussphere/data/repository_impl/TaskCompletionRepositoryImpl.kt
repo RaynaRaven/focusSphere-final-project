@@ -24,8 +24,12 @@ class TaskCompletionRepositoryImpl(
         return taskCompletionDao.getMostRecentCompletionByTask(taskId)
     }
 
-    override fun getTaskCompletionsForCategoryOverPrevSevenDays(categoryId: Long): Flow<List<CompletionStats?>> {
+    override fun getTaskCompletionsForCategoryOverPrevSevenDays(categoryId: Long): Flow<List<CompletionStats>> {
         return taskCompletionDao.getTaskCompletionsForCategoryOverPrevSevenDays(categoryId)
+    }
+
+    override fun getLastTenTaskCompletionsForATaskId(taskId: Long): Flow<List<TaskCompletion>> {
+        return taskCompletionDao.getLastTenTaskCompletionsForATaskId(taskId)
     }
 
 }

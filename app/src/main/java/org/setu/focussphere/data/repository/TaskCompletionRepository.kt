@@ -10,5 +10,8 @@ interface TaskCompletionRepository {
 
     suspend fun getMostRecentCompletionByTask(taskId: Long) : TaskCompletion?
 
-    fun getTaskCompletionsForCategoryOverPrevSevenDays(categoryId: Long) : Flow<List<CompletionStats?>>
+    fun getTaskCompletionsForCategoryOverPrevSevenDays(categoryId: Long) : Flow<List<CompletionStats>>
+
+    fun getLastTenTaskCompletionsForATaskId(taskId: Long) : Flow<List<TaskCompletion>>
+
 }
