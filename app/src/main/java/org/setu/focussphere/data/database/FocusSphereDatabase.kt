@@ -17,10 +17,7 @@ import org.setu.focussphere.util.Converters
 @Database(
     entities = [Task::class, Routine::class, RoutineTaskCrossRef::class, Category::class, TaskCompletion::class],
     version = 1,
-    autoMigrations = [
-//        AutoMigration (from = 1, to = 2),
-//        AutoMigration (from = 2, to = 3)
-    ]
+    autoMigrations = []
 )
 @TypeConverters(Converters::class)
 abstract class FocusSphereDatabase: RoomDatabase() {
