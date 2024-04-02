@@ -18,7 +18,9 @@ import org.setu.focussphere.data.repository.TaskRepository
 import org.setu.focussphere.util.Routes
 import org.setu.focussphere.util.UiEvent
 import timber.log.Timber
+import java.time.Duration
 import javax.inject.Inject
+
 
 @HiltViewModel
 class AddEditTaskViewModel @Inject constructor(
@@ -47,7 +49,7 @@ class AddEditTaskViewModel @Inject constructor(
     var categoryId by mutableStateOf(0L)
         private set
 
-    var estimatedDuration by mutableStateOf("")
+    var estimatedDuration by mutableStateOf(0L)
         private set
 
     var priorityLevel by mutableStateOf("")
@@ -72,10 +74,8 @@ can be edited/updated.
                 taskRepository.getTaskById(taskId)?.let { task ->
                     title = task.title
                     description = task.description
-                    //TODO enable when category entity impl
-                    categoryId = task.categoryId!!
-//                    priorityLevel = task.priorityLevel,
-                    estimatedDuration = task.estimatedDuration.toString()
+                    categoryId = task.categoryId
+                    estimatedDuration = task.estimatedDuration.toMinutes()
                     this@AddEditTaskViewModel.task = task
                 }
             }
@@ -103,7 +103,15 @@ can be edited/updated.
                     {
                     sendUiEvent(
                         UiEvent.ShowSnackbar(
-                            "Please update all fields"
+                            "Title cannot be blank"
+                        ))
+                    return@launch
+                    }
+                    if (estimatedDuration == 0L)
+                    {
+                    sendUiEvent(
+                        UiEvent.ShowSnackbar(
+                            "Please set a duration"
                         ))
                     return@launch
                 }
@@ -114,7 +122,7 @@ can be edited/updated.
                         description = description,
                         categoryId = categoryId,
 //                        priorityLevel = priorityLevel,
-//                        estimatedDuration = estimatedDuration.toString()
+                        estimatedDuration = Duration.ofMinutes(estimatedDuration)
                     )
                 )
                     Timber.tag("DatabaseDebug").d("Inserted Task: %s", task)

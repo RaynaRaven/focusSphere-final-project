@@ -8,18 +8,18 @@ import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun TimerComponent(
-    currentTask: String,
+    running: Boolean,
     currentTaskDuration: Long,
     onTaskComplete: () -> Unit
 ) {
 
     var x = 45.seconds.inWholeMilliseconds
 
-    i("current duration: ${currentTaskDuration}")
-    i("current duration x: ${x}")
+    i("current duration: $currentTaskDuration")
+    i("current duration x: $x")
 
 
-    if (currentTaskDuration > 0) {
+    if (running) {
         CountDownTimer(
             actionList = listOf(
                 Action(currentTaskDuration, "tracking.."),

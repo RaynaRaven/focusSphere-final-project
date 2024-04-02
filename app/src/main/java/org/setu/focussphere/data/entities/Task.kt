@@ -27,7 +27,7 @@ data class Task(
     var lng: Double = 0.0,
     var zoom: Float = 0f,
     var createdDateTime: LocalDateTime = LocalDateTime.now(),
-    var estimatedDuration: Duration = Duration.ofMinutes(2),
+    var estimatedDuration: Duration,
     var isDone: Boolean = false,
 
     @PrimaryKey(autoGenerate = true)
@@ -50,7 +50,7 @@ val dummyTasks = List(10) { i ->
 }
 
 data class TaskWithAccuracy(
-    var task: Task = Task(),
+    var task: Task,
     var accuracy: Float = 0f) {
 
 }

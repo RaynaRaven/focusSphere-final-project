@@ -55,6 +55,8 @@ class TaskTrackerViewModel @Inject constructor(
         tasks.firstOrNull()
     }.stateIn(viewModelScope, SharingStarted.Lazily, null)
 
+    val running = MutableStateFlow(false)
+
     private var taskStartTime: Date? = null
 
     val routines = routineRepository.getRoutines()
@@ -70,7 +72,7 @@ class TaskTrackerViewModel @Inject constructor(
             is TaskTrackerEvent.OnStartClick -> {
                 viewModelScope.launch {
                     taskStartTime = Date()
-                    _queuedTasks.value = _tasks.value
+                    running.value = true
                 }
 
             }
@@ -79,7 +81,7 @@ class TaskTrackerViewModel @Inject constructor(
                     //show dialog to confirm stop
                     val took = Date().time - taskStartTime!!.time
 //                    val took = Duration.between(taskStartTime!!.toInstant(), Date().toInstant())
-                    taskStartTime = null
+                    running.value = false
 
                     // save task completion to database
                     currentTask.value?.let { currentTask ->
@@ -100,6 +102,7 @@ class TaskTrackerViewModel @Inject constructor(
                     _queuedTasks.value?.let {
                         _queuedTasks.value = _queuedTasks.value.drop(1)
                     }
+
                     i("Current task: ${_queuedTasks.value.firstOrNull()}")
 
                 }
@@ -116,11 +119,10 @@ class TaskTrackerViewModel @Inject constructor(
                     i(_selectedRoutine.value.toString())
                     routineRepository.getTaskIdsForRoutine(event.routine.id).collect() {
                         _tasks.value = taskRepository.getTasksByIds(it)
-//                        _queuedTasks.value = taskRepository.getTasksByIds(it)
+                                           _queuedTasks.value = _tasks.value
+
                     }
                 }
-
-
             }
             is TaskTrackerEvent.OnTimerExpired -> {
 

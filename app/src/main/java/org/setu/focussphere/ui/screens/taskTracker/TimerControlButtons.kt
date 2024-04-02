@@ -18,6 +18,7 @@ fun TimerControlButtons(
         Spacer(modifier = Modifier
             .padding(16.dp))
         Button(
+
             onClick = { onEvent(TaskTrackerEvent.OnStartClick)},
             modifier = Modifier
                 .padding(8.dp)

@@ -15,10 +15,8 @@ object Formatters {
 
     fun formatDuration(duration: Duration): String {
         val hours = duration.toHours()
-//        i("hello time: $hours")
         val minutes = duration.toMinutes()
         val minutesPart = (duration.seconds % 3600) / 60
-//        i("hello time: $minutes")
 
         return buildString {
             if (hours > 0) {
