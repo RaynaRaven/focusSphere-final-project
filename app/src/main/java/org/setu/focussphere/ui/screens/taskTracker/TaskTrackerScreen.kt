@@ -27,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -52,6 +53,7 @@ fun TaskTrackerScreen (
     val showModal = remember { mutableStateOf(false) }
     val queuedTasks by viewModel._queuedTasks.collectAsState(initial = emptyList())
     val currentTask by viewModel.currentTask.collectAsState()
+    val running by viewModel.running.collectAsState(false)
 
     i("current task: ${currentTask}")
     i("current duration: ${currentTask?.estimatedDuration}")
@@ -96,7 +98,7 @@ fun TaskTrackerScreen (
                 contentAlignment = Alignment.BottomCenter
             ) {
                 TimerComponent(
-                    currentTask = currentTask?.title ?: "",
+                    running = running,
                     currentTaskDuration = currentTask?.estimatedDuration?.toMillis() ?: 0L,
                     onTaskComplete = { viewModel.onEvent(TaskTrackerEvent.OnTimerExpired) }
                 )
@@ -106,6 +108,7 @@ fun TaskTrackerScreen (
             HorizontalDivider(thickness = 2.dp)
             Spacer(modifier = Modifier.height(4.dp))
             InfoRow(routineLabel = selectedRoutine?.title ?: "No Routine Selected", totalDuration = Formatters.formatDuration(totalDuration as Duration))
+
             LazyColumn(
                     modifier = Modifier
                         .weight(0.75f)
@@ -118,16 +121,16 @@ fun TaskTrackerScreen (
                             Text(
                                 modifier = Modifier.padding(end = 12.dp),
                                 text = Formatters.formatDuration(task.estimatedDuration).replace(" mins", "m"),
-                                style = MaterialTheme.typography.bodyLarge
+                                style = MaterialTheme.typography.bodyLarge,
                             )
                             Text(
                                 modifier = Modifier.weight(1f),
-                                text = task.title, style = MaterialTheme.typography.bodyLarge
+                                text = task.title + if (task.id == currentTask?.id) " (Current)" else "" ,
+                                style = MaterialTheme.typography.bodyLarge,
+                                textDecoration = if (queuedTasks.any { it.id == task.id }) TextDecoration.None else TextDecoration.LineThrough
                             )
                         }
-
                     }
-
                 }
                 if (showModal.value) {
                     Dialog(onDismissRequest = { showModal.value = false }) {

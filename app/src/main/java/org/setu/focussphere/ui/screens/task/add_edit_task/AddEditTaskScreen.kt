@@ -2,7 +2,6 @@ package org.setu.focussphere.ui.screens.task.add_edit_task
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +13,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -99,7 +99,8 @@ fun AddEditTaskScreen(
                 onValueChange = {
                     viewModel.onEvent(AddEditTaskEvent.OnTitleChanged(it))
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                isError = viewModel.title.isBlank()
             )
             Spacer(modifier = Modifier.height(12.dp))
             OutlinedTextField(
@@ -116,34 +117,16 @@ fun AddEditTaskScreen(
             Spacer(modifier = Modifier.height(12.dp))
             //TODO will need to be a dropdown for existing catgories + create category button functionality
             CategoryDropdown(viewModel = viewModel)
-            Spacer(modifier = Modifier.height(12.dp))
-            Row {
-                OutlinedTextField(
-                    label = { Text(text = stringResource(R.string.add_edit_task_textfield_label_duration)) },
-                    value = viewModel.estimatedDuration,
-                    placeholder = { Text( text = stringResource(R.string.add_edit_task_duration_hint)) },
+            Spacer(modifier = Modifier.height(16.dp))
+                Text("Select Duration (minutes): ${viewModel.estimatedDuration}")
+                Slider (
+                    modifier = Modifier.padding(12.dp),
+                    value = viewModel.estimatedDuration.toFloat(),
                     onValueChange = {
-                        viewModel.onEvent(AddEditTaskEvent.OnEstimatedDurationChanged(it))
-                    },
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(end = 8.dp)
-                        .fillMaxWidth()
-                )
-                OutlinedTextField(
-                    label = { Text(text = stringResource(R.string.add_edit_task_textfield_label_priority)) },
-                    value = viewModel.priorityLevel,
-                    placeholder = { Text( text = stringResource(R.string.add_edit_task_priority_hint)) },
-                    onValueChange = {
-                        viewModel.onEvent(AddEditTaskEvent.OnPriorityLevelChanged(it))
-                    },
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 8.dp)
-                        .fillMaxWidth()
+                        viewModel.onEvent(AddEditTaskEvent.OnEstimatedDurationChanged(it.toLong()))
+                                    },
+                    valueRange = 0f..180f
                 )
             }
         }
     }
-
-}
