@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import org.setu.focussphere.ui.screens.dashboard.DashboardScreen
+import org.setu.focussphere.ui.screens.home.HomeScreen
 import org.setu.focussphere.ui.screens.reports.ReportsScreen
 import org.setu.focussphere.ui.screens.routine.add_edit_routine.AddEditRoutineScreen
 import org.setu.focussphere.ui.screens.routine.routinesList.RoutinesScreen
@@ -23,10 +24,16 @@ fun FocusSphereNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Routes.DASHBOARD,
+        startDestination = Routes.HOME,
         modifier = modifier
     ) {
-
+        composable(Routes.HOME) {
+            HomeScreen(
+                onNavigate = {
+                    navController.navigate(it.route)
+                }
+            )
+        }
         composable(Routes.DASHBOARD) {
             DashboardScreen(
                 onNavigate = {
