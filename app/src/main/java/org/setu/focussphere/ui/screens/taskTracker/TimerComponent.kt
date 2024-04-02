@@ -1,5 +1,6 @@
 package org.setu.focussphere.ui.screens.taskTracker
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import com.alltechies.timer.CountDownTimer
 import com.alltechies.timer.data.Action
@@ -23,6 +24,11 @@ fun TimerComponent(
             actionList = listOf(
                 Action(currentTaskDuration, "tracking.."),
             ),
+            dialerBackgroundColor = MaterialTheme.colorScheme.primaryContainer,
+            dialerBorderColor = MaterialTheme.colorScheme.primary,
+            dialerProgressColor = MaterialTheme.colorScheme.inversePrimary,
+            timerTextColor = MaterialTheme.colorScheme.onSurface,
+            timerLabelColor = MaterialTheme.colorScheme.onSurface,
             onTimerExpired = {
                 onTaskComplete()
 
@@ -34,9 +40,12 @@ fun TimerComponent(
             actionList = listOf(
                 Action(0.seconds.inWholeMilliseconds, ""),
             ),
-        ) {
-
-        }
+            dialerBackgroundColor = MaterialTheme.colorScheme.primaryContainer,
+            dialerBorderColor = MaterialTheme.colorScheme.primary,
+            dialerProgressColor = MaterialTheme.colorScheme.inversePrimary,
+            timerTextColor = MaterialTheme.colorScheme.onSurface,
+            timerLabelColor = MaterialTheme.colorScheme.onSurface,
+            ) {}
     }
 
 }
