@@ -1,4 +1,5 @@
-# Focus Sphere
+
+<p align=center><img src="https://github.com/RaynaRaven/focusSphere-final-project/assets/98043382/2d0d238d-5363-43e0-9d78-d83f2c3ab5e3" /></p>
 
 FocusSphere is an intuitive task management application designed to help users with ADHD organize their tasks effectively, and improve productivity, time management and focus. 
 
