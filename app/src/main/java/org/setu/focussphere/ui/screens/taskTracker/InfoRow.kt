@@ -18,7 +18,7 @@ fun InfoRow(
     Row(
         modifier = Modifier
             .padding(8.dp)
-    ){
+    ) {
         Text(
             modifier = Modifier
                 .weight(1f),
@@ -29,7 +29,7 @@ fun InfoRow(
             modifier = Modifier
                 .weight(1f)
                 .padding(end = 8.dp),
-            textAlign  = TextAlign.End,
+            textAlign = TextAlign.End,
             text = "Est Duration: $totalDuration",
             style = MaterialTheme.typography.bodyMedium
         )
@@ -38,7 +38,6 @@ fun InfoRow(
 
 @Preview(showBackground = true)
 @Composable
-fun InfoRowPreview()
-{
+fun InfoRowPreview() {
     InfoRow("Morning", "45m")
 }

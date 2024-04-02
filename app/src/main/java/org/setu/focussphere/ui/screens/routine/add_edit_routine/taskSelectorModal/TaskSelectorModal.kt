@@ -29,44 +29,46 @@ fun TaskSelectorModal(
     selectedTasks: List<Long>,
     onTaskSelected: (Long) -> Unit,
     showModal: MutableState<Boolean>
+) {
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+            .wrapContentHeight(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
-    Column ( modifier = Modifier
-        .padding(16.dp)
-        .fillMaxWidth()
-        .wrapContentHeight()
-        ,horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = stringResource(id = R.string.add_edit_routine_modal_headline_select_tasks),
-             style = MaterialTheme.typography.headlineSmall)
+        Text(
+            text = stringResource(id = R.string.add_edit_routine_modal_headline_select_tasks),
+            style = MaterialTheme.typography.headlineSmall
+        )
         HorizontalDivider()
         LazyColumn(
             modifier = Modifier.weight(1f, fill = false)
-        ){
+        ) {
             items(tasks) { task ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp)
-                ){
+                ) {
                     Checkbox(
-                             checked = selectedTasks.contains(task.id),
-                             onCheckedChange = { _ ->
-                                 onTaskSelected(task.id)
-                             }
+                        checked = selectedTasks.contains(task.id),
+                        onCheckedChange = { _ ->
+                            onTaskSelected(task.id)
+                        }
                     )
                     Text(text = task.title, style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }
         Spacer(modifier = Modifier.height(4.dp))
-        Button (
-                modifier = Modifier.align(Alignment.End),
-                onClick = {
-                    showModal.value = false
-                }
+        Button(
+            modifier = Modifier.align(Alignment.End),
+            onClick = {
+                showModal.value = false
+            }
         ) {
-                Text( text = stringResource(id = R.string.button_label_done))
+            Text(text = stringResource(id = R.string.button_label_done))
         }
     }
 }

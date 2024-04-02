@@ -15,19 +15,22 @@ fun TimerControlButtons(
     onEvent: (TaskTrackerEvent) -> Unit,
 ) {
     Row() {
-        Spacer(modifier = Modifier
-            .padding(16.dp))
+        Spacer(
+            modifier = Modifier
+                .padding(16.dp)
+        )
         Button(
-
-            onClick = { onEvent(TaskTrackerEvent.OnStartClick)},
+            onClick = { onEvent(TaskTrackerEvent.OnStartClick) },
             modifier = Modifier
                 .padding(8.dp)
                 .weight(1f)
         ) {
             Text(text = "Start")
         }
-        Spacer(modifier = Modifier
-            .padding(8.dp))
+        Spacer(
+            modifier = Modifier
+                .padding(8.dp)
+        )
         Button(
             onClick = { onEvent(TaskTrackerEvent.OnStopClick) },
             modifier = Modifier
@@ -36,8 +39,10 @@ fun TimerControlButtons(
         ) {
             Text(text = "Stop")
         }
-        Spacer(modifier = Modifier
-            .padding(16.dp))
+        Spacer(
+            modifier = Modifier
+                .padding(16.dp)
+        )
     }
 }
 

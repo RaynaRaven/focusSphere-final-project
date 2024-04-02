@@ -54,6 +54,7 @@ fun AddEditTaskScreen(
                     //adjust navigation to clear backstack to prevent back nav to addTask
                     popUpTo(Routes.DASHBOARD)
                 }
+
                 is UiEvent.ShowSnackbar -> {
                     scope.launch {
                         snackbarHostState.showSnackbar(
@@ -62,15 +63,16 @@ fun AddEditTaskScreen(
                         )
                     }
                 }
+
                 else -> Unit
             }
         }
     }
 
-/*    //on compose/recompose of a addEditTask this coroutine gets correct category info for the task
-    LaunchedEffect(taskId) {
-        viewModel.initialiseSelectedCategoryForTask(taskId)
-    }*/
+    /*    //on compose/recompose of a addEditTask this coroutine gets correct category info for the task
+        LaunchedEffect(taskId) {
+            viewModel.initialiseSelectedCategoryForTask(taskId)
+        }*/
 
 
 
@@ -80,23 +82,24 @@ fun AddEditTaskScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(12.dp),
-            floatingActionButton = {
-                FloatingActionButton(onClick = {
-                    viewModel.onEvent(AddEditTaskEvent.OnSaveTaskClicked)
-                }) {
-                    Icon(
-                        imageVector = Icons.Default.Check,
-                        contentDescription = "Save"
-                    )
-                }
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+                viewModel.onEvent(AddEditTaskEvent.OnSaveTaskClicked)
+            }) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "Save"
+                )
             }
-        ) {
-        Column (
+        }
+    ) {
+        Column(
             modifier = Modifier
-            .fillMaxSize()
+                .fillMaxSize()
         )
         {
-            Text(text = stringResource(R.string.add_edit_task_title_label),
+            Text(
+                text = stringResource(R.string.add_edit_task_title_label),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Gray
@@ -105,7 +108,7 @@ fun AddEditTaskScreen(
             OutlinedTextField(
                 label = { Text(text = stringResource(R.string.add_edit_task_textfield_label_title)) },
                 value = viewModel.title,
-                placeholder = { Text( text = stringResource(R.string.add_edit_task_title_hint)) },
+                placeholder = { Text(text = stringResource(R.string.add_edit_task_title_hint)) },
                 onValueChange = {
                     viewModel.onEvent(AddEditTaskEvent.OnTitleChanged(it))
                 },
@@ -116,7 +119,7 @@ fun AddEditTaskScreen(
             OutlinedTextField(
                 label = { Text(text = stringResource(R.string.add_edit_task_textfield_label_description)) },
                 value = viewModel.description,
-                placeholder = { Text( text = stringResource(R.string.add_edit_task_description_hint)) },
+                placeholder = { Text(text = stringResource(R.string.add_edit_task_description_hint)) },
                 onValueChange = {
                     viewModel.onEvent(AddEditTaskEvent.OnDescriptionChanged(it))
                 },
@@ -128,15 +131,15 @@ fun AddEditTaskScreen(
             //TODO will need to be a dropdown for existing catgories + create category button functionality
             CategoryDropdown(viewModel = viewModel)
             Spacer(modifier = Modifier.height(16.dp))
-                Text("Select Duration (minutes): ${viewModel.estimatedDuration}")
-                Slider (
-                    modifier = Modifier.padding(12.dp),
-                    value = viewModel.estimatedDuration.toFloat(),
-                    onValueChange = {
-                        viewModel.onEvent(AddEditTaskEvent.OnEstimatedDurationChanged(it.toLong()))
-                                    },
-                    valueRange = 0f..180f
-                )
-            }
+            Text("Select Duration (minutes): ${viewModel.estimatedDuration}")
+            Slider(
+                modifier = Modifier.padding(12.dp),
+                value = viewModel.estimatedDuration.toFloat(),
+                onValueChange = {
+                    viewModel.onEvent(AddEditTaskEvent.OnEstimatedDurationChanged(it.toLong()))
+                },
+                valueRange = 0f..180f
+            )
         }
     }
+}

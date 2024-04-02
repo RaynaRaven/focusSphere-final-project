@@ -102,7 +102,8 @@ private fun TaskCardContent(
     padding: Dp = 8.dp
 ) {
     var expandedState by rememberSaveable { mutableStateOf(expanded) }
-    val rotationState by animateFloatAsState(targetValue = if (expandedState) 180f else 0f,
+    val rotationState by animateFloatAsState(
+        targetValue = if (expandedState) 180f else 0f,
         label = "label"
     )
     Row(
@@ -143,19 +144,20 @@ private fun TaskCardContent(
                         modifier = Modifier
                             .size(24.dp),
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete Task")
+                        contentDescription = "Delete Task"
+                    )
                 }
 
             }
-            Row(verticalAlignment = Alignment.Top){
+            Row(verticalAlignment = Alignment.Top) {
                 Text(
                     modifier = Modifier
                         .weight(1f),
-                    text =  stringResource(R.string.taskCard_EstimatedTime) + " $estimatedDuration",
+                    text = stringResource(R.string.taskCard_EstimatedTime) + " $estimatedDuration",
                     style = MaterialTheme.typography.labelLarge
                 )
             }
-            Row(verticalAlignment = Alignment.CenterVertically){
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     modifier = Modifier
                         .weight(8f),
@@ -174,38 +176,39 @@ private fun TaskCardContent(
                     }) {
                     Icon(
                         imageVector = Icons.Default.ArrowDropDown,
-                        contentDescription = "Expand task details")
+                        contentDescription = "Expand task details"
+                    )
                 }
             }
             if (expandedState) {
                 if (accuracy > 0) {
                     Row(
-                    ){
+                    ) {
                         Text(
                             modifier = Modifier.padding(top = 8.dp),
                             text = "Accuracy Score: ",
                             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                             style = MaterialTheme.typography.bodyMedium
-                            )
+                        )
                         Text(
                             modifier = Modifier.padding(top = 8.dp),
                             text = "${((1 - accuracy) * 100).roundToInt()}%",
                             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                             style = MaterialTheme.typography.bodyMedium,
-                            color = if (accuracy>1) Color.Red else Color.Green
+                            color = if (accuracy > 1) Color.Red else Color.Green
                         )
                     }
-                    }
                 }
-                Text(
-                    modifier = Modifier.padding(top = 8.dp),
-                    text = description,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    style = MaterialTheme.typography.bodyMedium
-                )
             }
+            Text(
+                modifier = Modifier.padding(top = 8.dp),
+                text = description,
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
     }
+}
 
 @Preview(name = "Collapsed Task Card")
 @Composable

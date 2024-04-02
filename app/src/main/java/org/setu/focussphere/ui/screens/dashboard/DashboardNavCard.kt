@@ -33,9 +33,9 @@ fun DashboardNavCard(
     shape: CornerBasedShape = Shapes.small,
     onClick: () -> Unit = {},
     content: @Composable () -> Unit,
-    modifier: Modifier= Modifier
+    modifier: Modifier = Modifier
 ) {
-    Card (
+    Card(
         shape = shape,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
@@ -60,7 +60,7 @@ fun DashboardNavCardContent(
     subTitle: String,
     icon: ImageVector
 ) {
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
@@ -96,12 +96,16 @@ fun DashboardNavCardContent(
 @Composable
 fun PreviewDashboardNavCard() {
     DashboardNavCard(
-        content = { DashboardNavCardContent(
-            title = stringResource(
-                R.string.dashboard_nav_card_title_tasks),
-            subTitle = stringResource(
-                R.string.dashboard_nav_card_subtitle_tasks),
-            icon = Icons.AutoMirrored.Outlined.List)
+        content = {
+            DashboardNavCardContent(
+                title = stringResource(
+                    R.string.dashboard_nav_card_title_tasks
+                ),
+                subTitle = stringResource(
+                    R.string.dashboard_nav_card_subtitle_tasks
+                ),
+                icon = Icons.AutoMirrored.Outlined.List
+            )
         }
     )
 }

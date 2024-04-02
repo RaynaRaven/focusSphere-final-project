@@ -22,7 +22,4 @@ interface RoutineRepository {
 
         suspend fun deleteCrossRef(routineTaskCrossRef: RoutineTaskCrossRef)
 
-        /*    TODO: add more queries for filtering routines
-        */
-
 }

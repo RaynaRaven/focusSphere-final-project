@@ -80,7 +80,6 @@ class TaskTrackerViewModel @Inject constructor(
                 viewModelScope.launch {
                     //show dialog to confirm stop
                     val took = Date().time - taskStartTime!!.time
-//                    val took = Duration.between(taskStartTime!!.toInstant(), Date().toInstant())
                     running.value = false
 
                     // save task completion to database
@@ -106,11 +105,6 @@ class TaskTrackerViewModel @Inject constructor(
                     i("Current task: ${_queuedTasks.value.firstOrNull()}")
 
                 }
-                //show dialog to confirm stop
-                //if yes, cue up the next task, if cancel leave it running
-                //get current time on timer
-                //log task completion
-
             }
             is TaskTrackerEvent.OnDoneChange-> {}
             is TaskTrackerEvent.OnRoutineClick -> {

@@ -40,7 +40,7 @@ import java.time.Duration
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun TaskTrackerScreen (
+fun TaskTrackerScreen(
     onNavigate: (UiEvent.Navigate) -> Unit,
     viewModel: TaskTrackerViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
@@ -63,7 +63,10 @@ fun TaskTrackerScreen (
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvent.Navigate -> { onNavigate(event) }
+                is UiEvent.Navigate -> {
+                    onNavigate(event)
+                }
+
                 else -> Unit
             }
         }
@@ -80,9 +83,10 @@ fun TaskTrackerScreen (
             SnackbarHost(hostState = snackbarHostState)
         }
     ) {
-        Text(modifier = Modifier
-            .fillMaxWidth()
-            .padding(20.dp),
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp),
             text = "Current: ${currentTask?.title ?: "No tasks"}",
             style = MaterialTheme.typography.headlineMedium
         )
@@ -92,9 +96,10 @@ fun TaskTrackerScreen (
                 .padding(12.dp)
                 .fillMaxSize(1f)
         ) {
-            Box( modifier = Modifier
-                .weight(1.25f)
-                .align(Alignment.CenterHorizontally),
+            Box(
+                modifier = Modifier
+                    .weight(1.25f)
+                    .align(Alignment.CenterHorizontally),
                 contentAlignment = Alignment.BottomCenter
             ) {
                 TimerComponent(
@@ -107,39 +112,43 @@ fun TaskTrackerScreen (
 
             HorizontalDivider(thickness = 2.dp)
             Spacer(modifier = Modifier.height(4.dp))
-            InfoRow(routineLabel = selectedRoutine?.title ?: "No Routine Selected", totalDuration = Formatters.formatDuration(totalDuration as Duration))
+            InfoRow(
+                routineLabel = selectedRoutine?.title ?: "No Routine Selected",
+                totalDuration = Formatters.formatDuration(totalDuration as Duration)
+            )
 
             LazyColumn(
-                    modifier = Modifier
-                        .weight(0.75f)
-                        .padding(start = 16.dp, end = 12.dp)
-                ) {
-                    items(tasks) { task ->
-                        Row(
-                            modifier = Modifier.padding(2.dp)
-                        ) {
-                            Text(
-                                modifier = Modifier.padding(end = 12.dp),
-                                text = Formatters.formatDuration(task.estimatedDuration).replace(" mins", "m"),
-                                style = MaterialTheme.typography.bodyLarge,
-                            )
-                            Text(
-                                modifier = Modifier.weight(1f),
-                                text = task.title + if (task.id == currentTask?.id) " (Current)" else "" ,
-                                style = MaterialTheme.typography.bodyLarge,
-                                textDecoration = if (queuedTasks.any { it.id == task.id }) TextDecoration.None else TextDecoration.LineThrough
-                            )
-                        }
-                    }
-                }
-                if (showModal.value) {
-                    Dialog(onDismissRequest = { showModal.value = false }) {
-                        RoutineSelectorScreen(
-                            viewModel = viewModel,
-                            showModal = showModal
+                modifier = Modifier
+                    .weight(0.75f)
+                    .padding(start = 16.dp, end = 12.dp)
+            ) {
+                items(tasks) { task ->
+                    Row(
+                        modifier = Modifier.padding(2.dp)
+                    ) {
+                        Text(
+                            modifier = Modifier.padding(end = 12.dp),
+                            text = Formatters.formatDuration(task.estimatedDuration)
+                                .replace(" mins", "m"),
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        Text(
+                            modifier = Modifier.weight(1f),
+                            text = task.title + if (task.id == currentTask?.id) " (Current)" else "",
+                            style = MaterialTheme.typography.bodyLarge,
+                            textDecoration = if (queuedTasks.any { it.id == task.id }) TextDecoration.None else TextDecoration.LineThrough
                         )
                     }
                 }
             }
+            if (showModal.value) {
+                Dialog(onDismissRequest = { showModal.value = false }) {
+                    RoutineSelectorScreen(
+                        viewModel = viewModel,
+                        showModal = showModal
+                    )
+                }
+            }
         }
+    }
 }

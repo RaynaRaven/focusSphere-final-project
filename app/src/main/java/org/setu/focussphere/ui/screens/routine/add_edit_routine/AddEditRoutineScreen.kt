@@ -62,7 +62,8 @@ fun AddEditRoutineScreen(
     val scope = rememberCoroutineScope()
     val showModal = remember { mutableStateOf(false) }
     val selectedTaskIds by viewModel.selectedTasks.collectAsState(initial = emptyList())
-    val selectedTasks by viewModel.getSelectedTasks(selectedTaskIds).collectAsState(initial = emptyList())
+    val selectedTasks by viewModel.getSelectedTasks(selectedTaskIds)
+        .collectAsState(initial = emptyList())
 
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
@@ -72,6 +73,7 @@ fun AddEditRoutineScreen(
                     //adjust navigation to clear backstack to prevent back nav to addTask
                     popUpTo(Routes.DASHBOARD)
                 }
+
                 is UiEvent.ShowSnackbar -> {
                     scope.launch {
                         snackbarHostState.showSnackbar(
@@ -80,6 +82,7 @@ fun AddEditRoutineScreen(
                         )
                     }
                 }
+
                 else -> Unit
             }
         }
@@ -100,13 +103,14 @@ fun AddEditRoutineScreen(
             }
         }
     ) {
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxSize()
         )
         {
             //TODO UI styling for textFields
-            Text(text = stringResource(R.string.add_edit_routine_title_label),
+            Text(
+                text = stringResource(R.string.add_edit_routine_title_label),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Gray
@@ -115,7 +119,7 @@ fun AddEditRoutineScreen(
             OutlinedTextField(
                 label = { Text(text = stringResource(R.string.add_edit_task_textfield_label_title)) },
                 value = viewModel.title,
-                placeholder = { Text( text = stringResource(R.string.add_edit_routine_title_hint)) },
+                placeholder = { Text(text = stringResource(R.string.add_edit_routine_title_hint)) },
                 onValueChange = {
                     viewModel.onEvent(AddEditRoutineEvent.OnTitleChanged(it))
                 },
@@ -125,7 +129,7 @@ fun AddEditRoutineScreen(
             Button(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 onClick = { showModal.value = true }) {
-                Text( text = stringResource(id = R.string.button_label_add_tasks))
+                Text(text = stringResource(id = R.string.button_label_add_tasks))
             }
             Spacer(modifier = Modifier.height(8.dp))
             HorizontalDivider()
@@ -137,10 +141,11 @@ fun AddEditRoutineScreen(
                 color = Color.Gray
             )
 
-            LazyColumn( modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-                .weight(1f)
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .weight(1f)
             ) {
                 items(selectedTasks) { task ->
                     Row(
@@ -149,7 +154,8 @@ fun AddEditRoutineScreen(
                     ) {
                         Text(
                             modifier = Modifier.padding(end = 12.dp),
-                            text = Formatters.formatDuration(task.estimatedDuration).replace(" mins", "m"),
+                            text = Formatters.formatDuration(task.estimatedDuration)
+                                .replace(" mins", "m"),
                             style = MaterialTheme.typography.bodyLarge
                         )
                         Text(
@@ -157,23 +163,33 @@ fun AddEditRoutineScreen(
                             text = task.title, style = MaterialTheme.typography.bodyLarge
                         )
                         IconButton(onClick = { /* TODO Move Up*/ }) {
-                            Icon(imageVector = Icons.Default.KeyboardArrowUp, contentDescription = "Move item up" )
+                            Icon(
+                                imageVector = Icons.Default.KeyboardArrowUp,
+                                contentDescription = "Move item up"
+                            )
                         }
                         IconButton(onClick = { /* TODO Move Down*/ }) {
-                            Icon(imageVector = Icons.Default.KeyboardArrowDown, contentDescription = "Move item down" )
+                            Icon(
+                                imageVector = Icons.Default.KeyboardArrowDown,
+                                contentDescription = "Move item down"
+                            )
                         }
                         IconButton(onClick = { /* TODO Delete*/ }) {
-                            Icon(imageVector = Icons.TwoTone.Clear, contentDescription = "Delete item" )
+                            Icon(
+                                imageVector = Icons.TwoTone.Clear,
+                                contentDescription = "Delete item"
+                            )
                         }
                     }
                     HorizontalDivider(Modifier.fillMaxWidth(), color = Color.Gray, thickness = 1.dp)
                 }
             }
-            if(showModal.value) {
+            if (showModal.value) {
                 Dialog(onDismissRequest = { showModal.value = false }) {
                     TaskSelectorScreen(
                         viewModel = viewModel,
-                        showModal = showModal)
+                        showModal = showModal
+                    )
                 }
             }
         }

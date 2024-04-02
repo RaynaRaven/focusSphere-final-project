@@ -24,7 +24,6 @@ interface TaskCompletionDao {
     suspend fun getMostRecentCompletionByTask(taskId: Long) : TaskCompletion?
 
     //Get all task completions for a particular category and date range last 7 days
-//    @Query("SELECT strftime('%w', taskCompletions.completionTime / 1000, 'unixepoch') AS dayOfWeek,  categoryName FROM category WHERE categoryName = :category")
     @Query("""SELECT
             category.categoryName as "category",
             strftime("%w", taskCompletions.completionTime, "unixepoch") as "dayOfWeek",
@@ -48,12 +47,6 @@ interface TaskCompletionDao {
     """)
     fun getLastTenTaskCompletionsForATaskId(taskId: Long) : Flow<List<TaskCompletion>>
 
-
-    //Get all task completions for a particular task
-    //Get all task completions for a particular routine
-    //Get all task completions for a particular category
-    //Get all task completions for a particular date
-    //Get all task completions for a particular date range
 
 
 }

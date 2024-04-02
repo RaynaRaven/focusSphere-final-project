@@ -157,7 +157,6 @@ fun DashboardScreen(
                 Spacer(modifier = Modifier.padding(8.dp))
                 DashboardNavCard(
                     modifier = Modifier.weight(1f),
-                    //TODO: Enable route when Reports is implemented
                     onClick = { onNavigate(UiEvent.Navigate(Routes.REPORTS))},
                     content = {
                         DashboardNavCardContent(

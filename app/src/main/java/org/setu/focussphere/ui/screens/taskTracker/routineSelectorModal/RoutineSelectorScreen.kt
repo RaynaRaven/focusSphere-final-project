@@ -19,9 +19,8 @@ import org.setu.focussphere.ui.screens.taskTracker.TaskTrackerViewModel
 fun RoutineSelectorScreen(
     viewModel: TaskTrackerViewModel = hiltViewModel(),
     showModal: MutableState<Boolean>
-){
+) {
     val routines by viewModel.routines.collectAsState(initial = emptyList())
-//    val selectedRoutine by viewModel.selectedRoutine.collectAsState()
 
     Card(
         modifier = Modifier
@@ -36,8 +35,6 @@ fun RoutineSelectorScreen(
         RoutineSelectorModal(
             routines = routines,
             viewModel = viewModel,
-//            selectedRoutine= selectedRoutine,
-//            onRoutineSelected = viewModel::onEvent, /*TODO remove?*/
             showModal = showModal
         )
     }

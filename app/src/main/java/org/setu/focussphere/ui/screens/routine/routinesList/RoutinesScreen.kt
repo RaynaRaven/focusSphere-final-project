@@ -57,6 +57,7 @@ fun RoutinesScreen(
                         viewModel.onEvent(RoutinesEvent.OnUndoDeleteClick)
                     }
                 }
+
                 else -> Unit
             }
         }
@@ -72,7 +73,8 @@ fun RoutinesScreen(
                 )
             }
         },
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState)
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
         }
     ) {
         if (routines.isEmpty()) {

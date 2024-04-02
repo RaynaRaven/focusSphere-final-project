@@ -11,10 +11,10 @@ import org.setu.focussphere.data.entities.Category
 interface CategoryDao {
 
     @Insert
-    suspend fun insertCategory(category: Category) : Long
+    suspend fun insertCategory(category: Category): Long
 
     @Query("SELECT * FROM category")
-    fun getAllCategories() : Flow<List<Category>>
+    fun getAllCategories(): Flow<List<Category>>
 
     @Query("SELECT * FROM category WHERE categoryId = :categoryId")
     suspend fun getCategoryById(categoryId: Long?): Category?

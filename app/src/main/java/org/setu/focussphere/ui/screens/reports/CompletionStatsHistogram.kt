@@ -13,14 +13,14 @@ import org.setu.focussphere.data.entities.CompletionStats
 @Composable
 fun CompletionStatsHistogram(
     completionStats: List<CompletionStats>,
-    modifier : Modifier
+    modifier: Modifier
 ) {
 
     val daysOfWeekLabels = listOf("M", "T", "W", "T", "F", "S", "S")
 
     // pads the completions with empty CompletionStat if there is no data for a particular day
     val stats = List(daysOfWeekLabels.size) { index ->
-        val completion = completionStats.find { completion -> completion.dayOfWeek == index}
+        val completion = completionStats.find { completion -> completion.dayOfWeek == index }
         completion ?: CompletionStats("", index, 0)
     }
 
@@ -28,12 +28,14 @@ fun CompletionStatsHistogram(
         BarChartData.Bar(
             value = stat.numCompletions.toFloat(),
             color = Color.Green,
-            label = daysOfWeekLabels.getOrElse(stat.dayOfWeek) { "Unknown"}
-            )
+            label = daysOfWeekLabels.getOrElse(stat.dayOfWeek) { "Unknown" }
+        )
     }
 
     BarChart(
         barChartData = BarChartData(bars = bars, padBy = 1f),
-        modifier = Modifier.fillMaxWidth().height(200.dp)
-        )
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp)
+    )
 }

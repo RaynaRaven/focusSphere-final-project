@@ -91,7 +91,8 @@ private fun RoutineCardContent(
 
     ) {
     var expandedState by rememberSaveable { mutableStateOf(expanded) }
-    val rotationState by animateFloatAsState(targetValue = if (expandedState) 180f else 0f,
+    val rotationState by animateFloatAsState(
+        targetValue = if (expandedState) 180f else 0f,
         label = "label"
     )
     Row(
@@ -133,14 +134,15 @@ private fun RoutineCardContent(
                         modifier = Modifier
                             .size(24.dp),
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete Task")
+                        contentDescription = "Delete Task"
+                    )
                 }
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     modifier = Modifier
                         .weight(8f),
-                    text =  stringResource(R.string.routineCard_taskCount) + " " + tasks.size.toString(),
+                    text = stringResource(R.string.routineCard_taskCount) + " " + tasks.size.toString(),
                     style = MaterialTheme.typography.labelLarge
                 )
                 IconButton(
@@ -154,7 +156,8 @@ private fun RoutineCardContent(
                     }) {
                     Icon(
                         imageVector = Icons.Default.ArrowDropDown,
-                        contentDescription = "Expand task details")
+                        contentDescription = "Expand task details"
+                    )
                 }
             }
             if (expandedState) {

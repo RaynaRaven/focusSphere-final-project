@@ -35,8 +35,8 @@ fun CategoryDropdown(
 //    var selectedCategory by remember { mutableStateOf(viewModel.selectedCategoryName)}
     var typedText by remember { mutableStateOf<String?>(null) }
 
-    val filteredCategories = categories.filter{
-        it.categoryName.contains(typedText?:"", ignoreCase = true)
+    val filteredCategories = categories.filter {
+        it.categoryName.contains(typedText ?: "", ignoreCase = true)
     }
     i("filtered cat for $typedText : $filteredCategories")
 
@@ -48,11 +48,18 @@ fun CategoryDropdown(
         OutlinedTextField(
             label = { Text(text = stringResource(R.string.add_edit_task_textfield_label_category)) },
             modifier = Modifier.menuAnchor(),
-            placeholder = { Text(text = if ((typedText?:"").isEmpty()) stringResource(R.string.add_edit_task_category_hint) else "" )},
-            value = typedText ?: viewModel.selectedCategoryName ,
-            onValueChange = {value ->
+            placeholder = {
+                Text(
+                    text = if ((typedText
+                            ?: "").isEmpty()
+                    ) stringResource(R.string.add_edit_task_category_hint) else ""
+                )
+            },
+            value = typedText ?: viewModel.selectedCategoryName,
+            onValueChange = { value ->
                 typedText = value
-                expanded = true },
+                expanded = true
+            },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
             },
@@ -62,11 +69,10 @@ fun CategoryDropdown(
             expanded = expanded,
             onDismissRequest = { expanded = false },
         ) {
-            filteredCategories.forEach {category ->
+            filteredCategories.forEach { category ->
                 DropdownMenuItem(
                     text = { Text(category.categoryName) },
                     onClick = {
-//                        selectedCategory = category.categoryName
                         typedText = category.categoryName
                         expanded = false
                         viewModel.updateCategory(category.categoryId)
@@ -95,23 +101,24 @@ fun CategoryDropdownPreview(
     modifier: Modifier = Modifier,
     categories: List<Category>
 ) {
-    var expanded by remember { mutableStateOf(false)}
-    var selectedCategory by remember { mutableStateOf("")}
+    var expanded by remember { mutableStateOf(false) }
+    var selectedCategory by remember { mutableStateOf("") }
 
     TextField(
         value = selectedCategory,
-        onValueChange = {selectedCategory = it},
+        onValueChange = { selectedCategory = it },
         modifier = modifier
             .clickable { expanded = !expanded },
         trailingIcon = {
             Icon(
                 imageVector = Icons.Filled.ArrowDropDown,
                 contentDescription = "textfield_dropdown",
-                modifier = Modifier.clickable { expanded = !expanded}
+                modifier = Modifier.clickable { expanded = !expanded }
             )
         }
     )
-    DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false },
+    DropdownMenu(
+        expanded = expanded, onDismissRequest = { expanded = false },
     ) {
         categories.forEach { category ->
             DropdownMenuItem(

@@ -18,7 +18,6 @@ fun TimerComponent(
     i("current duration: $currentTaskDuration")
     i("current duration x: $x")
 
-
     if (running) {
         CountDownTimer(
             actionList = listOf(
@@ -35,7 +34,6 @@ fun TimerComponent(
             actionList = listOf(
                 Action(0.seconds.inWholeMilliseconds, ""),
             ),
-
         ) {
 
         }

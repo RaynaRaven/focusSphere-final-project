@@ -19,7 +19,7 @@ import org.setu.focussphere.ui.screens.routine.add_edit_routine.AddEditRoutineVi
 fun TaskSelectorScreen(
     viewModel: AddEditRoutineViewModel = hiltViewModel(),
     showModal: MutableState<Boolean>
-){
+) {
     val tasks by viewModel.tasks.collectAsState(initial = emptyList())
     val selectedTasks by viewModel.selectedTasks.collectAsState(initial = emptyList())
     Card(
