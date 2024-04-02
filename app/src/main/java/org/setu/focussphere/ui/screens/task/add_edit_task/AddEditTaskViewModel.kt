@@ -63,10 +63,10 @@ class AddEditTaskViewModel @Inject constructor(
     var selectedCategoryName by mutableStateOf("")
 
 
-/* init reads taskId, and if not default value, means we clicked on an existing task
-to edit, and data will be retrieved from repository and loaded into UI fields where it
-can be edited/updated.
-* */
+    /* init reads taskId, and if not default value, means we clicked on an existing task
+    to edit, and data will be retrieved from repository and loaded into UI fields where it
+    can be edited/updated.
+    * */
 
     init {
         val taskId = savedStateHandle.get<Long>("taskId")!!
@@ -94,9 +94,11 @@ can be edited/updated.
             is AddEditTaskEvent.OnTitleChanged -> {
                 title = event.title
             }
+
             is AddEditTaskEvent.OnDescriptionChanged -> {
                 description = event.description
             }
+
             is AddEditTaskEvent.OnCategorySelected -> updateCategory(event.categoryId)
 
             is AddEditTaskEvent.OnNewCategoryCreated -> createCategory(event.categoryName)
@@ -104,47 +106,62 @@ can be edited/updated.
             is AddEditTaskEvent.OnEstimatedDurationChanged -> {
                 estimatedDuration = event.estimatedDuration
             }
+
             is AddEditTaskEvent.OnPriorityLevelChanged -> {
                 priorityLevel = event.priorityLevel
             }
+
             is AddEditTaskEvent.OnSaveTaskClicked -> {
                 viewModelScope.launch {
-                    if (title.isBlank())
-                    {
-                    sendUiEvent(
-                        UiEvent.ShowSnackbar(
-                            "Title cannot be blank"
-                        ))
-                    return@launch
+                    if (title.isBlank()) {
+                        sendUiEvent(
+                            UiEvent.ShowSnackbar(
+                                "Title cannot be blank"
+                            )
+                        )
+                        return@launch
                     }
-                    if (estimatedDuration == 0L)
-                    {
-                    sendUiEvent(
-                        UiEvent.ShowSnackbar(
-                            "Please set a duration"
-                        ))
-                    return@launch
-                }
-                taskRepository.insertTask(
-                    Task(
-                        id = task?.id ?: 0, // update existing if we have old ID
-                        title = title,
-                        description = description,
-                        categoryId = categoryId,
-                        estimatedDuration = Duration.ofMinutes(estimatedDuration)
+                    if (estimatedDuration == 0L) {
+                        sendUiEvent(
+                            UiEvent.ShowSnackbar(
+                                "Please set a duration"
+                            )
+                        )
+                        return@launch
+                    }
+                    if (categoryId == 0L) {
+                        sendUiEvent(
+                            UiEvent.ShowSnackbar(
+                                "Please select a category"
+                            )
+                        )
+                        return@launch
+                    }
+
+                    taskRepository.insertTask(
+                        Task(
+                            id = task?.id ?: 0, // update existing if we have old ID
+                            title = title,
+                            description = description,
+                            categoryId = categoryId,
+                            estimatedDuration = Duration.ofMinutes(estimatedDuration)
+                        )
                     )
-                )
                     Timber.tag("DatabaseDebug").d("Inserted Task: %s", task)
-                sendUiEvent(UiEvent.Navigate(Routes.TASK_LIST))
+                    sendUiEvent(UiEvent.Navigate(Routes.TASK_LIST))
                 }
             }
-            else -> { Unit }
+
+            else -> {
+                Unit
+            }
         }
     }
 
     fun createCategory(categoryName: String) {
         viewModelScope.launch {
-            val newCategoryId = categoryRepository.insertCategory(Category(categoryName = categoryName))
+            val newCategoryId =
+                categoryRepository.insertCategory(Category(categoryName = categoryName))
             categoryId = newCategoryId
             selectedCategoryName = categoryName
         }
