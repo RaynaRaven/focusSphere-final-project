@@ -71,7 +71,6 @@ fun ExpandableTaskCard(
         shape = shape,
         onClick = {
             onEvent(TasksEvent.OnTaskClick(task))
-//            /*expandedState = !expandedState*/
         },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer

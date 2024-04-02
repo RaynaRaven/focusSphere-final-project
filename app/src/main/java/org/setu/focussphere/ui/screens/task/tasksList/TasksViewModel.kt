@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import org.setu.focussphere.data.entities.Task
 import org.setu.focussphere.data.entities.TaskWithAccuracy
-import org.setu.focussphere.data.repository.RoutineRepository
 import org.setu.focussphere.data.repository.TaskCompletionRepository
 import org.setu.focussphere.data.repository.TaskRepository
 import org.setu.focussphere.util.Routes
@@ -22,13 +21,11 @@ import javax.inject.Inject
 @HiltViewModel
 class TasksViewModel @Inject constructor(
     private val taskRepository: TaskRepository,
-    private val routineRepository: RoutineRepository,
     private val taskCompletionRepository: TaskCompletionRepository
 ) : ViewModel() {
 
     val tasks = taskRepository.getTasks()
 
-//    val tasks = taskCompletionRepository.getTasksWithMostRecentAccuracyScore()
 
     private var _tasksWithAccuracy = MutableStateFlow<List<TaskWithAccuracy>>(emptyList())
     val tasksWithAccuracy: Flow<List<TaskWithAccuracy>> = _tasksWithAccuracy.asStateFlow()

@@ -8,11 +8,14 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -30,11 +33,11 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.setu.focussphere.R
+import org.setu.focussphere.data.entities.Routine
 import org.setu.focussphere.data.entities.RoutineWithTasks
 import org.setu.focussphere.data.entities.Task
 import org.setu.focussphere.ui.theme.Shapes
@@ -47,7 +50,6 @@ fun ExpandableRoutineCard(
     shape: CornerBasedShape = Shapes.medium,
     modifier: Modifier
 ) {
-    var expandedState by rememberSaveable { mutableStateOf(expanded) }
     Card(
         modifier = modifier
             .clickable {
@@ -62,7 +64,6 @@ fun ExpandableRoutineCard(
         shape = shape,
         onClick = {
             onEvent(RoutinesEvent.OnRoutineClick(routine.routine))
-//            /*expandedState = !expandedState*/
         },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
@@ -71,7 +72,9 @@ fun ExpandableRoutineCard(
         RoutineCardContent(
             routine.routine.title,
             routine.tasks,
-            expanded
+            routine.routine,
+            expanded,
+            onEvent = onEvent
         )
     }
 }
@@ -81,9 +84,12 @@ fun ExpandableRoutineCard(
 private fun RoutineCardContent(
     title: String,
     tasks: List<Task>,
+    routine: Routine,
     expanded: Boolean,
-    padding: Dp = 8.dp
-) {
+    padding: Dp = 8.dp,
+    onEvent: (RoutinesEvent) -> Unit,
+
+    ) {
     var expandedState by rememberSaveable { mutableStateOf(expanded) }
     val rotationState by animateFloatAsState(targetValue = if (expandedState) 180f else 0f,
         label = "label"
@@ -107,7 +113,7 @@ private fun RoutineCardContent(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     modifier = Modifier
-                        .weight(3f),
+                        .weight(8f),
                     text = title,
                     style = MaterialTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold
@@ -115,10 +121,33 @@ private fun RoutineCardContent(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(
+                    modifier = Modifier
+                        .alpha(0.5f)
+                        .weight(1f),
+                    onClick = {
+                        onEvent(RoutinesEvent.OnDeleteRoutineClick(routine))
+                    }) {
+                    Icon(
+                        modifier = Modifier
+                            .size(24.dp),
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Delete Task")
+                }
+            }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    modifier = Modifier
+                        .weight(8f),
+                    text =  stringResource(R.string.routineCard_taskCount) + " " + tasks.size.toString(),
+                    style = MaterialTheme.typography.labelLarge
+                )
                 IconButton(
                     modifier = Modifier
                         .alpha(0.5f)
                         .weight(1f)
+                        .size(24.dp)
                         .rotate(rotationState),
                     onClick = {
                         expandedState = !expandedState
@@ -128,16 +157,6 @@ private fun RoutineCardContent(
                         contentDescription = "Expand task details")
                 }
             }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    modifier = Modifier
-                        .weight(3f),
-                    text =  stringResource(R.string.routineCard_taskCount) + " " + tasks.size.toString(),
-                    textAlign = TextAlign.End,
-                    style = MaterialTheme.typography.labelMedium
-                )
-            }
-            //TODO: add a delete icon button
             if (expandedState) {
                 Column {
                     tasks.forEach { task ->
