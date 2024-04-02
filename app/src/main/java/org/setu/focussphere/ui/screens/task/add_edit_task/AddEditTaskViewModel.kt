@@ -18,9 +18,9 @@ import org.setu.focussphere.data.repository.TaskRepository
 import org.setu.focussphere.util.Routes
 import org.setu.focussphere.util.UiEvent
 import timber.log.Timber
+import timber.log.Timber.Forest.i
 import java.time.Duration
 import javax.inject.Inject
-
 
 @HiltViewModel
 class AddEditTaskViewModel @Inject constructor(
@@ -58,8 +58,9 @@ class AddEditTaskViewModel @Inject constructor(
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    val categories: Flow<List<Category>> = categoryRepository.getAllCategories()/*.catch { emit(
-        emptyList()) }.asLiveData().asFlow()*/
+    val categories: Flow<List<Category>> = categoryRepository.getAllCategories()
+
+    var selectedCategoryName by mutableStateOf("")
 
 
 /* init reads taskId, and if not default value, means we clicked on an existing task
@@ -77,6 +78,12 @@ can be edited/updated.
                     categoryId = task.categoryId
                     estimatedDuration = task.estimatedDuration.toMinutes()
                     this@AddEditTaskViewModel.task = task
+                    task.categoryId.let {
+                        val category = categoryRepository.getCategoryById(it)
+                        i("category retrieved $category")
+                        selectedCategoryName = category?.categoryName ?: ""
+                        i("set cat name in vm $selectedCategoryName")
+                    }
                 }
             }
         }
@@ -90,6 +97,10 @@ can be edited/updated.
             is AddEditTaskEvent.OnDescriptionChanged -> {
                 description = event.description
             }
+            is AddEditTaskEvent.OnCategorySelected -> updateCategory(event.categoryId)
+
+            is AddEditTaskEvent.OnNewCategoryCreated -> createCategory(event.categoryName)
+
             is AddEditTaskEvent.OnEstimatedDurationChanged -> {
                 estimatedDuration = event.estimatedDuration
             }
@@ -98,7 +109,6 @@ can be edited/updated.
             }
             is AddEditTaskEvent.OnSaveTaskClicked -> {
                 viewModelScope.launch {
-//                    if (title.isBlank() || estimatedDuration.isBlank())
                     if (title.isBlank())
                     {
                     sendUiEvent(
@@ -121,12 +131,10 @@ can be edited/updated.
                         title = title,
                         description = description,
                         categoryId = categoryId,
-//                        priorityLevel = priorityLevel,
                         estimatedDuration = Duration.ofMinutes(estimatedDuration)
                     )
                 )
-                    Timber.tag("DatabaseDebug").d("Inserted Task: %s", task)-p
-//                sendUiEvent(UiEvent.PopBackStack)
+                    Timber.tag("DatabaseDebug").d("Inserted Task: %s", task)
                 sendUiEvent(UiEvent.Navigate(Routes.TASK_LIST))
                 }
             }
@@ -138,11 +146,12 @@ can be edited/updated.
         viewModelScope.launch {
             val newCategoryId = categoryRepository.insertCategory(Category(categoryName = categoryName))
             categoryId = newCategoryId
+            selectedCategoryName = categoryName
         }
     }
 
     fun updateCategory(newCategoryId: Long) {
-        this.categoryId = newCategoryId
+        categoryId = newCategoryId
     }
 
     private fun sendUiEvent(event: UiEvent) {
@@ -150,5 +159,4 @@ can be edited/updated.
             _uiEvent.send(event)
         }
     }
-
 }

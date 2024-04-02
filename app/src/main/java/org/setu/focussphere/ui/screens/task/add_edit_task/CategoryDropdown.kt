@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.setu.focussphere.R
+import timber.log.Timber.Forest.i
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,7 +32,13 @@ fun CategoryDropdown(
 ) {
     val categories by viewModel.categories.collectAsState(initial = emptyList())
     var expanded by remember { mutableStateOf(false) }
-    var selectedCategory by remember { mutableStateOf("") }
+//    var selectedCategory by remember { mutableStateOf(viewModel.selectedCategoryName)}
+    var typedText by remember { mutableStateOf<String?>(null) }
+
+    val filteredCategories = categories.filter{
+        it.categoryName.contains(typedText?:"", ignoreCase = true)
+    }
+    i("filtered cat for $typedText : $filteredCategories")
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -41,26 +48,43 @@ fun CategoryDropdown(
         OutlinedTextField(
             label = { Text(text = stringResource(R.string.add_edit_task_textfield_label_category)) },
             modifier = Modifier.menuAnchor(),
-            readOnly = true,
-            placeholder = { Text(text = stringResource(R.string.add_edit_task_category_hint)) },
-            value = selectedCategory,
-            onValueChange = { selectedCategory = it },
+            placeholder = { Text(text = if ((typedText?:"").isEmpty()) stringResource(R.string.add_edit_task_category_hint) else "" )},
+            value = typedText ?: viewModel.selectedCategoryName ,
+            onValueChange = {value ->
+                typedText = value
+                expanded = true },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-            }
+            },
+            singleLine = true
         )
         ExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
         ) {
-            categories.forEach { category ->
+            filteredCategories.forEach {category ->
                 DropdownMenuItem(
                     text = { Text(category.categoryName) },
                     onClick = {
-                        selectedCategory = category.categoryName
+//                        selectedCategory = category.categoryName
+                        typedText = category.categoryName
                         expanded = false
                         viewModel.updateCategory(category.categoryId)
-                    })
+                    }
+                )
+            }
+            if (typedText?.isNotEmpty() == true && filteredCategories.isEmpty()) {
+                DropdownMenuItem(
+                    text = { Text("Add $typedText as a new Category") },
+                    onClick = {
+                        typedText?.let {
+                            viewModel.createCategory(it).let { newCategoryId ->
+                                typedText = null
+                                expanded = false
+                            }
+                        }
+                    }
+                )
             }
         }
     }
