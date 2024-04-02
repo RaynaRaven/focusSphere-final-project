@@ -35,8 +35,8 @@ fun BottomBar(
             label = { Text(text = stringResource(R.string.bottom_navigation_home), color = Color.White) },
             selected = currentRoute == Routes.HOME,
             onClick = { Timber.i("Home icon clicked")
-            /*navController.navigate(Routes.HOME)*/
-            navController.navigate(Routes.TASK_LIST)
+            navController.navigate(Routes.HOME)
+//            navController.navigate(Routes.TASK_LIST)
             }
         )
         NavigationBarItem(
